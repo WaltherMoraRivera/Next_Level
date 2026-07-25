@@ -1,13 +1,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Comprensión Lectora · Guía 1 — El mapa del relojero</title>
+<title>Comprensión Lectora · Guía 2 — El pulpo, el genio de los ocho brazos</title>
 <style>
 :root {
-  --purple:       #DC2626;
-  --purple-dk:    #B91C1C;
-  --purple-md:    #EF4444;
-  --purple-light: #FEE2E2;
-  --purple-xlight:#FEF2F2;
+  --red:          #DC2626;
+  --red-dk:       #B91C1C;
+  --red-md:       #EF4444;
+  --red-light:    #FEE2E2;
+  --red-xlight:   #FEF2F2;
   --indigo:       #4338CA;
   --indigo-light: #EEF2FF;
   --green:        #059669;
@@ -26,11 +26,11 @@
 }
 @media (prefers-color-scheme: dark) {
   :root {
-    --purple:       #F87171;
-    --purple-dk:    #EF4444;
-    --purple-md:    #FB7185;
-    --purple-light: #3B1010;
-    --purple-xlight:#240B0B;
+    --red:          #F87171;
+    --red-dk:       #EF4444;
+    --red-md:       #FB7185;
+    --red-light:    #3B1010;
+    --red-xlight:   #240B0B;
     --indigo:       #818CF8;
     --indigo-light: #1E1B3A;
     --green:        #34D399;
@@ -48,8 +48,7 @@
   }
 }
 :root[data-theme="light"] {
-  --purple:#DC2626; --purple-dk:#B91C1C; --purple-md:#EF4444;
-  --purple-light:#FEE2E2; --purple-xlight:#FEF2F2;
+  --red:#DC2626; --red-dk:#B91C1C; --red-md:#EF4444; --red-light:#FEE2E2; --red-xlight:#FEF2F2;
   --indigo:#4338CA; --indigo-light:#EEF2FF;
   --green:#059669; --green-light:#D1FAE5;
   --rd:#DC2626; --rd-light:#FEE2E2;
@@ -58,8 +57,7 @@
   --bg:#FDF6F6; --surface:#FFFFFF; --border:#F4D4D4;
 }
 :root[data-theme="dark"] {
-  --purple:#F87171; --purple-dk:#EF4444; --purple-md:#FB7185;
-  --purple-light:#3B1010; --purple-xlight:#240B0B;
+  --red:#F87171; --red-dk:#EF4444; --red-md:#FB7185; --red-light:#3B1010; --red-xlight:#240B0B;
   --indigo:#818CF8; --indigo-light:#1E1B3A;
   --green:#34D399; --green-light:#064E3B;
   --rd:#F87171; --rd-light:#3B1010;
@@ -79,11 +77,11 @@ body{
 
 /* ── Header ── */
 .g-header{
-  background:var(--purple); color:white;
+  background:var(--red); color:white;
   padding:12px 20px;
   display:flex; align-items:center; gap:14px;
   position:sticky; top:0; z-index:50;
-  box-shadow:0 2px 12px rgba(109,40,217,.35);
+  box-shadow:0 2px 12px rgba(220,38,38,.35);
 }
 .g-badge{
   background:rgba(255,255,255,.18); border-radius:20px;
@@ -113,7 +111,7 @@ body{
 }
 @keyframes up{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
 
-.s-label{font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--purple);margin-bottom:4px;}
+.s-label{font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:4px;}
 .s-title{font-size:19px;font-weight:700;color:var(--ink);margin-bottom:14px;text-wrap:balance;font-family:Georgia,serif;}
 .s-body{font-size:15px;color:var(--ink-mid);line-height:1.72;}
 .s-hint{font-size:13px;color:var(--ink-muted);font-style:italic;margin-top:8px;}
@@ -125,28 +123,28 @@ body{
   font-size:14px;font-weight:700;font-family:inherit;
   cursor:pointer;border:none;transition:all .15s;
 }
-.btn-p{background:var(--purple);color:white;}
-.btn-p:hover{background:var(--purple-dk);transform:translateY(-1px);}
+.btn-p{background:var(--red);color:white;}
+.btn-p:hover{background:var(--red-dk);transform:translateY(-1px);}
 .btn-p:disabled{opacity:.4;cursor:not-allowed;transform:none;}
-.btn-s{background:var(--purple-light);color:var(--purple);border:1.5px solid var(--border);}
+.btn-s{background:var(--red-light);color:var(--red);border:1.5px solid var(--border);}
 .btn-s:hover{background:var(--border);}
 .btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px;}
 
 /* ── Reveal ── */
 .reveal{
-  background:var(--purple-light);
-  border-left:4px solid var(--purple);
+  background:var(--red-light);
+  border-left:4px solid var(--red);
   border-radius:0 var(--radius) var(--radius) 0;
   padding:14px 18px; margin-top:14px;
   display:none; animation:up .3s ease;
   font-size:14px; color:var(--ink-mid); line-height:1.65;
 }
 .reveal.on{display:block;}
-.reveal strong{color:var(--purple);}
+.reveal strong{color:var(--red);}
 
 /* ── Reading text ── */
 .rtext{
-  background:var(--purple-xlight);
+  background:var(--red-xlight);
   border:1.5px solid var(--border);
   border-radius:var(--radius);
   padding:22px 26px;
@@ -155,21 +153,21 @@ body{
 }
 .rtext h3{
   font-family:Georgia,serif; font-size:20px;
-  color:var(--purple-dk); margin-bottom:14px;
+  color:var(--red-dk); margin-bottom:14px;
   text-align:center;
 }
 .rtext p{margin-bottom:11px;}
 .rtext p:last-child{margin-bottom:0;}
 .vhl{
-  color:var(--purple);font-weight:700;
-  border-bottom:2px dotted var(--purple-md);
+  color:var(--red);font-weight:700;
+  border-bottom:2px dotted var(--red-md);
   cursor:help;
 }
 
 /* ── Quiz ── */
 .qz-head{display:flex;align-items:center;gap:12px;margin-bottom:18px;}
 .qz-bar-wrap{flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden;}
-.qz-bar{height:100%;background:var(--purple);border-radius:3px;transition:width .3s;}
+.qz-bar{height:100%;background:var(--red);border-radius:3px;transition:width .3s;}
 .qz-ctr{font-size:12px;font-weight:700;color:var(--ink-muted);white-space:nowrap;}
 .qz-q{font-size:15.5px;font-weight:700;color:var(--ink);margin-bottom:14px;line-height:1.5;text-wrap:balance;}
 .qz-opts{display:flex;flex-direction:column;gap:9px;}
@@ -179,7 +177,7 @@ body{
   color:var(--ink);cursor:pointer;text-align:left;
   transition:all .15s;line-height:1.4;
 }
-.qz-opt:hover:not(:disabled){border-color:var(--purple-md);background:var(--purple-light);}
+.qz-opt:hover:not(:disabled){border-color:var(--red-md);background:var(--red-light);}
 .qz-opt.ok{border-color:var(--green);background:var(--green-light);color:var(--green);}
 .qz-opt.no{border-color:var(--rd);background:var(--rd-light);color:var(--rd);}
 .qz-opt:disabled{cursor:default;}
@@ -194,13 +192,13 @@ body{
 /* ── Vocabulary ── */
 .vdots{display:flex;gap:5px;margin-bottom:14px;}
 .vdot{width:9px;height:9px;border-radius:50%;background:var(--border);transition:background .2s;}
-.vdot.cur{background:var(--purple);transform:scale(1.3);}
+.vdot.cur{background:var(--red);transform:scale(1.3);}
 .vdot.ok{background:var(--green);}
 .vdot.no{background:var(--rd);}
 
 .vcard{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);overflow:hidden;}
-.vcard-top{background:var(--purple-light);padding:14px 18px;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;}
-.vword{font-size:22px;font-weight:800;color:var(--purple);font-family:Georgia,serif;}
+.vcard-top{background:var(--red-light);padding:14px 18px;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;}
+.vword{font-size:22px;font-weight:800;color:var(--red);font-family:Georgia,serif;}
 .vctx{font-size:12.5px;color:var(--ink-muted);font-style:italic;}
 .vbody{padding:14px 18px;}
 .vopts{display:flex;flex-direction:column;gap:7px;margin-top:9px;}
@@ -209,14 +207,14 @@ body{
   padding:9px 15px;font-size:14px;font-family:inherit;
   color:var(--ink);cursor:pointer;text-align:left;transition:all .15s;
 }
-.vopt:hover:not(:disabled){border-color:var(--purple);background:var(--purple-light);}
+.vopt:hover:not(:disabled){border-color:var(--red);background:var(--red-light);}
 .vopt.ok{border-color:var(--green);background:var(--green-light);color:var(--green);}
 .vopt.no{border-color:var(--rd);background:var(--rd-light);color:var(--rd);}
 .vreveal{display:none;margin-top:12px;animation:up .3s ease;}
 .vreveal.on{display:block;}
 .vgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:9px;margin-top:11px;}
-.vtag{background:var(--purple-light);border-radius:8px;padding:8px 11px;}
-.vtag .vt-l{font-size:10px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--purple);margin-bottom:2px;}
+.vtag{background:var(--red-light);border-radius:8px;padding:8px 11px;}
+.vtag .vt-l{font-size:10px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--red);margin-bottom:2px;}
 .vtag .vt-v{font-size:13.5px;color:var(--ink-mid);}
 .vex{background:var(--indigo-light);border-radius:8px;padding:9px 13px;font-size:13.5px;color:var(--ink-mid);margin-top:9px;font-style:italic;}
 .vex::before{content:'📝 ';font-style:normal;}
@@ -229,15 +227,15 @@ body{
   padding:13px 15px;font-size:15px;font-family:inherit;color:var(--ink);
   resize:vertical;line-height:1.6;transition:border-color .15s;
 }
-.otxt:focus{outline:none;border-color:var(--purple);}
+.otxt:focus{outline:none;border-color:var(--red);}
 .omodel{display:none;margin-top:14px;animation:up .3s ease;}
 .omodel.on{display:block;}
 .omodel-box{
-  background:var(--purple-light);border-left:4px solid var(--purple);
+  background:var(--red-light);border-left:4px solid var(--red);
   border-radius:0 var(--radius) var(--radius) 0;
   padding:15px 19px;font-size:14px;color:var(--ink-mid);line-height:1.65;
 }
-.omodel-box strong{color:var(--purple);display:block;margin-bottom:5px;font-size:12px;letter-spacing:.5px;}
+.omodel-box strong{color:var(--red);display:block;margin-bottom:5px;font-size:12px;letter-spacing:.5px;}
 .seval{display:flex;gap:9px;flex-wrap:wrap;align-items:center;margin-top:12px;}
 .seval-l{font-size:13px;font-weight:700;color:var(--ink-muted);}
 .sbtn{
@@ -249,63 +247,63 @@ body{
 .sbtn.no2{border-color:var(--rd);color:var(--rd);background:var(--rd-light);}
 .sbtn.sel{filter:brightness(.88);}
 
-/* ── Drag & Drop ── */
+/* ── Drag & Drop: classification ── */
 .dnd-tip{
   background:var(--amber-light);border:1px solid var(--amber);
   border-radius:9px;padding:10px 14px;
   font-size:13.5px;color:var(--ink-mid);margin-bottom:14px;
 }
-.dnd-slots{display:flex;flex-direction:column;gap:8px;margin-bottom:18px;}
-.dslot{
-  display:flex;align-items:center;gap:11px;
-  min-height:52px;border:2px dashed var(--border);
-  border-radius:10px;padding:7px 13px;
-  transition:all .15s;background:var(--bg);cursor:pointer;
+.class-cols{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px;}
+.class-col{
+  border:2px dashed var(--border); border-radius:var(--radius);
+  padding:12px; min-height:170px;
+  transition:all .15s; background:var(--bg);
 }
-.dslot:hover{border-color:var(--purple-md);}
-.dslot.over{border-color:var(--purple);background:var(--purple-light);}
-.dslot.ok{border-color:var(--green);background:var(--green-light);border-style:solid;}
-.dslot.no{border-color:var(--rd);background:var(--rd-light);border-style:solid;}
-.dslot.sel-target{border-color:var(--purple);border-style:solid;background:var(--purple-light);}
-.snum{
-  width:27px;height:27px;border-radius:50%;
-  background:var(--purple-light);color:var(--purple);
-  font-size:12px;font-weight:800;
-  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+.class-col.over{border-color:var(--red-md);background:var(--red-light);}
+.class-col-head{
+  display:flex;align-items:center;gap:8px;
+  font-size:12.5px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;
+  margin-bottom:10px;color:var(--ink-mid);
 }
-.scont{font-size:13.5px;color:var(--ink-mid);flex:1;line-height:1.4;}
-.sempty{font-size:13px;color:var(--border);font-style:italic;}
-.sicon{font-size:15px;flex-shrink:0;}
-.remove-btn{
-  background:none;border:none;color:var(--ink-muted);
-  cursor:pointer;font-size:16px;margin-left:auto;
-  padding:2px 6px;border-radius:4px;flex-shrink:0;
+.class-col-head .cdot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+.class-col.principal .class-col-head .cdot{background:var(--red);}
+.class-col.secundaria .class-col-head .cdot{background:var(--indigo);}
+.class-col.principal .class-col-head{color:var(--red);}
+.class-col.secundaria .class-col-head{color:var(--indigo);}
+.class-items{display:flex;flex-direction:column;gap:7px;}
+.citem-slot{
+  background:var(--surface);border:1.5px solid var(--border);border-radius:8px;
+  padding:9px 12px;font-size:13px;color:var(--ink);line-height:1.4;
+  display:flex;align-items:flex-start;gap:8px;
 }
-.remove-btn:hover{color:var(--rd);background:var(--rd-light);}
+.citem-slot .cicon{flex-shrink:0;margin-top:1px;}
+.citem-slot.ok{border-color:var(--green);background:var(--green-light);}
+.citem-slot.no{border-color:var(--rd);background:var(--rd-light);}
 .dbank-lbl{font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink-muted);margin-bottom:7px;}
 .dbank{display:flex;flex-direction:column;gap:7px;}
 .ditem{
-  background:var(--surface);border:2px solid var(--purple-md);
+  background:var(--surface);border:2px solid var(--red-md);
   border-radius:10px;padding:10px 15px;
   font-size:13.5px;color:var(--ink);cursor:grab;line-height:1.4;
   transition:all .15s;user-select:none;
   display:flex;align-items:center;gap:9px;
 }
-.ditem::before{content:'⠿';color:var(--purple-md);font-size:16px;flex-shrink:0;}
-.ditem:hover{background:var(--purple-light);transform:translateY(-1px);box-shadow:0 3px 10px rgba(109,40,217,.14);}
+.ditem::before{content:'⠿';color:var(--red-md);font-size:16px;flex-shrink:0;}
+.ditem:hover{background:var(--red-light);transform:translateY(-1px);box-shadow:0 3px 10px rgba(220,38,38,.14);}
 .ditem.dragging{opacity:.35;}
 .ditem.placed{display:none;}
-.ditem.sel-item{background:var(--purple-light);border-color:var(--purple);box-shadow:0 0 0 3px rgba(109,40,217,.2);}
+.ditem.sel-item{background:var(--red-light);border-color:var(--red);box-shadow:0 0 0 3px rgba(220,38,38,.2);}
+.empty-slot{font-size:12.5px;color:var(--border);font-style:italic;padding:6px 0;}
 
 /* ── Report ── */
 .ring-wrap{width:116px;height:116px;margin:0 auto 18px;position:relative;}
 .ring-wrap svg{width:100%;height:100%;transform:rotate(-90deg);}
 .ring-bg{fill:none;stroke:var(--border);stroke-width:10;}
-.ring-fill{fill:none;stroke:var(--purple);stroke-width:10;stroke-linecap:round;transition:stroke-dashoffset .9s ease;}
+.ring-fill{fill:none;stroke:var(--red);stroke-width:10;stroke-linecap:round;transition:stroke-dashoffset .9s ease;}
 .ring-num{
   position:absolute;inset:0;display:flex;flex-direction:column;
   align-items:center;justify-content:center;
-  font-size:26px;font-weight:900;color:var(--purple);line-height:1;
+  font-size:26px;font-weight:900;color:var(--red);line-height:1;
 }
 .ring-num span{font-size:11px;font-weight:600;color:var(--ink-muted);}
 .rep-msg{text-align:center;font-size:17px;font-weight:700;margin-bottom:18px;color:var(--ink);line-height:1.45;text-wrap:balance;}
@@ -319,8 +317,8 @@ body{
 .rc-ok .rc-t,.rc-ok li::before{color:var(--green);}
 .rc-imp{background:var(--amber-light);}
 .rc-imp .rc-t,.rc-imp li::before{color:var(--amber);}
-.rc-nxt{background:var(--purple-light);margin-top:11px;}
-.rc-nxt .rc-t,.rc-nxt li::before{color:var(--purple);}
+.rc-nxt{background:var(--red-light);margin-top:11px;}
+.rc-nxt .rc-t,.rc-nxt li::before{color:var(--red);}
 .rlevel{
   text-align:center;margin:14px 0;
   background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:13px;
@@ -329,13 +327,8 @@ body{
 .rlevel .rl-v{font-size:16px;font-weight:700;color:var(--ink);margin-top:4px;}
 
 /* ── Section divider badges ── */
-.score-row{
-  display:flex;flex-wrap:wrap;gap:8px;margin:14px 0;
-}
-.score-pill{
-  background:var(--purple-light);border-radius:20px;
-  padding:5px 13px;font-size:13px;color:var(--purple);font-weight:600;
-}
+.score-row{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0;}
+.score-pill{background:var(--red-light);border-radius:20px;padding:5px 13px;font-size:13px;color:var(--red);font-weight:600;}
 
 /* ── Responsive ── */
 @media(max-width:580px){
@@ -344,12 +337,13 @@ body{
   .g-header{padding:10px 14px;}
   .g-pname{display:none;}
   .vword{font-size:19px;}
+  .class-cols{grid-template-columns:1fr;}
 }
 </style>
 
 <!-- ═══════════════ HEADER ═══════════════ -->
 <div class="g-header">
-  <div class="g-badge">📖 LENGUAJE · G1</div>
+  <div class="g-badge">📖 LENGUAJE · G2</div>
   <div class="g-dots" id="gDots"></div>
   <div class="g-pname" id="gPname"></div>
 </div>
@@ -374,123 +368,124 @@ const PNAMES = {
 
 const LIT = [
   {
-    q:'¿Con qué propósito fue enviada Valentina a la relojería de don Aurelio?',
-    opts:['Entregar un paquete al local','Comprar una pila de repuesto para el reloj de cocina','Recoger un reloj que habían llevado a reparar','Buscar un regalo para su madre'],
+    q:'¿Qué son los cromatóforos y qué función cumplen en la piel del pulpo?',
+    opts:['Son órganos que producen la tinta oscura para escapar','Son células especiales que le permiten cambiar de color y textura','Son ventosas que usa para sujetarse a las rocas','Son receptores que detectan la presencia de depredadores'],
     c:1,
-    fb_ok:'✅ Correcto. El texto dice directamente: "su madre la había enviado a la relojería de don Aurelio a buscar una pila de repuesto para el reloj de cocina". Esta es comprensión literal: la respuesta está escrita con exactitud en el texto.',
-    fb_no:'❌ No es esa. Vuelve al primer párrafo: "su madre la había enviado a la relojería de don Aurelio a buscar una pila de repuesto para el reloj de cocina". La respuesta correcta era la opción B. En las preguntas literales, la clave es releer el texto buscando la información exacta.'
+    fb_ok:'✅ Correcto. El texto lo dice de forma explícita: "Gracias a células especiales en su piel llamadas cromatóforos, el pulpo puede cambiar de color y textura en cuestión de segundos". Esta es información literal: está escrita tal cual en el texto.',
+    fb_no:'❌ No es esa. Revisa el segundo párrafo: "Gracias a células especiales en su piel llamadas cromatóforos, el pulpo puede cambiar de color y textura en cuestión de segundos para imitar el fondo marino". La respuesta correcta era la opción B.'
   },
   {
-    q:'¿Qué encontró Valentina dentro del compartimento secreto del reloj de pie?',
-    opts:['Una llave antigua y una nota doblada','Monedas de oro con símbolos grabados','Un tubo de cuero marrón con un mapa enrollado dentro','Un sobre sellado con cartas escritas a mano'],
+    q:'Según el texto, ¿qué hace el pulpo cuando un depredador lo detecta, además de camuflarse?',
+    opts:['Se entierra en la arena del fondo marino','Cambia el color de sus ojos para intimidarlo','Libera una nube de tinta oscura que confunde al atacante','Emite un sonido de alta frecuencia para asustarlo'],
     c:2,
-    fb_ok:'✅ Exacto. El texto describe: "Dentro, envuelto en un paño de terciopelo rojo, había un tubo de cuero marrón" y dentro de él "un papel amarillento y quebradizo, enrollado con cuidado. Era un mapa."',
-    fb_no:'❌ Revisa el tercer párrafo con atención. El texto dice que dentro del compartimento había "un tubo de cuero marrón" que contenía "un papel amarillento y quebradizo… Era un mapa." La correcta era la opción C.'
+    fb_ok:'✅ Exacto. El texto explica: "el pulpo puede liberar una nube de tinta oscura que confunde y desorienta al atacante, ganando así segundos preciosos para escapar."',
+    fb_no:'❌ Vuelve al tercer párrafo. El texto dice: "el pulpo puede liberar una nube de tinta oscura que confunde y desorienta al atacante, ganando así segundos preciosos para escapar." La correcta era la opción C.'
   },
   {
-    q:'¿Qué símbolo aparecía en el centro del mapa que encontró Valentina?',
-    opts:['Una estrella rodeada de llamas','Un reloj con las manecillas rotas','Una brújula apuntando al sur','Un ojo rodeado de engranajes'],
+    q:'¿Cuánto tiempo viven, en promedio, la mayoría de las especies de pulpo?',
+    opts:['Entre 10 y 15 años','Entre 5 y 8 años','Menos de un año','Entre uno y dos años'],
     c:3,
-    fb_ok:'✅ Bien leído. El texto afirma: "En el centro del mapa había un símbolo: un ojo rodeado de engranajes." El autor destaca este detalle porque seguramente es importante para la historia.',
-    fb_no:'❌ Lee con cuidado el cuarto párrafo. El texto dice explícitamente: "En el centro del mapa había un símbolo: un ojo rodeado de engranajes." La respuesta correcta era la opción D. Cuando busques detalles específicos, subraya mentalmente mientras lees.'
+    fb_ok:'✅ Bien leído. El texto es directo: "la mayoría de las especies de pulpo viven entre uno y dos años." Este dato explícito contrasta con lo inteligentes que son, lo cual el autor destaca a propósito.',
+    fb_no:'❌ El texto lo indica claramente en el último párrafo: "la mayoría de las especies de pulpo viven entre uno y dos años." La respuesta correcta era la opción D.'
   }
 ];
 
 const INF = [
   {
-    q:'¿Por qué crees que el compartimento secreto estaba escondido dentro del reloj de pie?',
-    opts:['Era un defecto de fabricación que el reloj tenía desde la fábrica','Don Aurelio lo había construido para guardar el dinero del local','Alguien lo diseñó con cuidado para ocultar el mapa de personas que no supieran buscarlo','Valentina lo confundió con un compartimento normal de herramientas'],
-    c:2,
-    fb_ok:'✅ Excelente razonamiento. El texto no lo dice directamente, pero los detalles —la palanca oculta en la moldura, el tubo envuelto en terciopelo, el mapa con pasillos subterráneos— sugieren que alguien lo ocultó con propósito. Eso se llama inferencia: llegar a conclusiones usando las pistas que el autor dejó.',
-    fb_no:'❌ Piensa en los detalles: el compartimento tenía una palanca disimulada en una moldura, el mapa estaba envuelto en terciopelo y mostraba pasillos secretos bajo el barrio. Todos estos detalles apuntan a que fue ocultado intencionalmente. En las inferencias, busca la explicación más lógica según el contexto. La correcta era la C.'
-  },
-  {
-    q:'¿Qué nos dice sobre el carácter de Valentina el hecho de que corriera a sostener el reloj "sin pensarlo"?',
-    opts:['Que es una persona impulsiva a quien le gusta romper cosas','Que tenía miedo de que don Aurelio la culpara si se caía','Que es una persona que reacciona rápido ante situaciones de riesgo','Que quería aprovechar la oportunidad de explorar la trastienda'],
-    c:2,
-    fb_ok:'✅ Muy bien. La frase "sin pensarlo" es la clave: indica un acto instintivo, no calculado. Eso revela que Valentina tiene reflejos rápidos y actúa para proteger en situaciones de urgencia. Esto se llama caracterización indirecta: el autor nos muestra cómo es el personaje a través de sus acciones, sin decirlo directamente.',
-    fb_no:'❌ La pista está en "sin pensarlo". Cuando alguien actúa de ese modo ante un peligro, el autor nos muestra su instinto protector y su capacidad de reacción. No fue por miedo ni por curiosidad, fue por reflejos. En las inferencias sobre personajes, fíjate en sus acciones, no solo en sus palabras. La respuesta correcta era la C.'
-  },
-  {
-    q:'¿Qué nos indica la frase "sintiendo el corazón latirle en la garganta" al final del texto?',
-    opts:['Que Valentina estaba enferma y le costaba respirar','Que Valentina sentía nerviosismo y tensión por lo que acababa de hacer','Que Valentina estaba exhausta de haber corrido por la tienda','Que Valentina sentía alegría y emoción por la aventura'],
+    q:'¿Por qué el pulpo depende casi exclusivamente del sigilo y no de defensas físicas como espinas o caparazón?',
+    opts:['Porque es un animal territorial que prefiere evitar el conflicto','Porque su cuerpo blando y sin protecciones externas lo obliga a evitar el enfrentamiento directo','Porque los científicos lo han entrenado en cautiverio para camuflarse','Porque vive en aguas donde no existen depredadores naturales'],
     c:1,
-    fb_ok:'✅ Correcto. "Sentir el corazón en la garganta" es una expresión figurada que describe la tensión física del nerviosismo extremo. Valentina acaba de esconder algo en la tienda de otro y don Aurelio acaba de entrar. El autor usa esta metáfora para mostrar su estado emocional sin decirlo con palabras simples.',
-    fb_no:'❌ "El corazón latirle en la garganta" no es literal: es una metáfora corporal que describe el nerviosismo intenso. Valentina acaba de hacer algo cuestionable y don Aurelio apareció de repente. Es completamente lógico que esté tensa. Cuando veas expresiones figuradas, pregúntate qué emoción representan. La respuesta correcta era la B.'
+    fb_ok:'✅ Excelente razonamiento. El texto no lo dice con esas palabras exactas, pero conecta dos ideas: "Sin caparazón ni espinas para defenderse, el pulpo depende casi exclusivamente de su sigilo para sobrevivir." Esta es una relación de causa-efecto: la ausencia de defensas físicas (causa) explica por qué depende del camuflaje (efecto).',
+    fb_no:'❌ Piensa en la relación causa-efecto: el texto dice "Sin caparazón ni espinas para defenderse, el pulpo depende casi exclusivamente de su sigilo para sobrevivir." Es decir, la falta de protección física es la causa de que dependa del camuflaje. La respuesta correcta era la B.'
+  },
+  {
+    q:'¿Qué se puede inferir sobre la inteligencia del pulpo a partir del hecho de que recuerde soluciones a problemas después de varios días?',
+    opts:['Que actúa completamente por instinto, sin ningún tipo de memoria','Que posee una forma de memoria y aprendizaje, no solo reacciones automáticas','Que los pulpos en cautiverio se vuelven más lentos con el tiempo','Que solo puede resolver el mismo problema una única vez'],
+    c:1,
+    fb_ok:'✅ Muy bien. Si un animal recuerda una solución después de varios días, eso implica que tiene memoria a largo plazo y capacidad de aprendizaje, no solo reflejos automáticos. Esto es una inferencia: el texto da el dato (recuerda soluciones) y tú concluyes lo que eso significa sobre su inteligencia.',
+    fb_no:'❌ Si el pulpo "recuerda soluciones a problemas después de varios días", eso no puede ser solo instinto: implica memoria y aprendizaje real. La respuesta correcta era la B. En preguntas inferenciales, pregúntate: ¿qué es lo mínimo que debe ser cierto para que este dato tenga sentido?'
+  },
+  {
+    q:'¿Por qué crees que las hembras de pulpo dejan de alimentarse y entran en letargo después de que sus huevos eclosionan?',
+    opts:['Porque enferman a causa del esfuerzo de poner los huevos','Porque dedican sus últimas energías a proteger a sus crías antes de morir','Porque pierden el instinto de búsqueda de alimento por error genético','Porque los depredadores las atacan justo en ese momento'],
+    c:1,
+    fb_ok:'✅ Correcto. El texto lo sugiere con la frase final: "dedicando sus últimas fuerzas a protegerlos." Esto indica que el letargo y el dejar de comer no es una falla, sino una especie de sacrificio final orientado a la protección de las crías.',
+    fb_no:'❌ El texto da la pista en su última frase: la hembra dedica "sus últimas fuerzas a protegerlos" (a sus huevos). Esto sugiere que es un comportamiento de protección antes de morir, no una enfermedad ni un error. La respuesta correcta era la B.'
   }
 ];
 
 const VOCAB = [
   {
-    word:'angosto',
-    ctx:'"Era un local angosto y oscuro, ubicado en el primer piso de un edificio antiguo."',
-    opts:['Amplio y bien iluminado','Estrecho, de poco espacio','Antiguo y mal cuidado','Silencioso y sin clientes'],
+    word:'invertebrado',
+    ctx:'"A pesar de ser un invertebrado —es decir, un animal sin columna vertebral—."',
+    opts:['Animal con esqueleto interno de huesos','Animal sin columna vertebral','Animal que vive exclusivamente en el mar','Animal de sangre fría'],
     c:1,
-    def:'Estrecho, que tiene poca anchura o espacio.',
-    syn:'estrecho, reducido, exiguo',
-    ant:'amplio, ancho, espacioso',
-    ex:'El pasillo del edificio era tan angosto que dos personas apenas podían caminar juntas sin chocarse.'
+    def:'Animal que no tiene columna vertebral ni esqueleto interno de huesos.',
+    syn:'sin espina dorsal, sin esqueleto óseo',
+    ant:'vertebrado',
+    ex:'Los insectos, las medusas y los pulpos son ejemplos de animales invertebrados.'
   },
   {
-    word:'trastienda',
-    ctx:'"Se asomó hacia la trastienda y vio que un reloj de pie antiguo se había inclinado."',
-    opts:['La vitrina principal de una tienda','La sala de espera de un local','El espacio que está detrás del área de atención al público','La bodega del piso superior'],
-    c:2,
-    def:'Habitación o espacio que está detrás del mostrador de una tienda, generalmente de uso privado del dueño.',
-    syn:'depósito trasero, trastienda',
-    ant:'(no tiene antónimo directo)',
-    ex:'El zapatero salió de la trastienda con un par de zapatos recién reparados.'
-  },
-  {
-    word:'moldura',
-    ctx:'"Sin querer presionó una moldura lateral que cedió hacia adentro."',
-    opts:['Una manilla o picaporte de metal','Una franja decorativa que sobresale de una superficie','Un tornillo oculto en la madera','Una bisagra disimulada en la pared'],
+    word:'camuflaje',
+    ctx:'"Una de sus habilidades más sorprendentes es el camuflaje."',
+    opts:['Una técnica de caza en grupo','La capacidad de imitar el entorno para pasar desapercibido','Un tipo de armadura natural muy resistente','La producción de tinta para defenderse'],
     c:1,
-    def:'Elemento decorativo que sobresale ligeramente de una superficie, como un relieve o ribete en un mueble o pared.',
-    syn:'relieve, cornisa, filete decorativo',
-    ant:'(no tiene antónimo directo)',
-    ex:'El carpintero talló una moldura delgada en el marco de la ventana para darle un aspecto más elegante.'
+    def:'Capacidad de cambiar de apariencia para confundirse con el entorno y pasar desapercibido.',
+    syn:'mimetismo, disfraz natural',
+    ant:'exhibición, exposición',
+    ex:'El camaleón usa el camuflaje para esconderse entre las hojas verdes del árbol.'
   },
   {
-    word:'terciopelo',
-    ctx:'"Dentro, envuelto en un paño de terciopelo rojo, había un tubo de cuero marrón."',
-    opts:['Un tipo de madera fina y costosa','Una tela suave con pelillo corto y denso','Un papel grueso resistente al agua','Un metal brillante parecido al cobre'],
+    word:'sigilo',
+    ctx:'"El pulpo depende casi exclusivamente de su sigilo para sobrevivir."',
+    opts:['Velocidad extrema al nadar','Discreción y cautela para pasar desapercibido','Fuerza física para enfrentar a otros animales','Curiosidad por explorar su entorno'],
     c:1,
-    def:'Tela fina con una superficie aterciopelada, formada por pelillos cortos y densos, muy suave al tacto.',
-    syn:'felpa, raso suave',
-    ant:'tela áspera, arpillera',
-    ex:'La caja donde guardaba las joyas estaba forrada por dentro con terciopelo azul oscuro.'
+    def:'Cautela y discreción con la que se hace algo para no ser notado.',
+    syn:'cautela, discreción',
+    ant:'torpeza, estridencia',
+    ex:'El gato caminó con sigilo por el pasillo para no despertar a sus dueños.'
   },
   {
-    word:'quebradizo',
-    ctx:'"Dentro encontró un papel amarillento y quebradizo, enrollado con cuidado."',
-    opts:['Muy valioso y difícil de conseguir','Con muchos colores y dibujos','Que se rompe o hace pedazos con facilidad','Que huele a humedad y encierro'],
-    c:2,
-    def:'Que se quiebra, fractura o deshace con facilidad, especialmente por ser muy viejo o seco.',
-    syn:'frágil, delicado, endeble',
-    ant:'resistente, sólido, robusto',
-    ex:'Las hojas secas del otoño son quebradizas: se rompen en pedazos al pisarlas.'
-  },
-  {
-    word:'instinto',
-    ctx:'"Actuando por instinto, Valentina enrolló el mapa y lo guardó en su mochila."',
-    opts:['Un plan cuidadosamente elaborado con anticipación','Una reacción automática que no pasa por el razonamiento consciente','Un recuerdo del pasado que guía las acciones','Una orden que alguien le había dado antes'],
+    word:'comprimirse',
+    ctx:'"Su cuerpo blando le permite comprimirse y deslizarse por grietas diminutas."',
+    opts:['Expandirse y ocupar más espacio del habitual','Reducirse de tamaño apretándose o encogiéndose','Cambiar de color rápidamente','Moverse a una velocidad muy alta'],
     c:1,
-    def:'Impulso natural que lleva a actuar de una forma determinada sin reflexionar ni planear conscientemente.',
-    syn:'impulso, reflejo, reacción instintiva',
-    ant:'razonamiento, deliberación, reflexión',
-    ex:'Por instinto, el gato saltó de la silla justo un segundo antes de que cayera el jarrón.'
+    def:'Reducir su tamaño o volumen apretándose o encogiéndose.',
+    syn:'encogerse, apretarse',
+    ant:'expandirse, dilatarse',
+    ex:'La esponja puede comprimirse hasta quedar muy pequeña y luego recuperar su forma original.'
+  },
+  {
+    word:'letargo',
+    ctx:'"Muchas hembras entran en un estado de letargo, dejan de alimentarse."',
+    opts:['Un tipo de enfermedad contagiosa','Estado de inactividad y bajo funcionamiento del cuerpo','Una fase de crecimiento acelerado','Un comportamiento agresivo hacia otros animales'],
+    c:1,
+    def:'Estado de inactividad y funcionamiento reducido del cuerpo, similar a un sueño profundo y prolongado.',
+    syn:'inactividad, aletargamiento',
+    ant:'actividad, vigor',
+    ex:'Algunos animales entran en letargo durante el invierno para ahorrar energía.'
+  },
+  {
+    word:'singular',
+    ctx:'"El pulpo sigue siendo, para la ciencia, un animal singular."',
+    opts:['Común y totalmente esperado','Extraordinario, poco común o diferente al resto','Peligroso y agresivo por naturaleza','Antiguo y de origen primitivo'],
+    c:1,
+    def:'Que se destaca por ser poco común, extraordinario o diferente al resto.',
+    syn:'excepcional, particular',
+    ant:'común, ordinario',
+    ex:'Tiene un talento singular para la música que sorprende a todos los que la escuchan.'
   }
 ];
 
-const DND_CORRECT = [
-  'Valentina es enviada a comprar una pila para el reloj de cocina',
-  'Valentina se asoma hacia la trastienda y ve el reloj inclinado',
-  'Valentina presiona una moldura y descubre el compartimento secreto',
-  'Valentina abre el tubo y encuentra el mapa con pasillos subterráneos',
-  'Valentina esconde el mapa en su mochila antes de que entre don Aurelio'
+const CLASS_ITEMS = [
+  {t:'El pulpo es un invertebrado con un sistema nervioso muy complejo.', cat:'p'},
+  {t:'Los cromatóforos son células que cambian de color y textura en la piel.', cat:'s'},
+  {t:'El pulpo usa el camuflaje y la tinta para escapar de sus depredadores.', cat:'p'},
+  {t:'El cuerpo blando del pulpo le permite pasar por grietas muy pequeñas.', cat:'s'},
+  {t:'Estudios de laboratorio muestran comportamientos que parecen indicar razonamiento.', cat:'p'},
+  {t:'Los pulpos en cautiverio han logrado abrir frascos con tapa de rosca.', cat:'s'}
 ];
-const DND_ORDER = [3, 1, 4, 0, 2]; // shuffled display order of DND_CORRECT indices
+const CLASS_ORDER=[2,0,4,1,5,3]; // shuffled bank display order
 
 // ══════════════════════════════════════════
 // STATE
@@ -501,7 +496,7 @@ let litI=0, litA=[];
 let infI=0, infA=[];
 let critSelf=null;
 let vocI=0, vocA=[];
-let slots=[null,null,null,null,null], dndChecked=false;
+let placement={}, dndChecked=false; // placement[itemIdx] = 'p' | 's'
 let dragIdx=null, selIdx=null;
 
 // ══════════════════════════════════════════
@@ -513,11 +508,10 @@ function calcScore(){
   const inf = infA.filter((a,i)=>a===INF[i].c).length;
   const crit = critSelf==='yes'?2:critSelf==='part'?1:0;
   const voc = vocA.filter((a,i)=>a===VOCAB[i].c).length;
-  const allDnd = slots.every((s,i)=>s===i);
-  const partDnd = slots.filter((s,i)=>s===i).length>=3;
-  const dnd = allDnd?4:partDnd?2:0;
+  const correctCount = CLASS_ITEMS.filter((it,i)=>placement[i]===it.cat).length;
+  const dnd = correctCount>=6?4:correctCount>=4?2:0;
   const total = lit*2+inf*2+crit+voc+dnd;
-  return {lit,inf,crit,voc,dnd,total,max:24};
+  return {lit,inf,crit,voc,dnd,correctCount,total,max:24};
 }
 
 // ══════════════════════════════════════════
@@ -558,19 +552,18 @@ function rActivation(){return`
   <div class="s-body">
     <p>Lee con atención esta pregunta y piensa tu respuesta antes de continuar:</p>
     <br>
-    <p style="font-size:17px;font-weight:700;color:var(--ink);line-height:1.55;background:var(--purple-light);border-radius:10px;padding:16px 18px;">
-      🔮 ¿Alguna vez encontraste algo inesperado en un lugar cotidiano? ¿Qué fue? ¿Qué hiciste?<br>
-      <span style="font-size:14px;font-weight:400;color:var(--ink-muted);">Si nunca te ha pasado: imagina que encuentras un mapa escondido en un objeto antiguo. ¿Qué harías?</span>
+    <p style="font-size:17px;font-weight:700;color:var(--ink);line-height:1.55;background:var(--red-light);border-radius:10px;padding:16px 18px;">
+      🐙 ¿Qué animal considerarías el más inteligente del reino animal, además de los humanos? ¿Por qué?<br>
+      <span style="font-size:14px;font-weight:400;color:var(--ink-muted);">Piensa: ¿qué comportamientos hacen que un animal parezca "inteligente"?</span>
     </p>
     <div class="btn-row">
       <button class="btn btn-s" onclick="document.getElementById('actR').classList.add('on')">💡 Ver reflexión</button>
     </div>
     <div class="reveal" id="actR">
       <strong>🧠 Para reflexionar:</strong><br><br>
-      Cuando encontramos algo inesperado, nuestro primer instinto puede ser guardarlo, contárselo a alguien, o investigarlo.
-      El texto que leerás a continuación explora exactamente ese dilema en una joven de tu edad.<br><br>
-      Mientras lees, fíjate en <strong>cómo reacciona el personaje</strong> y pregúntate si harías lo mismo.<br><br>
-      <em>💡 Tip lector:</em> Antes de leer un texto narrativo, es útil preguntarse: <strong>¿quién es el personaje principal?, ¿dónde ocurre la historia?, ¿cuál podría ser el conflicto?</strong>
+      Solemos asociar la inteligencia animal con delfines, perros o chimpancés. Sin embargo, existe un animal marino sin huesos, sin columna vertebral y con una vida muy corta que sorprende cada vez más a los científicos por su capacidad de resolver problemas.<br><br>
+      El texto que leerás a continuación es un <strong>artículo científico-divulgativo</strong>: su propósito es informar y explicar un tema con datos reales, a diferencia de un cuento, que busca entretener con una historia inventada.<br><br>
+      <em>💡 Tip lector:</em> En los textos informativos, presta atención a los <strong>datos, cifras y explicaciones causales</strong> (por qué ocurre algo), ya que suelen contener las ideas más importantes.
     </div>
   </div>
   <div class="btn-row" style="margin-top:22px;">
@@ -585,24 +578,23 @@ function rActivation(){return`
 function rReading(){return`
 <div class="card">
   <div class="s-label">📖 Lectura Principal · 10–15 minutos</div>
-  <div class="s-title">El mapa del relojero</div>
+  <div class="s-title">El pulpo, el genio de los ocho brazos</div>
   <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px;">
-    <span style="font-size:12.5px;color:var(--ink-muted);">Género: <strong style="color:var(--ink);">Narrativo · Misterio</strong></span>
+    <span style="font-size:12.5px;color:var(--ink-muted);">Género: <strong style="color:var(--ink);">Científico / Divulgativo</strong></span>
     <span style="font-size:12.5px;color:var(--ink-muted);">Texto: <strong style="color:var(--ink);">Original</strong></span>
-    <span style="font-size:12.5px;color:var(--ink-muted);">~310 palabras</span>
+    <span style="font-size:12.5px;color:var(--ink-muted);">~340 palabras</span>
   </div>
   <div style="background:var(--amber-light);border:1px solid var(--amber);border-radius:9px;padding:9px 13px;font-size:13px;color:var(--ink-mid);margin-bottom:14px;">
-    📌 Las palabras <strong style="color:var(--purple);border-bottom:2px dotted var(--purple);">subrayadas en morado</strong> aparecerán en la sección de vocabulario. Intenta deducir su significado mientras lees.
+    📌 Las palabras <strong style="color:var(--red);border-bottom:2px dotted var(--red);">subrayadas en rojo</strong> aparecerán en la sección de vocabulario. Intenta deducir su significado mientras lees.
   </div>
   <div class="rtext">
-    <h3>El mapa del relojero</h3>
-    <p>Valentina tenía trece años y una curiosidad imposible de apagar. Aquella tarde de martes, su madre la había enviado a la relojería de don Aurelio a buscar una pila de repuesto para el reloj de cocina. Era un local <span class="vhl" title="Estrecho, de poco espacio">angosto</span> y oscuro, ubicado en el primer piso de un edificio antiguo del centro, con vitrinas llenas de relojes que tictaqueaban sin parar, como si el tiempo latiera más rápido ahí adentro.</p>
-    <p>Don Aurelio no estaba en el mostrador. Valentina esperó unos minutos, mirando los engranajes expuestos en una vitrina, cuando escuchó un golpe sordo en el fondo del local. Se asomó hacia la <span class="vhl" title="Espacio detrás del mostrador de una tienda">trastienda</span> y vio que un reloj de pie antiguo —casi tan alto como ella— se había inclinado peligrosamente contra la pared. Sin pensarlo, Valentina corrió a sostenerlo.</p>
-    <p>El mueble crujió. Valentina lo empujó con fuerza hacia la pared, pero sin querer presionó una <span class="vhl" title="Franja decorativa que sobresale de una superficie">moldura</span> lateral que cedió hacia adentro. Con un clic mecánico, se abrió un pequeño compartimento secreto en la base del reloj. Dentro, envuelto en un paño de <span class="vhl" title="Tela suave con pelillo corto y denso">terciopelo</span> rojo, había un tubo de cuero marrón.</p>
-    <p>Valentina lo abrió despacio. Dentro encontró un papel amarillento y <span class="vhl" title="Que se rompe fácilmente por ser muy viejo">quebradizo</span>, enrollado con cuidado. Era un mapa. No tenía título, pero mostraba una red de pasillos subterráneos bajo lo que parecía ser el barrio donde ella vivía. En el centro del mapa había un símbolo: un ojo rodeado de engranajes.</p>
-    <p>Escuchó pasos desde la entrada. Actuando por <span class="vhl" title="Reacción automática sin razonamiento consciente">instinto</span>, Valentina enrolló el mapa, lo guardó en su mochila y volvió al mostrador justo cuando don Aurelio aparecía desde la calle con una bolsa del supermercado.</p>
-    <p>—¿Cuánto tiempo llevas esperando, muchacha? —preguntó el viejo, sin notar nada.</p>
-    <p>—Solo un momento —respondió ella, sintiendo el corazón latirle en la garganta.</p>
+    <h3>El pulpo, el genio de los ocho brazos</h3>
+    <p>Entre todos los animales marinos, pocos generan tanta fascinación en los científicos como el pulpo. A pesar de ser un <span class="vhl" title="Animal sin columna vertebral">invertebrado</span> —es decir, un animal sin columna vertebral—, posee un sistema nervioso tan complejo que algunos investigadores lo consideran uno de los animales más inteligentes del planeta.</p>
+    <p>Una de sus habilidades más sorprendentes es el <span class="vhl" title="Capacidad de imitar el entorno para ocultarse">camuflaje</span>. Gracias a células especiales en su piel llamadas cromatóforos, el pulpo puede cambiar de color y textura en cuestión de segundos para imitar el fondo marino, una roca o incluso un alga. Esta capacidad no es solo un truco estético: es una respuesta evolutiva ante la gran cantidad de depredadores que amenazan su supervivencia, como tiburones, morenas y aves marinas. Sin caparazón ni espinas para defenderse, el pulpo depende casi exclusivamente de su <span class="vhl" title="Discreción y cautela para pasar desapercibido">sigilo</span> para sobrevivir.</p>
+    <p>Pero el camuflaje no es su único recurso. Cuando un depredador lo detecta, el pulpo puede liberar una nube de tinta oscura que confunde y desorienta al atacante, ganando así segundos preciosos para escapar. Además, su cuerpo blando —sin huesos— le permite <span class="vhl" title="Reducirse de tamaño apretándose">comprimirse</span> y deslizarse por grietas diminutas, incluso más pequeñas que una moneda.</p>
+    <p>Los científicos también han documentado comportamientos que parecen indicar razonamiento. En experimentos de laboratorio, pulpos en cautiverio han logrado abrir frascos con tapa de rosca para alcanzar comida en su interior, recordar soluciones a problemas después de varios días, e incluso —según reportan algunos cuidadores de acuarios— desarmar equipos de filtración solo por curiosidad.</p>
+    <p>Sin embargo, esta inteligencia convive con una existencia breve: la mayoría de las especies de pulpo viven entre uno y dos años. Tras reproducirse, muchas hembras entran en un estado de <span class="vhl" title="Estado de inactividad y bajo funcionamiento del cuerpo">letargo</span>, dejan de alimentarse y mueren poco después de que sus huevos eclosionan, dedicando sus últimas fuerzas a protegerlos.</p>
+    <p>El pulpo sigue siendo, para la ciencia, un animal <span class="vhl" title="Extraordinario, poco común o diferente al resto">singular</span>: frágil en apariencia, pero extraordinario en ingenio.</p>
   </div>
   <div class="btn-row">
     <button class="btn btn-p" onclick="go('literal')">Continuar a las preguntas →</button>
@@ -669,7 +661,7 @@ function rCritical(){return`
   <p style="font-size:13.5px;color:var(--ink-muted);margin-bottom:14px;">
     Esta sección no tiene una respuesta única correcta. Lo importante es que <strong style="color:var(--ink);">fundamentes tu opinión usando información del texto</strong>.
   </p>
-  <p class="oq">¿Crees que Valentina tomó la decisión correcta al guardar el mapa en su mochila sin decírselo a don Aurelio? Justifica tu respuesta usando al menos un detalle del texto.</p>
+  <p class="oq">El texto explica que los científicos mantienen pulpos en cautiverio para estudiar su inteligencia mediante experimentos como abrir frascos. ¿Crees que esto es correcto? Justifica tu respuesta usando al menos un detalle del texto.</p>
   <textarea class="otxt" id="critTxt" placeholder="Escribe tu respuesta aquí. Intenta usar frases como: 'Creo que... porque el texto dice que...' o 'No estoy de acuerdo porque...'"></textarea>
   <div class="btn-row">
     <button class="btn btn-s" onclick="document.getElementById('critM').classList.add('on')">👁️ Ver respuesta modelo</button>
@@ -678,9 +670,9 @@ function rCritical(){return`
     <div class="omodel-box">
       <strong>📝 RESPUESTA MODELO</strong>
       No hay una sola respuesta correcta, pero una buena respuesta tiene <strong>posición + argumento con evidencia del texto</strong>.<br><br>
-      <strong>Si argumentas que NO fue correcto:</strong> <em>"Valentina no debería haber guardado el mapa porque el compartimento estaba dentro del reloj del local de don Aurelio, lo que sugiere que es propiedad del dueño."</em><br><br>
-      <strong>Si argumentas que SÍ fue correcto:</strong> <em>"Valentina actuó por instinto —el texto lo dice explícitamente— y no tuvo tiempo de reflexionar. Además, el mapa podría llevar décadas olvidado. Quería entender qué era antes de decírselo a alguien."</em><br><br>
-      ⚠️ Una respuesta como <em>"Sí, porque quería quedárselo"</em> o <em>"No, porque es malo"</em> no tiene suficiente fundamento. Las buenas respuestas críticas siempre incluyen evidencia del texto.
+      <strong>Si argumentas que SÍ es correcto:</strong> <em>"Es correcto porque el texto muestra que gracias a estos estudios sabemos que el pulpo tiene memoria y capacidad de aprendizaje, algo que no sabríamos de otra forma. El conocimiento científico ayuda a proteger mejor a la especie."</em><br><br>
+      <strong>Si argumentas que NO es correcto:</strong> <em>"No me parece correcto porque el pulpo depende del sigilo y la libertad para sobrevivir, y mantenerlo en cautiverio contradice su naturaleza. El texto menciona que su vida ya es muy breve, y el encierro podría afectarla aún más."</em><br><br>
+      ⚠️ Una respuesta como <em>"Sí, porque es interesante"</em> o <em>"No, porque es malo"</em> no tiene suficiente fundamento. Las buenas respuestas críticas siempre incluyen evidencia del texto.
     </div>
     <div class="seval">
       <span class="seval-l">¿Qué tan completa fue tu respuesta?</span>
@@ -759,74 +751,93 @@ function aVoc(i){vocA[vocI]=i;render();}
 function nVoc(){vocI++;render();}
 
 // ══════════════════════════════════════════
-// ORGANIZATION — DRAG & DROP
+// ORGANIZATION — CLASIFICACIÓN PRINCIPAL/SECUNDARIA
 // ══════════════════════════════════════════
 
 function rOrg(){
+  const bankIdxs = CLASS_ORDER.filter(i=>placement[i]===undefined);
   return`
 <div class="card">
   <div class="s-label">🗂️ Organización de la Información</div>
-  <div class="s-title">Ordena los eventos de la historia</div>
+  <div class="s-title">Clasifica: idea principal o idea secundaria</div>
   <div class="dnd-tip">
-    ✋ <strong>Instrucciones:</strong> Arrastra cada tarjeta al espacio correcto en la secuencia.
-    También puedes hacer <strong>clic en una tarjeta</strong> para seleccionarla (se resalta) y luego <strong>clic en un espacio</strong> para colocarla.
+    ✋ <strong>Instrucciones:</strong> Arrastra cada tarjeta a la columna correcta según si representa una <strong>idea principal</strong> (una afirmación central del texto) o una <strong>idea secundaria</strong> (un dato o detalle que apoya a la idea principal).
+    También puedes hacer <strong>clic en una tarjeta</strong> para seleccionarla y luego <strong>clic en una columna</strong> para colocarla.
   </div>
 
-  <p class="dbank-lbl" style="margin-bottom:9px;">Secuencia correcta (del 1 al 5) →</p>
-  <div class="dnd-slots" id="dSlots">
-    ${[0,1,2,3,4].map(i=>{
-      const filled=slots[i]!==null;
-      let cls='';
-      if(dndChecked&&filled) cls=slots[i]===i?'ok':'no';
-      return`
-      <div class="dslot ${cls}" id="sl-${i}"
-        ondragover="dOver(event,${i})" ondragleave="dLeave(event,${i})" ondrop="dDrop(event,${i})"
-        onclick="slotClick(${i})">
-        <div class="snum">${i+1}</div>
-        <div class="scont">
-          ${filled
-            ?`<span>${DND_CORRECT[slots[i]]}</span>`
-            :`<span class="sempty">Arrastra o haz clic aquí…</span>`}
-        </div>
-        ${dndChecked&&filled?`<span class="sicon">${slots[i]===i?'✅':'❌'}</span>`:''}
-        ${filled&&!dndChecked?`<button class="remove-btn" onclick="rmSlot(event,${i})">✕</button>`:''}
-      </div>`;
-    }).join('')}
+  <div class="class-cols">
+    <div class="class-col principal" id="col-p" ondragover="cOver(event,'p')" ondragleave="cLeave(event,'p')" ondrop="cDrop(event,'p')" onclick="colClick('p')">
+      <div class="class-col-head"><div class="cdot"></div>Idea Principal</div>
+      <div class="class-items">
+        ${CLASS_ITEMS.map((it,i)=>placement[i]==='p'?renderPlacedItem(i):'').join('')}
+        ${CLASS_ITEMS.filter((it,i)=>placement[i]==='p').length===0?'<div class="empty-slot">Arrastra aquí…</div>':''}
+      </div>
+    </div>
+    <div class="class-col secundaria" id="col-s" ondragover="cOver(event,'s')" ondragleave="cLeave(event,'s')" ondrop="cDrop(event,'s')" onclick="colClick('s')">
+      <div class="class-col-head"><div class="cdot"></div>Idea Secundaria</div>
+      <div class="class-items">
+        ${CLASS_ITEMS.map((it,i)=>placement[i]==='s'?renderPlacedItem(i):'').join('')}
+        ${CLASS_ITEMS.filter((it,i)=>placement[i]==='s').length===0?'<div class="empty-slot">Arrastra aquí…</div>':''}
+      </div>
+    </div>
   </div>
 
-  <p class="dbank-lbl">Banco de eventos →</p>
+  <p class="dbank-lbl">Banco de ideas →</p>
   <div class="dbank" id="dBank">
-    ${DND_ORDER.map(evIdx=>{
-      const placed=slots.includes(evIdx);
-      const isSel=selIdx===evIdx;
+    ${CLASS_ORDER.map(i=>{
+      const placed=placement[i]!==undefined;
+      const isSel=selIdx===i;
       return`
-      <div class="ditem ${placed?'placed':''} ${isSel?'sel-item':''}" id="di-${evIdx}"
+      <div class="ditem ${placed?'placed':''} ${isSel?'sel-item':''}" id="di-${i}"
         draggable="true"
-        ondragstart="dStart(event,${evIdx})" ondragend="dEnd(event)"
-        onclick="itemClick(${evIdx})">
-        ${DND_CORRECT[evIdx]}
+        ondragstart="dStart(event,${i})" ondragend="dEnd(event)"
+        onclick="itemClick(${i})">
+        ${CLASS_ITEMS[i].t}
       </div>`;
     }).join('')}
   </div>
 
-  ${dndChecked?`
-  <div class="qz-fb on ${slots.every((s,i)=>s===i)?'ok-fb':'no-fb'}" style="margin-top:16px;">
-    ${slots.every((s,i)=>s===i)
-      ?'✅ ¡Perfecto! Ordenaste los 5 eventos correctamente. Excelente comprensión de la secuencia temporal del texto.'
-      :`⚡ Algunos eventos estaban en el orden incorrecto. La secuencia correcta era:<br>
-        1→ ${DND_CORRECT[0]}<br>
-        2→ ${DND_CORRECT[1]}<br>
-        3→ ${DND_CORRECT[2]}<br>
-        4→ ${DND_CORRECT[3]}<br>
-        5→ ${DND_CORRECT[4]}`}
-  </div>`:''}
+  ${dndChecked?renderClassFeedback():''}
 
   <div class="btn-row" style="margin-top:18px;">
     ${!dndChecked
-      ?`<button class="btn btn-p" onclick="checkDnd()" ${slots.includes(null)?'disabled':''}>Verificar orden ✓</button>`
+      ?`<button class="btn btn-p" onclick="checkClass()" ${Object.keys(placement).length<6?'disabled':''}>Verificar clasificación ✓</button>`
       :`<button class="btn btn-p" onclick="go('challenge')">Continuar →</button>`}
   </div>
-</div>`;}
+</div>`;
+}
+
+function renderPlacedItem(i){
+  const it=CLASS_ITEMS[i];
+  let cls='';
+  let icon='';
+  if(dndChecked){
+    const ok=placement[i]===it.cat;
+    cls=ok?'ok':'no';
+    icon=`<span class="cicon">${ok?'✅':'❌'}</span>`;
+  } else {
+    icon=`<button class="remove-btn" onclick="rmItem(event,${i})" style="margin-left:auto;background:none;border:none;color:var(--ink-muted);cursor:pointer;font-size:15px;">✕</button>`;
+  }
+  return`<div class="citem-slot ${cls}">${dndChecked?icon:''}<span style="flex:1;">${it.t}</span>${!dndChecked?icon:''}</div>`;
+}
+
+function renderClassFeedback(){
+  const s=calcScore();
+  const allOk=s.correctCount===6;
+  let detail='';
+  if(!allOk){
+    detail = '<br>Revisión:<br>' + CLASS_ITEMS.map((it,i)=>{
+      const ok=placement[i]===it.cat;
+      return `${ok?'✅':'❌'} "${it.t}" → correcta: ${it.cat==='p'?'Idea Principal':'Idea Secundaria'}`;
+    }).join('<br>');
+  }
+  return`
+  <div class="qz-fb on ${allOk?'ok-fb':'no-fb'}" style="margin-top:16px;">
+    ${allOk
+      ?'✅ ¡Perfecto! Clasificaste las 6 ideas correctamente. Distingues muy bien entre una afirmación central y un dato que la respalda.'
+      :`⚡ Clasificaste correctamente ${s.correctCount} de 6. Recuerda: una idea principal expresa una afirmación general del texto; una idea secundaria es un dato específico que la apoya.${detail}`}
+  </div>`;
+}
 
 function dStart(e,idx){
   dragIdx=idx; selIdx=null;
@@ -836,37 +847,31 @@ function dStart(e,idx){
 function dEnd(){
   if(dragIdx!==null){const el=document.getElementById('di-'+dragIdx);if(el)el.classList.remove('dragging');}
   dragIdx=null;
-  document.querySelectorAll('.dslot').forEach(s=>s.classList.remove('over'));
+  document.querySelectorAll('.class-col').forEach(c=>c.classList.remove('over'));
 }
-function dOver(e,i){e.preventDefault();document.getElementById('sl-'+i).classList.add('over');}
-function dLeave(e,i){document.getElementById('sl-'+i).classList.remove('over');}
-function dDrop(e,i){
+function cOver(e,cat){e.preventDefault();document.getElementById('col-'+cat).classList.add('over');}
+function cLeave(e,cat){document.getElementById('col-'+cat).classList.remove('over');}
+function cDrop(e,cat){
   e.preventDefault();
-  document.getElementById('sl-'+i).classList.remove('over');
+  document.getElementById('col-'+cat).classList.remove('over');
   if(dragIdx===null)return;
-  const existing=slots[i];
-  const prevSlot=slots.indexOf(dragIdx);
-  if(prevSlot!==-1)slots[prevSlot]=existing;
-  slots[i]=dragIdx;
+  placement[dragIdx]=cat;
   dragIdx=null;
   render();
 }
-function itemClick(evIdx){
+function itemClick(idx){
   if(dndChecked)return;
-  selIdx=selIdx===evIdx?null:evIdx;
+  selIdx=selIdx===idx?null:idx;
   render();
 }
-function slotClick(i){
+function colClick(cat){
   if(dndChecked||selIdx===null)return;
-  const existing=slots[i];
-  const prev=slots.indexOf(selIdx);
-  if(prev!==-1)slots[prev]=existing;
-  slots[i]=selIdx;
+  placement[selIdx]=cat;
   selIdx=null;
   render();
 }
-function rmSlot(e,i){e.stopPropagation();slots[i]=null;render();}
-function checkDnd(){dndChecked=true;render();}
+function rmItem(e,idx){e.stopPropagation();delete placement[idx];render();}
+function checkClass(){dndChecked=true;render();}
 
 // ══════════════════════════════════════════
 // CHALLENGE
@@ -875,22 +880,22 @@ function checkDnd(){dndChecked=true;render();}
 function rChallenge(){return`
 <div class="card">
   <div class="s-label">✨ Desafío de Pensamiento</div>
-  <div class="s-title">¡Ahora tú eres el escritor!</div>
+  <div class="s-title">¡Ahora tú eres el periodista científico!</div>
   <p style="font-size:13.5px;color:var(--ink-muted);margin-bottom:14px;">
-    Este ejercicio desarrolla tu creatividad y tu capacidad de ponerte en el lugar de otro personaje. No hay respuesta incorrecta, pero sí respuestas más elaboradas que otras.
+    Este ejercicio desarrolla tu capacidad de síntesis: tomar información compleja y comunicarla de forma breve y clara. No hay respuesta incorrecta, pero sí respuestas más elaboradas que otras.
   </p>
-  <p class="oq">✍️ Escribe un párrafo corto desde el punto de vista de <strong>don Aurelio</strong>. Imagina que en realidad él <em>sí</em> notó que Valentina guardó algo, pero decidió no decir nada. ¿Qué pensamientos pasaron por su cabeza?</p>
-  <p class="s-hint" style="margin-bottom:14px;">Recuerda: el texto describe a don Aurelio llegando "desde la calle con una bolsa del supermercado". Usa ese detalle para imaginar cómo es su personalidad y su vida.</p>
-  <textarea class="otxt" id="chalTxt" placeholder="Escribe aquí el párrafo de don Aurelio..." style="min-height:140px;"></textarea>
+  <p class="oq">✍️ Escribe una breve noticia (un titular + 2 o 3 líneas) anunciando el hallazgo de que los pulpos pueden abrir frascos y recordar soluciones. Imagina que la noticia es para estudiantes de tu edad.</p>
+  <p class="s-hint" style="margin-bottom:14px;">Recuerda: una buena noticia responde qué pasó, por qué es importante y usa un lenguaje claro y atractivo para el lector.</p>
+  <textarea class="otxt" id="chalTxt" placeholder="Escribe aquí tu titular y noticia..." style="min-height:140px;"></textarea>
   <div class="btn-row">
     <button class="btn btn-s" onclick="document.getElementById('chalM').classList.add('on')">👁️ Ver ejemplo</button>
   </div>
   <div class="omodel" id="chalM">
     <div class="omodel-box">
       <strong>📝 EJEMPLO</strong>
-      <em>"Don Aurelio la vio guardar algo en la mochila. Sus ojos, acostumbrados a detectar el más pequeño engranaje fuera de lugar, no habían fallado. Pero no dijo nada. Llevaba cuarenta años esperando que alguien encontrara ese mapa, y esa muchacha de mirada curiosa tenía exactamente el mismo apellido que el relojero que lo había escondido."</em>
+      <em>"¡Los pulpos piensan más de lo que creíamos! Científicos descubrieron que estos animales marinos pueden abrir frascos con tapa de rosca y recordar cómo hacerlo días después. El hallazgo sorprende porque el pulpo no tiene huesos ni columna vertebral, pero su cerebro es capaz de aprender y recordar como el de animales mucho más complejos."</em>
       <br><br>
-      ¿Notaste cómo ese párrafo agrega un nuevo misterio? Un buen escritor deja preguntas sin responder. ¿Tu versión también lo hizo?
+      ¿Notaste cómo ese ejemplo explica el dato, agrega el "por qué sorprende" y usa un tono cercano? Un buen periodista científico simplifica sin perder precisión. ¿Tu versión también lo logró?
     </div>
   </div>
   <div class="btn-row" style="margin-top:18px;">
@@ -910,14 +915,14 @@ function rReport(){
 
   let emoji,msg,level,nextDiff;
   if(p>=85){
-    emoji='🏆';msg='¡Excelente trabajo! Demostraste una comprensión sólida del texto en todos los niveles evaluados.';
-    level='Avanzado';nextDiff='La siguiente guía aumentará la longitud del texto y la complejidad de las inferencias.';
+    emoji='🏆';msg='¡Excelente trabajo! Demostraste una comprensión sólida del texto informativo en todos los niveles evaluados.';
+    level='Avanzado';nextDiff='La siguiente guía aumentará la longitud del texto y trabajará dobles interpretaciones.';
   } else if(p>=67){
-    emoji='⭐';msg='¡Muy buen desempeño! Comprendes bien el texto, con algunas áreas que siguen desarrollándose.';
+    emoji='⭐';msg='¡Muy buen desempeño! Comprendes bien los textos informativos, con algunas áreas que siguen desarrollándose.';
     level='Intermedio alto';nextDiff='Se mantendrá la dificultad actual con variaciones en el vocabulario y el género textual.';
   } else if(p>=50){
     emoji='📈';msg='Buen intento. Tienes bases sólidas, pero hay habilidades que vale la pena seguir practicando.';
-    level='Intermedio';nextDiff='La siguiente guía reforzará las inferencias con más pistas y conectores en el texto.';
+    level='Intermedio';nextDiff='La siguiente guía reforzará causa-efecto y la distinción entre ideas principales y secundarias.';
   } else {
     emoji='💪';msg='Sigue adelante. Cada guía te ayudará a mejorar. ¡Los errores son parte del aprendizaje!';
     level='En desarrollo';nextDiff='La siguiente guía tendrá un texto más corto con preguntas guiadas adicionales.';
@@ -925,15 +930,15 @@ function rReport(){
 
   const strengths=[], improve=[];
   if(s.lit>=2)strengths.push('Comprensión literal'); else improve.push('Comprensión literal (buscar datos exactos en el texto)');
-  if(s.inf>=2)strengths.push('Comprensión inferencial'); else improve.push('Comprensión inferencial (deducir información implícita)');
+  if(s.inf>=2)strengths.push('Comprensión inferencial y relaciones causa-efecto'); else improve.push('Comprensión inferencial (deducir información implícita y causas)');
   if(s.voc>=4)strengths.push('Vocabulario en contexto'); else improve.push('Vocabulario (deducir significado por el contexto)');
-  if(slots.every((v,i)=>v===i))strengths.push('Secuencia temporal de eventos'); else improve.push('Organización y secuencia de eventos');
+  if(s.correctCount>=5)strengths.push('Idea principal vs. idea secundaria'); else improve.push('Diferenciar ideas principales de secundarias');
   if(critSelf==='yes')strengths.push('Argumentación con evidencia textual'); else improve.push('Argumentación y uso de evidencia del texto');
 
   return`
 <div class="card">
   <div class="s-label">📊 Informe Final</div>
-  <div class="s-title">Guía 1 · El mapa del relojero</div>
+  <div class="s-title">Guía 2 · El pulpo, el genio de los ocho brazos</div>
 
   <div class="ring-wrap">
     <svg viewBox="0 0 100 100">
@@ -951,7 +956,7 @@ function rReport(){
     <span class="score-pill">Literal: ${s.lit}/3 ×2 = ${s.lit*2}pts</span>
     <span class="score-pill">Inferencial: ${s.inf}/3 ×2 = ${s.inf*2}pts</span>
     <span class="score-pill">Vocabulario: ${s.voc}/6 = ${s.voc}pts</span>
-    <span class="score-pill">Organización: ${s.dnd}/4 pts</span>
+    <span class="score-pill">Organización: ${s.dnd}/4 pts (${s.correctCount}/6 correctas)</span>
     <span class="score-pill">Crítica: ${s.crit}/2 pts</span>
   </div>
 
@@ -969,13 +974,13 @@ function rReport(){
   </div>
 
   <div class="rcard rc-nxt">
-    <div class="rc-t">🚀 Recomendaciones para la Guía 2</div>
+    <div class="rc-t">🚀 Recomendaciones para la Guía 3</div>
     <ul>
       <li>${nextDiff}</li>
-      ${s.voc<4?'<li>Practica leyendo cualquier texto y deduciendo el significado de las palabras nuevas antes de buscarlas.</li>':''}
-      ${s.inf<2?'<li>Al leer, pregúntate siempre: ¿qué información el autor no dice directamente pero puedo deducir de las pistas?</li>':''}
-      ${!slots.every((v,i)=>v===i)?'<li>Para mejorar la secuencia temporal, anota mientras lees los eventos con un número de orden.</li>':''}
-      <li>Próxima guía: <strong>Texto Científico/Informativo</strong> → ideas principales vs. secundarias, causa-efecto.</li>
+      ${s.voc<4?'<li>Practica leyendo artículos cortos de ciencia o naturaleza y deduciendo palabras nuevas por el contexto antes de buscarlas.</li>':''}
+      ${s.inf<2?'<li>Al leer un texto informativo, busca conectores como "por lo tanto", "debido a" o "sin embargo": suelen marcar relaciones de causa-efecto.</li>':''}
+      ${s.correctCount<5?'<li>Para diferenciar ideas principales de secundarias, pregúntate: ¿esta frase resume algo importante, o es solo un dato que lo explica?</li>':''}
+      <li>Próxima guía: <strong>Texto Biográfico/Histórico</strong> → línea de tiempo, interpretación de personajes reales, argumentación.</li>
     </ul>
   </div>
 
@@ -996,7 +1001,7 @@ function animateRing(){
 function restart(){
   phase='activation';
   litI=0;litA=[];infI=0;infA=[];critSelf=null;
-  vocI=0;vocA=[];slots=[null,null,null,null,null];
+  vocI=0;vocA=[];placement={};
   dndChecked=false;dragIdx=null;selIdx=null;
   render();
 }
