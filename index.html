@@ -6,27 +6,27 @@
 <title>Guías de Estudio · Panel Principal</title>
 <style>
 :root {
-  /* ── Base surface tokens (dark theme, fixed) ── */
-  --bg:            #0D0E14;
-  --bg-soft:       #12131C;
-  --surface:       #171923;
-  --surface-hover: #1C1F2B;
-  --ink:           #F1F2F6;
-  --ink-mid:       #A6ABBD;
-  --ink-muted:     #6E7284;
-  --border:        #262A38;
-  --border-soft:   #1E212C;
-  --focus-ring:    #8B93FF;
+  /* ── Escala neutra (idéntica a shared/engine.css — misma plataforma, mismo sistema) ── */
+  --bg:            #0E1013;
+  --bg-soft:       #16181D;
+  --surface:       #16181D;
+  --surface-hover: #22252D;
+  --ink:           #EDEEF1;
+  --ink-mid:       #AEB2BC;
+  --ink-muted:     #787E8A;
+  --border:        #2A2E37;
+  --border-soft:   #2A2E37;
+  --focus-ring:    #3AA3E0;
   --radius-lg:     18px;
   --radius-md:     11px;
   --radius-sm:     8px;
 
-  /* ── Subject palette ── */
-  --subject-language: #EF4444; /* Lenguaje — rojo moderno   */
-  --subject-english:  #FB7185; /* Inglés   — coral suave    */
-  --subject-history:  #FBBF24; /* Historia — dorado/ámbar   */
-  --subject-science:  #34D399; /* Ciencias — verde menta    */
-  --subject-math:     #60A5FA; /* Matemáticas — azul cielo  */
+  /* ── Paleta por materia (idéntica a shared/engine.css) ── */
+  --subject-language: #DC2626; /* Lenguaje — rojo     */
+  --subject-english:  #EC4899; /* Inglés   — rosa     */
+  --subject-history:  #F59E0B; /* Historia — ámbar    */
+  --subject-science:  #10B981; /* Ciencias — verde    */
+  --subject-math:     #3B82F6; /* Matemáticas — azul  */
 }
 
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
@@ -66,7 +66,7 @@ body{
   line-height:1.15; text-wrap:balance; margin-bottom:16px;
 }
 .hero h1 .accent{
-  background:linear-gradient(90deg,#EF4444,#FB7185 35%,#FBBF24 60%,#34D399 80%,#60A5FA);
+  background:linear-gradient(90deg,#DC2626,#EC4899 35%,#F59E0B 60%,#10B981 80%,#3B82F6);
   -webkit-background-clip:text; background-clip:text; color:transparent;
 }
 .hero p{
