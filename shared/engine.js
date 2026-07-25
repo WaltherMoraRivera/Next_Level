@@ -136,7 +136,7 @@ const Engine = (function(){
         </p>
         ${b.reflection?`
         <div class="btn-row">
-          <button class="btn btn-s" onclick="this.nextElementSibling.classList.add('on')">💡 Ver reflexión</button>
+          <button class="btn btn-s" onclick="this.parentElement.nextElementSibling.classList.add('on')">💡 Ver reflexión</button>
         </div>
         <div class="reveal">${b.reflection}</div>`:''}
       </div>
@@ -300,7 +300,7 @@ const Engine = (function(){
       <p style="font-size:13.5px;color:var(--ink-muted);margin-bottom:14px;">Esta sección no tiene una respuesta única correcta. Lo importante es que <strong style="color:var(--ink);">fundamentes tu opinión usando información de la guía</strong>.</p>
       <p class="oq">${b.question}</p>
       <textarea class="otxt" placeholder="${b.placeholder||'Escribe tu respuesta aquí...'}"></textarea>
-      <div class="btn-row"><button class="btn btn-s" onclick="this.nextElementSibling.classList.add('on')">👁️ Ver respuesta modelo</button></div>
+      <div class="btn-row"><button class="btn btn-s" onclick="this.parentElement.nextElementSibling.classList.add('on')">👁️ Ver respuesta modelo</button></div>
       <div class="omodel">
         <div class="omodel-box"><strong>📝 RESPUESTA MODELO</strong>${b.modelAnswer}</div>
         ${b.calloutTitle?`<div class="irony-box"><strong>${b.calloutTitle}</strong> ${b.calloutText}</div>`:''}
@@ -647,7 +647,7 @@ const Engine = (function(){
       <p class="oq">${b.prompt}</p>
       ${b.hint?`<p class="s-hint" style="margin-bottom:14px;">${b.hint}</p>`:''}
       <textarea class="otxt" placeholder="${b.placeholder||'Escribe aquí tu respuesta...'}" style="min-height:140px;"></textarea>
-      <div class="btn-row"><button class="btn btn-s" onclick="this.nextElementSibling.classList.add('on')">👁️ Ver ejemplo</button></div>
+      <div class="btn-row"><button class="btn btn-s" onclick="this.parentElement.nextElementSibling.classList.add('on')">👁️ Ver ejemplo</button></div>
       <div class="omodel"><div class="omodel-box"><strong>📝 EJEMPLO</strong>${b.example}</div></div>
       ${nextBtn('Continuar →')}
     </div>`;
