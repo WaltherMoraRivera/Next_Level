@@ -10,7 +10,8 @@
    GUIDE_DATA = {
      id, subject, subjectLabel, subjectIcon, title, examRef,
      blocks: [ {type:'hook'|'goal'|'teach'|'guided-practice'|'quiz'|
-                     'open'|'dnd-sequence'|'dnd-classify'|'challenge'|
+                     'open'|'dnd-sequence'|'dnd-classify'|'match-pairs'|
+                     'error-spot'|'flip-cards'|'challenge'|
                      'reflect'|'report', ...} ]
    }
    ══════════════════════════════════════════════════════════ */
@@ -41,6 +42,25 @@ const Engine = (function(){
       const raw = localStorage.getItem(storageKey(id));
       return raw ? JSON.parse(raw) : null;
     }catch(e){ return null; }
+  }
+
+  // ── Gamificación ligera (Parte 11) ──────────────────────────
+  // Recorre todo lo guardado en este navegador (todas las guías,
+  // no solo la actual) para armar una racha y medallas de dominio.
+  function globalStats(){
+    let totalCompleted = 0, bestPct = 0;
+    try{
+      for(let i=0;i<localStorage.length;i++){
+        const key = localStorage.key(i);
+        if(!key || !key.startsWith('progreso_')) continue;
+        const raw = JSON.parse(localStorage.getItem(key));
+        if(raw && raw.completado){
+          totalCompleted++;
+          if(raw.pct>bestPct) bestPct = raw.pct;
+        }
+      }
+    }catch(e){ /* localStorage no disponible */ }
+    return { totalCompleted, bestPct };
   }
 
   // ── Inicialización ────────────────────────────────────────
@@ -80,8 +100,9 @@ const Engine = (function(){
       hook:'🔥 Enganche', goal:'🎯 Objetivo', teach:'📖 Aprender',
       'guided-practice':'🧭 Práctica guiada', quiz:'🔍 Práctica independiente',
       open:'💬 Pensamiento crítico', 'dnd-sequence':'🗂️ Organización',
-      'dnd-classify':'🗂️ Organización', challenge:'✨ Desafío',
-      reflect:'🪞 Reflexión', report:'📊 Informe'
+      'dnd-classify':'🗂️ Organización', 'match-pairs':'🔗 Emparejar',
+      'error-spot':'🔎 Detectar error', 'flip-cards':'🔁 Repaso',
+      challenge:'✨ Desafío', reflect:'🪞 Reflexión', report:'📊 Informe'
     })[type] || type;
   }
 
@@ -477,6 +498,146 @@ const Engine = (function(){
   function _rmItem(e,i){ e.stopPropagation(); delete blockState[blockIndex].placement[i]; render(); }
   function _checkClassify(){ blockState[blockIndex].checked=true; render(); }
 
+  // ══════════════════════════════════════════════════════════
+  // MATCH PAIRS — emparejar (causa-efecto, término-definición...)
+  // Pensado para Historia/Ciencias, pero disponible para cualquier materia.
+  // b.left / b.right: arrays de texto. b.pairs: [[leftIdx,rightIdx], ...]
+  // ══════════════════════════════════════════════════════════
+
+  function rMatchPairs(b){
+    const st = blockState[blockIndex];
+    const linked = st.linked || (st.linked = {}); // leftIdx -> rightIdx
+    const mistakes = st.mistakes||0;
+    const allLinked = Object.keys(linked).length === b.left.length;
+    const rightLinkedVals = Object.values(linked);
+
+    return `
+    <div class="card">
+      <div class="s-label">🔗 ${b.label||'Emparejar'} · ${b.minutes||6} min</div>
+      <div class="s-title">${b.title}</div>
+      <div class="dnd-tip">✋ <strong>Instrucciones:</strong> ${b.instructions||'Selecciona un elemento de la izquierda y luego su pareja correcta a la derecha.'}</div>
+      <div class="match-grid">
+        <div class="match-col">
+          ${b.left.map((t,i)=>{
+            const isLinked = linked[i]!==undefined;
+            const isSel = st.selLeft===i;
+            const flash = st.flash&&st.flash.left===i?'wrong-flash':'';
+            return `<div class="match-item ${isLinked?'linked':''} ${isSel?'sel':''} ${flash}" onclick="Engine._matchLeft(${i})">${t}</div>`;
+          }).join('')}
+        </div>
+        <div class="match-col">
+          ${b.right.map((t,i)=>{
+            const isLinked = rightLinkedVals.includes(i);
+            const isSel = st.selRight===i;
+            const flash = st.flash&&st.flash.right===i?'wrong-flash':'';
+            return `<div class="match-item ${isLinked?'linked':''} ${isSel?'sel':''} ${flash}" onclick="Engine._matchRight(${i})">${t}</div>`;
+          }).join('')}
+        </div>
+      </div>
+      ${allLinked?`
+      <div class="qz-fb on ${mistakes===0?'ok-fb':'no-fb'}" style="margin-top:16px;">
+        ${mistakes===0
+          ? '✅ ¡Perfecto! Emparejaste todo sin errores.'
+          : `⚡ Completaste el ejercicio con ${mistakes} intento${mistakes===1?'':'s'} fallido${mistakes===1?'':'s'}. Revisa con calma las relaciones la próxima vez.`}
+      </div>`:''}
+      <div class="btn-row" style="margin-top:18px;">
+        ${allLinked?`<button class="btn btn-p" onclick="Engine.next()">Continuar →</button>`:''}
+      </div>
+    </div>`;
+  }
+  function _matchLeft(i){
+    const st=blockState[blockIndex];
+    if(st.linked && st.linked[i]!==undefined) return;
+    st.selLeft = st.selLeft===i?null:i;
+    if(st.selLeft!==null && st.selRight!==null) _matchAttempt();
+    else render();
+  }
+  function _matchRight(i){
+    const st=blockState[blockIndex];
+    if(Object.values(st.linked||{}).includes(i)) return;
+    st.selRight = st.selRight===i?null:i;
+    if(st.selLeft!==null && st.selRight!==null) _matchAttempt();
+    else render();
+  }
+  function _matchAttempt(){
+    const st = blockState[blockIndex];
+    const b = DATA.blocks[blockIndex];
+    const l=st.selLeft, r=st.selRight;
+    const correct = b.pairs.some(p=>p[0]===l && p[1]===r);
+    if(correct){
+      st.linked[l]=r; st.selLeft=null; st.selRight=null; render();
+    } else {
+      st.mistakes=(st.mistakes||0)+1;
+      st.flash={left:l,right:r};
+      render();
+      setTimeout(()=>{ st.flash=null; st.selLeft=null; st.selRight=null; render(); }, 550);
+    }
+  }
+
+  // ══════════════════════════════════════════════════════════
+  // ERROR SPOT — detectar el error en un ejemplo dado
+  // ══════════════════════════════════════════════════════════
+
+  function rErrorSpot(b){
+    const st = blockState[blockIndex];
+    const done = st.picked!==undefined;
+    return `
+    <div class="card">
+      <div class="s-label">🔎 ${b.label||'Detecta el error'} · ${b.minutes||6} min</div>
+      <div class="s-title">${b.title}</div>
+      <p style="font-size:13.5px;color:var(--ink-muted);margin-bottom:14px;">${b.instructions||'Una de las siguientes líneas contiene un error. Haz clic en ella para marcarla.'}</p>
+      <div class="errorspot-text">
+        ${b.lines.map((line,i)=>{
+          let cls='';
+          if(done){
+            if(i===st.picked) cls='marked';
+            if(i===b.errorIndex) cls+=' correct-mark';
+          }
+          return `<div class="es-line ${cls}" onclick="Engine._errorPick(${i})">${line}</div>`;
+        }).join('')}
+      </div>
+      <div class="qz-fb ${done?'on':''} ${done&&st.picked===b.errorIndex?'ok-fb':'no-fb'}">
+        ${done?(st.picked===b.errorIndex
+          ? `✅ ¡Correcto! ${b.explanation}`
+          : `❌ Esa línea es correcta. El error real está marcado en verde. ${b.explanation}`):''}
+      </div>
+      <div class="btn-row" style="margin-top:18px;">
+        ${done?`<button class="btn btn-p" onclick="Engine.next()">Continuar →</button>`:''}
+      </div>
+    </div>`;
+  }
+  function _errorPick(i){
+    const st=blockState[blockIndex];
+    if(st.picked!==undefined) return;
+    st.picked=i; render();
+  }
+
+  // ══════════════════════════════════════════════════════════
+  // FLIP CARDS — vocabulario/repaso sin puntaje (exposición libre)
+  // ══════════════════════════════════════════════════════════
+
+  function rFlipCards(b){
+    const st = blockState[blockIndex];
+    const flipped = st.flipped || (st.flipped={});
+    return `
+    <div class="card">
+      <div class="s-label">🔁 ${b.label||'Tarjetas de repaso'} · ${b.minutes||5} min</div>
+      <div class="s-title">${b.title}</div>
+      <p style="font-size:13.5px;color:var(--ink-muted);margin-bottom:14px;">${b.instructions||'Haz clic en cada tarjeta para ver su significado. No hay puntaje: es para repasar antes de seguir.'}</p>
+      <div class="vgrid" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;">
+        ${b.cards.map((c,i)=>`
+          <div class="flip-outer ${flipped[i]?'flipped':''}" onclick="Engine._flipCard(${i})">
+            <div class="flip-inner">
+              <div class="flip-face front"><strong>${c.front}</strong></div>
+              <div class="flip-face back">${c.back}</div>
+            </div>
+          </div>`).join('')}
+      </div>
+      ${nextBtn('Continuar →')}
+    </div>`;
+  }
+  function _flipCard(i){ blockState[blockIndex].flipped[i]=!blockState[blockIndex].flipped[i]; render(); }
+
   function rChallenge(b){
     return `
     <div class="card">
@@ -554,6 +715,16 @@ const Engine = (function(){
         const pts = pct===1?4:pct>=0.6?2:0;
         add(b.skillTag||'organizacion', pts, 4);
       }
+      if(b.type==='match-pairs'){
+        const mistakes = st.mistakes||0;
+        const pts = mistakes===0?4:mistakes<=2?2:0;
+        add(b.skillTag||'organizacion', pts, 4);
+      }
+      if(b.type==='error-spot'){
+        const pts = st.picked===b.errorIndex?4:0;
+        add(b.skillTag||'critica', pts, 4);
+      }
+      // 'flip-cards' es una actividad de exposición/repaso, sin puntaje.
     });
 
     let total=0, max=0;
@@ -575,6 +746,7 @@ const Engine = (function(){
   function rReport(){
     const rep = computeReport();
     saveProgress(rep);
+    const gStats = globalStats();
     const C = 2*Math.PI*45;
     const off = C-(rep.pct/100)*C;
 
@@ -606,6 +778,15 @@ const Engine = (function(){
       </div>
       <p class="rep-msg">${emoji} ${msg}</p>
       <div class="rlevel"><div class="rl-l">Nivel estimado</div><div class="rl-v">${level}</div></div>
+
+      <div style="text-align:center;">
+        <span class="streak-chip">🔥 ${gStats.totalCompleted} guía${gStats.totalCompleted===1?'':'s'} completada${gStats.totalCompleted===1?'':'s'} en total</span>
+      </div>
+      <div class="badge-row" style="justify-content:center;">
+        <div class="badge ${gStats.totalCompleted>=1?'earned':''}"><span class="badge-icon">🌱</span> Primeros pasos</div>
+        <div class="badge ${gStats.totalCompleted>=3?'earned':''}"><span class="badge-icon">📚</span> Constancia (3 guías)</div>
+        <div class="badge ${gStats.bestPct>=85?'earned':''}"><span class="badge-icon">🏆</span> Dominio alto (≥85%)</div>
+      </div>
 
       <div class="s-label" style="margin-top:22px;">Dominio por habilidad</div>
       <div class="skill-list">${skillRows}</div>
@@ -646,6 +827,7 @@ const Engine = (function(){
     hook:rHook, goal:rGoal, teach:rTeach,
     'guided-practice':(b)=>rQuizLike(b,true), quiz:(b)=>rQuizLike(b,false),
     open:rOpen, 'dnd-sequence':rDndSequence, 'dnd-classify':rDndClassify,
+    'match-pairs':rMatchPairs, 'error-spot':rErrorSpot, 'flip-cards':rFlipCards,
     challenge:rChallenge, reflect:rReflect, report:rReport
   };
 
@@ -657,6 +839,7 @@ const Engine = (function(){
     _setSelf,
     _dStart, _dEnd, _dOver, _dLeave, _dDrop, _itemClick, _slotClick, _rmSlot, _checkDnd,
     _cOver, _cLeave, _cDrop, _colClick, _rmItem, _checkClassify,
+    _matchLeft, _matchRight, _errorPick, _flipCard,
     _reflectDone, _restart
   };
 })();

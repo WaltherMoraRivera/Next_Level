@@ -39,7 +39,7 @@ const GUIDES_MANIFEST = [
     subject: 'ingles',
     title: 'Unidad 2: Countries, Cultures and Customs',
     genre: null,
-    file: 'ingles/unidad2-countries-cultures.html',
+    file: 'ingles/unidad2-countries-cultures/index.html',
     minutes: 45
   }
 ];
