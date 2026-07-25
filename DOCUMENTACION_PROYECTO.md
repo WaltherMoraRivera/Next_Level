@@ -4,7 +4,7 @@
 
 **Repositorio:** https://github.com/WaltherMoraRivera/Next_Level
 **Hosting:** GitHub Pages (rama `main`, carpeta raíz `/`)
-**Última actualización de este documento:** reestructuración según `PROPUESTA_REDISENO.md` — motor común (`shared/`), nuevo flujo de 8 momentos, landing data-driven, gamificación ligera, Inglés migrado al motor común.
+**Última actualización de este documento:** implementación del Design System (roles de color, escala neutra fija, acentos por materia) + corrección de bug de botones de revelado.
 
 > Ver también [`PROPUESTA_REDISENO.md`](PROPUESTA_REDISENO.md): auditoría, justificación pedagógica y roadmap que originó esta arquitectura.
 
@@ -38,47 +38,46 @@ No existe build system (no hay `npm`, `package.json`, bundlers ni preprocesadore
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>...</title>
-<link rel="stylesheet" href="../../shared/engine.css">
+<link rel="stylesheet" href="../../shared/engine.css?v=2">
 <div id="app"></div>
-<script src="../../shared/engine.js"></script>
+<script src="../../shared/engine.js?v=2"></script>
 <script src="./data.js"></script>
 <script>Engine.init(GUIDE_DATA);</script>
 ```
 
-Todo lo específico de la guía vive en `data.js` como un objeto `GUIDE_DATA` (ver §3.2).
+Todo lo específico de la guía vive en `data.js` como un objeto `GUIDE_DATA` (ver §3.2). El `?v=2` en `engine.css`/`engine.js` es un cache-buster manual: como no hay build system, los navegadores pueden cachear agresivamente estos archivos por ruta; al cambiar el motor de forma visible, se sube el número de versión en las 4 guías para forzar la recarga.
 
 ---
 
 ## 2. Landing principal (`index.html`)
 
 ### 2.1 Filosofía de diseño
-Tema oscuro fijo (no depende de `prefers-color-scheme`), inspirado en aplicaciones como Notion/Discord/GitHub. No tiene modo claro.
+Tema oscuro fijo (no depende de `prefers-color-scheme`), inspirado en aplicaciones como Notion/Discord/GitHub. No tiene modo claro. Comparte exactamente la misma escala neutra y paleta por materia que las guías (ver §3.6) — landing y guías son, visualmente, la misma plataforma.
 
-### 2.2 Tokens de color (variables CSS en `:root`)
+### 2.2 Tokens de color (variables CSS en `:root`, alineados con `shared/engine.css`)
 
-**Superficies (fijas, tema oscuro único):**
+**Superficies neutras:**
 | Variable | Valor | Uso |
 |---|---|---|
-| `--bg` | `#0D0E14` | Fondo general de la página |
-| `--bg-soft` | `#12131C` | Fondo de elementos internos (guide-link, empty-cat) |
-| `--surface` | `#171923` | Fondo de tarjetas |
-| `--surface-hover` | `#1C1F2B` | Fondo de tarjeta en hover |
-| `--ink` | `#F1F2F6` | Texto principal |
-| `--ink-mid` | `#A6ABBD` | Texto secundario |
-| `--ink-muted` | `#6E7284` | Texto terciario / metadatos |
-| `--border` / `--border-soft` | `#262A38` / `#1E212C` | Bordes |
-| `--focus-ring` | `#8B93FF` | Anillo de foco (accesibilidad teclado) |
+| `--bg` | `#0E1013` | Fondo general de la página |
+| `--bg-soft` / `--surface` | `#16181D` | Fondo de tarjetas y elementos internos |
+| `--surface-hover` | `#22252D` | Hover de tarjeta/enlace |
+| `--ink` | `#EDEEF1` | Texto principal |
+| `--ink-mid` | `#AEB2BC` | Texto secundario |
+| `--ink-muted` | `#787E8A` | Texto terciario / metadatos |
+| `--border` / `--border-soft` | `#2A2E37` | Bordes |
+| `--focus-ring` | `#3AA3E0` | Anillo de foco (mismo azul "info" del sistema de roles, ver §3.6) |
 
 **Paleta por materia** (variables reutilizables en toda la interfaz, y espejadas en `shared/engine.css` vía `[data-subject="..."]` para que cada guía adopte el color de su materia):
 | Variable | Valor | Materia |
 |---|---|---|
-| `--subject-language` | `#EF4444` | Lenguaje (rojo moderno) |
-| `--subject-english` | `#FB7185` / `#E11D48` | Inglés (coral suave) |
-| `--subject-history` | `#FBBF24` | Historia (dorado/ámbar) |
-| `--subject-science` | `#34D399` | Ciencias (verde menta) |
-| `--subject-math` | `#60A5FA` | Matemáticas (azul cielo) |
+| `--subject-language` | `#DC2626` | Lenguaje (rojo) |
+| `--subject-english` | `#EC4899` | Inglés (rosa) |
+| `--subject-history` | `#F59E0B` | Historia (ámbar) |
+| `--subject-science` | `#10B981` | Ciencias (verde) |
+| `--subject-math` | `#3B82F6` | Matemáticas (azul) |
 
-Cada tarjeta de materia setea `--cat-color` inline y el CSS deriva tintes con `color-mix()` para: borde superior, icono, badge, hover del enlace y flecha.
+Cada tarjeta de materia setea `--cat-color` inline y el CSS deriva tintes con `color-mix()` para: borde superior, icono, badge, hover del enlace y flecha. **Estos valores son intencionalmente idénticos a los `--accent` de `shared/engine.css`** (ver §3.6) — antes del Design System, landing y guías usaban tonos de materia ligeramente distintos entre sí (ej. Lenguaje `#EF4444` en landing vs `#DC2626` en las guías); ahora es un solo valor por materia en toda la plataforma.
 
 ### 2.3 Iconografía
 Iconos SVG inline estilo **Lucide** (stroke `2px`, `round`, viewBox `24×24`). Iconos actuales: `BookOpen` (Lenguaje), `Languages` (Inglés), `Landmark` (Historia), `FlaskConical` (Ciencias), `Calculator` (Matemáticas).
@@ -154,6 +153,29 @@ value: { completado, total, max, pct, skills:{tag:pct,...}, fecha }
 ```
 `Engine.globalStats()` recorre todas las claves `progreso_*` de este navegador para calcular: guías completadas en total y mejor puntaje histórico — usado tanto en el informe de cada guía como en el landing (§2.6) para las insignias. **No hay backend**: todo el seguimiento vive en el navegador del estudiante; cambiar de dispositivo o borrar datos del sitio reinicia el progreso.
 
+### 3.6 Design System — roles de color (reemplaza la paleta "teñida" original)
+Antes de esta versión, cada guía redefinía `--bg`/`--surface`/`--border`/`--ink*` completos por materia (ej. Lenguaje usaba tonos rojizos hasta en el fondo de página), lo que producía exceso de color dominante y poca jerarquía visual. El sistema actual separa dos capas de tokens en `shared/engine.css`, que **nunca se mezclan**:
+
+**a) Neutros — fijos, iguales en las 5 materias:**
+`--n-bg`, `--n-surface`, `--n-surface-2`, `--n-surface-hover`, `--n-border`, `--n-border-strong`, `--n-text`, `--n-text-2`, `--n-text-3`. Definen fondo, tarjetas, paneles internos e inputs. Con tema oscuro/claro vía `prefers-color-scheme` + overrides `[data-theme]`, igual que antes.
+
+**b) Acento de materia — el único color que cambia con `[data-subject]`:**
+`--accent`, `--accent-hover`, `--accent-soft`, `--accent-border`, `--accent-text`. Se aplican **solo** a: header (`.g-header`), botón primario (`.btn-p`), barra de progreso (`.qz-bar`, `.skill-bar-fill`, `.ring-fill`), badges ganados (`.badge.earned`), tarjetas de vocabulario/D&D y enlaces/íconos activos. Nunca al fondo de página ni al texto general.
+
+**c) Semánticos — fijos, independientes de la materia:**
+| Rol | Variables | Uso |
+|---|---|---|
+| Éxito | `--success`, `--success-bg`, `--success-text` (verde) | Respuesta correcta, logro |
+| Error | `--error`, `--error-bg`, `--error-text` (rojo carmesí) | Respuesta incorrecta |
+| Advertencia | `--warning`, `--warning-bg`, `--warning-text` (ámbar) | Pistas, avisos, racha |
+| Info | `--info`, `--info-bg`, `--info-text` (celeste) | Callouts neutrales (ej. caja de ironía), foco de teclado |
+
+Nota de diseño: en Lenguaje el acento es rojo y el error semántico también es rojo (`--error: #E5484D` vs `--accent: #DC2626` de Lenguaje). Se distinguen por tono y, sobre todo, **nunca dependen solo del color** — todo estado correcto/incorrecto va siempre acompañado de ✅/❌ y texto explicativo, cumpliendo el criterio de accesibilidad de no transmitir información únicamente por color.
+
+**Escalas de soporte** (también en `shared/engine.css`): espaciado en base 4px (`--sp-1` a `--sp-8`: 4/8/12/16/24/32/48/64px), radios (`--r-sm 6px`, `--r-md 10px`, `--r-lg 14px`, `--r-full` píldora) y elevación de 2 niveles (`--shadow-sm` tarjeta en reposo, `--shadow-md` hover/modal — nunca más de 2 simultáneos en pantalla).
+
+Este sistema está documentado en detalle, con la auditoría de problemas visuales que lo motivó (jerarquía, contraste, fatiga visual en sesiones de 45 min), en el plan de rediseño aprobado — ver historial de la conversación del proyecto.
+
 ---
 
 ## 4. Encoding y metadatos
@@ -186,13 +208,16 @@ Con esto, **las cuatro guías existentes (3 de Lenguaje + 1 de Inglés) comparte
 | 2 | Sin persistencia | ✅ Resuelto — `localStorage` por guía + insignias globales. |
 | 3 | Adaptación dinámica simulada | ⚠️ Parcial — el reporte ahora calcula dominio real por habilidad (`skills`), pero la guía *siguiente* sigue sin ajustarse automáticamente; el `nextGuideHint` es texto, no una regla ejecutable. |
 | 4 | Inconsistencia de tema | ⚠️ Parcial — todas las guías (incluida Inglés) ya comparten claro/oscuro automático; el landing sigue siendo oscuro fijo por decisión de diseño. |
-| 5 | Nomenclatura de variables desalineada | ✅ Resuelto — el motor común usa `--accent*` genérico, sin nombres de color hardcodeados por materia. |
+| 5 | Nomenclatura de variables desalineada / exceso de color dominante | ✅ Resuelto — Design System con neutros fijos + acento de materia acotado a componentes específicos (ver §3.6). Los valores de materia son ahora idénticos entre landing y guías. |
 | 6 | Arquitectura de Inglés distinta | ✅ Resuelto — migrada al motor común (§5). |
 | 7 | Sin pruebas automatizadas | ❌ Sigue pendiente — todo el QA de esta reestructuración fue manual en navegador. |
 | 8 | Accesibilidad parcial | ❌ Sigue pendiente — sin verificación con lector de pantalla real ni `aria-live` en feedback dinámico. |
 | 9 | Sin analítica ni seguimiento real | ⚠️ Parcial — ahora hay persistencia local y perfil de dominio por habilidad, pero no hay forma de comparar progreso entre dispositivos (no hay backend). |
 | 10 | Carpeta `assets/` vacía | ❌ Sigue sin uso. |
 | 11 | Matemáticas/Ciencias/Historia sin contenido | 🆕 Los estándares están definidos (§6) pero no hay guías reales — pendiente de temario oficial. |
+| 12 | Sistema de colores "teñía" toda la interfaz | ✅ Resuelto — ver §3.6 (Design System, roles de color). |
+
+**Bug corregido en esta versión:** los botones "Ver reflexión", "Ver respuesta modelo" y "Ver ejemplo" no revelaban su contenido. Causa: el botón vive dentro de su propio `.btn-row`, por lo que `this.nextElementSibling` (con `this` = botón) apuntaba a `null` en vez del bloque a revelar, que es hermano de `.btn-row`, no del botón. Corregido a `this.parentElement.nextElementSibling` en `shared/engine.js` — al estar en el motor común, el fix aplica a las 4 guías a la vez. Lección para futuros bloques: si un botón de "revelar" se envuelve en un contenedor (`.btn-row`, etc.), el selector de JS debe subir un nivel antes de buscar el hermano siguiente.
 
 ---
 
@@ -200,6 +225,9 @@ Con esto, **las cuatro guías existentes (3 de Lenguaje + 1 de Inglés) comparte
 - Motor común (`shared/`) para toda guía nueva — nunca volver a duplicar CSS/JS de guía en guía.
 - Cada guía = carpeta con `index.html` (loader) + `data.js` (contenido), registrada en `shared/guides-manifest.js`.
 - Paleta de color por materia vía `[data-subject]` en `engine.css`, nunca hardcodeada en un bloque de datos.
+- Los neutros (`--n-*`) nunca cambian por materia; el acento (`--accent*`) solo se aplica a header, botón primario, progreso, badges e íconos activos (ver §3.6). Nunca teñir fondo de página ni texto general con el color de una materia.
+- Los estados correcto/incorrecto/aviso/info usan siempre los mismos colores semánticos (`--success`/`--error`/`--warning`/`--info`), sin importar la materia.
+- Al modificar `shared/engine.css` o `engine.js` de forma visible, subir el número de versión en el query string (`?v=N`) de las 4 guías (ver §1) para evitar que el caché del navegador oculte el cambio.
 - Todo texto de feedback debe explicar *por qué*, citando la fuente — nunca un simple "✅/✘".
 - Las preguntas abiertas siempre incluyen una respuesta modelo revelable, nunca corrección automática rígida.
 - El vocabulario/glosario de una guía se refuerza **inmediatamente después** de la enseñanza (bloque `teach`), nunca al final.
