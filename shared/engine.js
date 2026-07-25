@@ -178,15 +178,17 @@ const Engine = (function(){
           ${b.html}
         </div>
         <div class="btn-row">
-          <button class="btn btn-p" onclick="Engine._teachStage('vocab')">${b.vocab&&b.vocab.length?'Reforzar vocabulario →':'Continuar →'}</button>
+          ${b.vocab && b.vocab.length
+            ? `<button class="btn btn-p" onclick="Engine._teachStage('vocab')">Reforzar vocabulario →</button>`
+            : `<button class="btn btn-p" onclick="Engine.next()">Continuar →</button>`}
         </div>
       </div>`;
     }
 
-    // stage === 'vocab'
+    // stage === 'vocab' (solo se llega aquí si b.vocab tiene contenido)
     const vi = st.vocI||0;
     const vocab = b.vocab||[];
-    if(vocab.length===0){ Engine._teachStage('done'); return rTeach(b); }
+    if(vocab.length===0){ Engine.next(); return ''; }
     const v = vocab[vi];
     const vocA = st.vocA||(st.vocA=[]);
     const done = vocA[vi]!==undefined;
