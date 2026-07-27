@@ -4,7 +4,7 @@
 
 **Repositorio:** https://github.com/WaltherMoraRivera/Next_Level
 **Hosting:** GitHub Pages (rama `main`, carpeta raíz `/`)
-**Última actualización de este documento:** llegada de los Programas de Estudio oficiales MINEDUC (8° básico, Bases Curriculares 2013/2015 vigentes) para Lenguaje, Inglés, Historia, Ciencias y Matemáticas — carpeta `Programas_de_estudio/octavo_basico/` — y campo `track` en el manifest para distinguir guías de refuerzo de guías alineadas a unidad oficial.
+**Última actualización de este documento:** bloques `source-analysis`/`source-compare` (análisis de fuentes históricas) agregados al motor común, y plan de cobertura de 7 guías para Historia 2° semestre (ver §6.3).
 
 > Ver también [`PROPUESTA_REDISENO.md`](PROPUESTA_REDISENO.md): auditoría, justificación pedagógica y roadmap que originó esta arquitectura.
 
@@ -130,6 +130,8 @@ El flujo ya no es una secuencia fija de nombres de fase, sino tipos de bloque qu
 | `match-pairs` | 🆕 Emparejar (causa-efecto, término-definición): clic en un ítem izquierdo y su pareja derecha; par incorrecto destella en rojo y se libera, contabiliza como error. |
 | `error-spot` | 🆕 Detectar el error: se listan líneas/afirmaciones, una es falsa; el estudiante hace clic en la que cree incorrecta. |
 | `flip-cards` | 🆕 Tarjetas de volteo (`.flip-outer`/`.flip-inner`, transform 3D) para vocabulario o repaso rápido — **sin puntaje**, es una actividad de exposición libre. |
+| `source-analysis` | 🆕🏛️ Análisis de una fuente histórica: tarjeta `.source-card` (tipo, autor, año, cita) seguida de preguntas de opción múltiple sin pistas y una pregunta abierta con respuesta modelo. Flujo interno de 3 etapas (`source` → `mc` → `open`) dentro de un solo bloque. |
+| `source-compare` | 🆕🏛️ Igual que `source-analysis` pero con **dos fuentes lado a lado** (`.source-grid`), pensado para comparar perspectivas o documentos (ej. dos declaraciones de derechos). Mismo flujo interno y mismo `skillTag: 'analisis-fuentes'`. |
 | `challenge` | Desafío de pensamiento/creación: escritura abierta + ejemplo modelo, sin autoevaluación forzosa. |
 | `reflect` | Auto-reflexión de cierre (1–2 preguntas libres) antes del informe — metacognición barata de implementar, alto valor pedagógico. |
 | `report` | Informe final (ver §3.4). |
@@ -141,6 +143,7 @@ El puntaje ya no es un total plano: se agrega **por `skillTag`** (ej. `literal`,
 - `open`: 2 / 1 / 0 pts según autoevaluación del estudiante.
 - `dnd-sequence` / `dnd-classify` / `match-pairs`: 4 pts si queda perfecto, 2 pts si supera un umbral parcial, 0 si no.
 - `error-spot`: 4 pts si acierta la línea errónea al primer intento, 0 si no.
+- `source-analysis` / `source-compare`: 2 pts por pregunta de opción múltiple correcta + 2/1/0 pts por la pregunta abierta según autoevaluación (mismo criterio que `open`).
 - `flip-cards`: no puntúa (actividad de repaso, no de evaluación).
 
 El informe final (`report`) muestra: anillo de progreso animado (SVG), **barras de dominio por habilidad** (una por `skillTag`, no solo un % global), nivel estimado (`Avanzado/Intermedio alto/Intermedio/En desarrollo`), fortalezas (`≥70%`) y áreas a trabajar (`<70%`), recomendación para la siguiente guía (`nextGuideHint`), y la fila de insignias de gamificación (ver §3.5).
@@ -196,7 +199,7 @@ Con esto, **las cuatro guías existentes (3 de Lenguaje + 1 de Inglés) comparte
 ---
 
 ## 6. Estándares por asignatura (definidos, contenido ahora disponible)
-`PROPUESTA_REDISENO.md` (Parte 5) define mecánicas específicas para Matemáticas (resolución paso a paso, escalera de pistas, error frecuente, ejercicios progresivos), Ciencias (observación → hipótesis → contraste) e Historia (contexto previo, análisis de fuente, `match-pairs` para causa-efecto). El motor ya soporta genéricamente `match-pairs` y `error-spot` (§3.3); faltan **StepSolver** y **HintLadder** como componentes dedicados de Matemáticas.
+`PROPUESTA_REDISENO.md` (Parte 5) define mecánicas específicas para Matemáticas (resolución paso a paso, escalera de pistas, error frecuente, ejercicios progresivos), Ciencias (observación → hipótesis → contraste) e Historia (contexto previo, análisis de fuente, `match-pairs` para causa-efecto). El motor ya soporta `match-pairs`, `error-spot` y, desde esta versión, **`source-analysis`/`source-compare`** (análisis de fuentes históricas, ver §3.3) — ya pulida como componente de primera clase, no como combinación improvisada de bloques genéricos. Sigue faltando **StepSolver** y **HintLadder** como componentes dedicados de Matemáticas.
 
 ### 6.1 Programas de Estudio oficiales (`Programas_de_estudio/octavo_basico/`)
 Se incorporaron los 5 Programas de Estudio MINEDUC de 8° básico (Bases Curriculares 2013/2015, confirmadas vigentes por el usuario): `Lenguaje.pdf`, `Ingles.pdf`, `Historia.pdf`, `Ciencias.pdf`, `Matematicas.pdf`. Los cinco comparten estructura editorial (Propósito → Conocimientos previos → Palabras clave → Objetivos de Aprendizaje con Indicadores de Evaluación → Ejemplos de Actividades ya resueltos), lo que permite mapear directamente: Indicadores de Evaluación → `skillTag`, Ejemplos de Actividades → preguntas de `quiz`/`guided-practice`/`error-spot`, Palabras clave → `vocab`/`flip-cards`.
@@ -219,6 +222,21 @@ Las 3 guías de Lenguaje ya construidas (`guia1-mapa-relojero`, `guia2-pulpo-int
 Esto se registra en `shared/guides-manifest.js` con el campo `track`:
 - `track: 'refuerzo'` — no atada a una unidad oficial (las 3 guías de Lenguaje).
 - `track: 'unidad'` + `unit: 'Unidad N · semestre'` — alineada a una unidad oficial del programa (la guía de Inglés, y todo lo que se construya de aquí en adelante).
+
+### 6.3 Plan de cobertura — Historia, 2° semestre (7 guías aprobadas)
+La Unidad 3 (Ilustración, revolución e independencia — OA 14, 15, 16, 18, 19) y la Unidad 4 (Sociedad y territorio — OA 20, 21, 22) se cubren con 7 guías de 45 min:
+
+| # | Guía | OA | Tipo de bloque distintivo |
+|---|---|---|---|
+| 1 | La Ilustración: la razón contra el Antiguo Régimen | OA14 | `teach` + `flip-cards` (vocabulario denso) |
+| 2 | De las ideas a la acción: revoluciones de EE.UU. y Francia | OA15 | `dnd-sequence` (línea de tiempo) |
+| 3 | La Declaración de los Derechos del Hombre y su vigencia hoy | OA18 | `source-compare` (Declaración 1789 vs. de Gouges vs. DDHH actual) |
+| 4 | La independencia de América: un proceso continental | OA16 (América) | `dnd-sequence` + `match-pairs` (causa↔consecuencia) |
+| 5 | La independencia de Chile y el nuevo orden republicano | OA16 (Chile) + OA19 | `source-analysis` + `open` evaluativo (cambio/continuidad) |
+| 6 | ¿Qué es una región? Criterios y tipos en Chile y América | OA20 | `dnd-classify` (tipos de región) |
+| 7 | Conexión, aislamiento y desarrollo: los desafíos de las regiones | OA21 + OA22 | `error-spot` / `open` crítico (evaluar políticas regionales) |
+
+Este plan asume ~4 guías equivalentes para Ciencias y ~4 para Matemáticas por el segundo semestre (unidades más cortas en esos programas), aunque eso se confirmará al revisar esas unidades en detalle al construir su contenido.
 
 El landing muestra este campo como etiqueta junto a cada guía (`Refuerzo` / `Unidad N · 2° semestre`) para que también sea visible para el estudiante, no solo información interna.
 

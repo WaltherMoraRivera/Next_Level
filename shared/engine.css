@@ -397,6 +397,29 @@ body{
 .errorspot-text .es-line.marked{background:var(--error-bg);border:1px solid var(--error);}
 .errorspot-text .es-line.correct-mark{background:var(--success-bg);border:1px solid var(--success);}
 
+/* ── Fuente histórica (source-analysis / source-compare) ── */
+.source-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-4);margin-bottom:var(--sp-4);}
+.source-card{
+  background:var(--n-surface-2); border:1px solid var(--n-border); border-left:3px solid var(--accent);
+  border-radius:var(--r-lg); padding:var(--sp-5) var(--sp-6);
+}
+.source-meta{display:flex;flex-wrap:wrap;align-items:center;gap:var(--sp-2);margin-bottom:var(--sp-3);}
+.source-type{
+  font-size:10.5px;font-weight:800;letter-spacing:1px;text-transform:uppercase;
+  color:var(--accent-text);background:var(--accent-soft);border-radius:var(--r-full);
+  padding:3px var(--sp-3);
+}
+.source-attr{font-size:12.5px;color:var(--n-text-3);}
+.source-quote{
+  font-family:var(--font-display); font-size:16.5px; font-style:italic; line-height:1.8;
+  color:var(--n-text); position:relative; padding-left:var(--sp-5);
+}
+.source-quote::before{content:'\201C'; position:absolute; left:0; top:-6px; font-size:34px; color:var(--accent); font-family:var(--font-display); font-style:normal; line-height:1;}
+.source-label{font-size:12.5px;font-weight:700;color:var(--n-text-2);margin-bottom:var(--sp-2);}
+
+.source-qhead{display:flex;align-items:center;gap:var(--sp-3);margin:var(--sp-5) 0 var(--sp-4);}
+.source-qcounter{font-size:12px;font-weight:700;color:var(--n-text-3);white-space:nowrap;}
+
 /* ── Reflect ── */
 .reflect-box{background:var(--info-bg);border-radius:var(--r-lg);padding:var(--sp-5) var(--sp-6);}
 .reflect-box .rq{font-size:14.5px;font-weight:700;color:var(--info-text);margin-bottom:var(--sp-2);}
@@ -466,4 +489,6 @@ body{
   .vword{font-size:19px;}
   .class-cols{grid-template-columns:1fr;}
   .match-grid{grid-template-columns:1fr;}
+  .source-grid{grid-template-columns:1fr;}
+  .source-card{padding:var(--sp-4);}
 }

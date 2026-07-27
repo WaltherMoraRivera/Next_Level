@@ -11,7 +11,8 @@
      id, subject, subjectLabel, subjectIcon, title, examRef,
      blocks: [ {type:'hook'|'goal'|'teach'|'guided-practice'|'quiz'|
                      'open'|'dnd-sequence'|'dnd-classify'|'match-pairs'|
-                     'error-spot'|'flip-cards'|'challenge'|
+                     'error-spot'|'flip-cards'|'source-analysis'|
+                     'source-compare'|'challenge'|
                      'reflect'|'report', ...} ]
    }
    ══════════════════════════════════════════════════════════ */
@@ -102,6 +103,7 @@ const Engine = (function(){
       open:'💬 Pensamiento crítico', 'dnd-sequence':'🗂️ Organización',
       'dnd-classify':'🗂️ Organización', 'match-pairs':'🔗 Emparejar',
       'error-spot':'🔎 Detectar error', 'flip-cards':'🔁 Repaso',
+      'source-analysis':'📜 Fuentes', 'source-compare':'📜 Comparar fuentes',
       challenge:'✨ Desafío', reflect:'🪞 Reflexión', report:'📊 Informe'
     })[type] || type;
   }
@@ -615,6 +617,110 @@ const Engine = (function(){
   }
 
   // ══════════════════════════════════════════════════════════
+  // ANÁLISIS DE FUENTES — source-analysis (1 fuente) y
+  // source-compare (2 fuentes). Comparten el mismo flujo interno:
+  // stage 'source' → 'mc' (preguntas de opción múltiple, sin pistas)
+  // → 'open' (pregunta abierta + respuesta modelo + autoevaluación).
+  // ══════════════════════════════════════════════════════════
+
+  function sourceCardHTML(s){
+    return `
+    <div class="source-card">
+      <div class="source-meta">
+        <span class="source-type">${s.type||'Fuente histórica'}</span>
+        <span class="source-attr">${[s.author,s.year].filter(Boolean).join(' · ')}</span>
+      </div>
+      ${s.label?`<div class="source-label">${s.label}</div>`:''}
+      <div class="source-quote">${s.citation}</div>
+    </div>`;
+  }
+
+  function rSourceMC(b, st){
+    const qi = st.qi||0;
+    const ans = st.ans||(st.ans=[]);
+    const q = b.questions[qi];
+    const done = ans[qi]!==undefined;
+    const isOk = done && ans[qi]===q.c;
+    return `
+      <div class="source-qhead">
+        <span class="source-qcounter">Pregunta ${qi+1} de ${b.questions.length}</span>
+        <div class="qz-bar-wrap"><div class="qz-bar" style="width:${Math.round(qi/b.questions.length*100)}%"></div></div>
+      </div>
+      <p class="qz-q">${q.q}</p>
+      <div class="qz-opts">
+        ${q.opts.map((o,i)=>{
+          let cls='';
+          if(done){ if(i===q.c) cls='ok'; else if(i===ans[qi]) cls='no'; }
+          return `<button class="qz-opt ${cls}" ${done?'disabled':''} onclick="Engine._srcAnswer(${i})">${o}</button>`;
+        }).join('')}
+      </div>
+      <div class="qz-fb ${done?'on':''} ${isOk?'ok-fb':'no-fb'}">${done?(isOk?q.fb_ok:q.fb_no):''}</div>
+      <div class="btn-row">
+        ${done?(qi<b.questions.length-1
+          ? `<button class="btn btn-p" onclick="Engine._srcNextQ()">Siguiente pregunta →</button>`
+          : `<button class="btn btn-p" onclick="Engine._srcStage('open')">Continuar →</button>`):''}
+      </div>`;
+  }
+
+  function rSourceOpen(b, st){
+    const oq = b.openQuestion;
+    return `
+      <p class="oq">${oq.question}</p>
+      <textarea class="otxt" placeholder="${oq.placeholder||'Escribe tu respuesta aquí...'}"></textarea>
+      <div class="btn-row"><button class="btn btn-s" onclick="this.parentElement.nextElementSibling.classList.add('on')">👁️ Ver respuesta modelo</button></div>
+      <div class="omodel">
+        <div class="omodel-box"><strong>📝 RESPUESTA MODELO</strong>${oq.modelAnswer}</div>
+        <div class="seval">
+          <span class="seval-l">¿Qué tan completa fue tu respuesta?</span>
+          <button class="sbtn yes ${st.self==='yes'?'sel':''}" onclick="Engine._srcSetSelf('yes')">✅ Muy completa</button>
+          <button class="sbtn part ${st.self==='part'?'sel':''}" onclick="Engine._srcSetSelf('part')">⚡ Parcial</button>
+          <button class="sbtn no2 ${st.self==='no'?'sel':''}" onclick="Engine._srcSetSelf('no')">❌ Me faltó argumentar</button>
+        </div>
+      </div>
+      <div class="btn-row" style="margin-top:18px;">
+        <button class="btn btn-p" onclick="Engine.next()" ${st.self===undefined?'disabled':''}>Continuar →</button>
+      </div>`;
+  }
+
+  function rSourceAnalysis(b){
+    const st = blockState[blockIndex];
+    const stage = st.stage||'source';
+    return `
+    <div class="card">
+      <div class="s-label">📜 ${b.label||'Análisis de fuentes'} · ${b.minutes||8} min</div>
+      <div class="s-title">${b.title}</div>
+      ${b.instructions?`<p class="s-hint" style="margin-bottom:14px;">${b.instructions}</p>`:''}
+      ${sourceCardHTML(b.source)}
+      ${stage==='source'?`<div class="btn-row"><button class="btn btn-p" onclick="Engine._srcStage('mc')">Continuar a las preguntas →</button></div>`:''}
+      ${stage==='mc'?rSourceMC(b, st):''}
+      ${stage==='open'?rSourceOpen(b, st):''}
+    </div>`;
+  }
+
+  function rSourceCompare(b){
+    const st = blockState[blockIndex];
+    const stage = st.stage||'source';
+    return `
+    <div class="card">
+      <div class="s-label">📜 ${b.label||'Comparar fuentes'} · ${b.minutes||8} min</div>
+      <div class="s-title">${b.title}</div>
+      ${b.instructions?`<p class="s-hint" style="margin-bottom:14px;">${b.instructions}</p>`:''}
+      <div class="source-grid">
+        ${sourceCardHTML(b.sourceA)}
+        ${sourceCardHTML(b.sourceB)}
+      </div>
+      ${stage==='source'?`<div class="btn-row"><button class="btn btn-p" onclick="Engine._srcStage('mc')">Continuar a las preguntas →</button></div>`:''}
+      ${stage==='mc'?rSourceMC(b, st):''}
+      ${stage==='open'?rSourceOpen(b, st):''}
+    </div>`;
+  }
+
+  function _srcStage(stage){ blockState[blockIndex].stage=stage; render(); }
+  function _srcAnswer(i){ const st=blockState[blockIndex]; st.ans[st.qi||0]=i; render(); }
+  function _srcNextQ(){ const st=blockState[blockIndex]; st.qi=(st.qi||0)+1; render(); }
+  function _srcSetSelf(v){ blockState[blockIndex].self=v; render(); }
+
+  // ══════════════════════════════════════════════════════════
   // FLIP CARDS — vocabulario/repaso sin puntaje (exposición libre)
   // ══════════════════════════════════════════════════════════
 
@@ -726,6 +832,13 @@ const Engine = (function(){
         const pts = st.picked===b.errorIndex?4:0;
         add(b.skillTag||'critica', pts, 4);
       }
+      if(b.type==='source-analysis' || b.type==='source-compare'){
+        const ans = st.ans||[];
+        const correct = ans.filter((a,j)=>a===b.questions[j].c).length;
+        const mcPts = correct*2, mcMax = b.questions.length*2;
+        const openPts = st.self==='yes'?2:st.self==='part'?1:0;
+        add(b.skillTag||'analisis-fuentes', mcPts+openPts, mcMax+2);
+      }
       // 'flip-cards' es una actividad de exposición/repaso, sin puntaje.
     });
 
@@ -742,7 +855,8 @@ const Engine = (function(){
   const SKILL_LABELS = {
     literal:'Comprensión literal', inferencial:'Comprensión inferencial',
     vocabulario:'Vocabulario', organizacion:'Organización de la información',
-    argumentacion:'Argumentación con evidencia', critica:'Pensamiento crítico'
+    argumentacion:'Argumentación con evidencia', critica:'Pensamiento crítico',
+    'analisis-fuentes':'Análisis de fuentes', gramatica:'Gramática'
   };
 
   function rReport(){
@@ -830,6 +944,7 @@ const Engine = (function(){
     'guided-practice':(b)=>rQuizLike(b,true), quiz:(b)=>rQuizLike(b,false),
     open:rOpen, 'dnd-sequence':rDndSequence, 'dnd-classify':rDndClassify,
     'match-pairs':rMatchPairs, 'error-spot':rErrorSpot, 'flip-cards':rFlipCards,
+    'source-analysis':rSourceAnalysis, 'source-compare':rSourceCompare,
     challenge:rChallenge, reflect:rReflect, report:rReport
   };
 
@@ -842,6 +957,7 @@ const Engine = (function(){
     _dStart, _dEnd, _dOver, _dLeave, _dDrop, _itemClick, _slotClick, _rmSlot, _checkDnd,
     _cOver, _cLeave, _cDrop, _colClick, _rmItem, _checkClassify,
     _matchLeft, _matchRight, _errorPick, _flipCard,
+    _srcStage, _srcAnswer, _srcNextQ, _srcSetSelf,
     _reflectDone, _restart
   };
 })();
