@@ -24,15 +24,69 @@ const Engine = (function(){
   let blockState = []; // estado mutable por bloque (respuestas, etc.)
   let hostEl = null;
 
+  // ── Cronómetro por sección (informativo para padres) ────────
+  // Mide cuánto tiempo real pasa el estudiante en cada bloque,
+  // pausando el conteo si la pestaña pierde el foco, para que el
+  // dato refleje dedicación real y no tiempo con la pestaña abierta
+  // de fondo. Ver PROPUESTA_REDISENO.md / DOCUMENTACION_PROYECTO.md.
+  let blockElapsed = [];      // ms acumulados por índice de bloque
+  let timeTrackIndex = -1;    // bloque actualmente cronometrado
+  let timeTrackStart = null;  // timestamp de inicio del tramo activo
+  let visibilityBound = false;
+
+  function trackEnter(i){
+    const now = Date.now();
+    if(timeTrackIndex !== i){
+      if(timeTrackIndex !== -1 && timeTrackStart !== null){
+        blockElapsed[timeTrackIndex] += (now - timeTrackStart);
+      }
+      timeTrackIndex = i;
+      timeTrackStart = (typeof document!=='undefined' && document.hidden) ? null : now;
+    }
+  }
+  function onVisibilityChange(){
+    const now = Date.now();
+    if(document.hidden){
+      if(timeTrackStart !== null && timeTrackIndex !== -1){
+        blockElapsed[timeTrackIndex] += (now - timeTrackStart);
+        timeTrackStart = null;
+      }
+    } else if(timeTrackIndex !== -1){
+      timeTrackStart = now;
+    }
+  }
+  function resetTimeTracking(){
+    blockElapsed = DATA.blocks.map(()=>0);
+    timeTrackIndex = -1;
+    timeTrackStart = null;
+  }
+  function fmtTime(sec){
+    sec = Math.max(0, Math.round(sec));
+    const m = Math.floor(sec/60), s = sec%60;
+    return `${m}:${String(s).padStart(2,'0')}`;
+  }
+  function getTimeSummary(){
+    const rows = DATA.blocks.map((b,i)=>({
+      label: b.title || phaseLabel(b.type),
+      expectedSec: (b.minutes||0)*60,
+      realSec: Math.round((blockElapsed[i]||0)/1000)
+    })).filter((r,i)=>DATA.blocks[i].type!=='report');
+    const totalReal = rows.reduce((s,r)=>s+r.realSec,0);
+    const totalExpected = rows.reduce((s,r)=>s+r.expectedSec,0);
+    return {rows, totalReal, totalExpected};
+  }
+
   // ── Persistencia ──────────────────────────────────────────
   function storageKey(id){ return `progreso_${id}`; }
 
   function saveProgress(report){
     try{
+      const time = getTimeSummary();
       localStorage.setItem(storageKey(DATA.id), JSON.stringify({
         completado:true,
         total:report.total, max:report.max, pct:report.pct,
         skills:report.skills,
+        time:{totalReal:time.totalReal, totalExpected:time.totalExpected},
         fecha:new Date().toISOString()
       }));
     }catch(e){ /* localStorage no disponible: se ignora silenciosamente */ }
@@ -71,6 +125,11 @@ const Engine = (function(){
     blockState = data.blocks.map(()=>({}));
     hostEl = document.getElementById('app');
     document.documentElement.setAttribute('data-subject', data.subject);
+    resetTimeTracking();
+    if(!visibilityBound){
+      document.addEventListener('visibilitychange', onVisibilityChange);
+      visibilityBound = true;
+    }
     render();
   }
 
@@ -110,6 +169,7 @@ const Engine = (function(){
 
   // ── Render principal ──────────────────────────────────────
   function render(){
+    trackEnter(blockIndex);
     const b = DATA.blocks[blockIndex];
     const fn = RENDERERS[b.type];
     hostEl.innerHTML = renderHeader() + (fn ? fn(b, blockIndex) : `<div class="card">Bloque desconocido: ${b.type}</div>`);
@@ -863,6 +923,7 @@ const Engine = (function(){
     const rep = computeReport();
     saveProgress(rep);
     const gStats = globalStats();
+    const timeSummary = getTimeSummary();
     const C = 2*Math.PI*45;
     const off = C-(rep.pct/100)*C;
 
@@ -907,6 +968,22 @@ const Engine = (function(){
       <div class="s-label" style="margin-top:22px;">Dominio por habilidad</div>
       <div class="skill-list">${skillRows}</div>
 
+      <div class="s-label" style="margin-top:22px;">⏱️ Tiempo de dedicación</div>
+      <div class="time-list">
+        ${timeSummary.rows.map(r=>{
+          const rushed = r.expectedSec>=120 && r.realSec < r.expectedSec*0.35;
+          return `<div class="time-row ${rushed?'rushed':''}">
+            <span class="time-label">${rushed?'⚡ ':''}${r.label}</span>
+            <span class="time-value"><strong>${fmtTime(r.realSec)}</strong> / ~${Math.round(r.expectedSec/60)} min</span>
+          </div>`;
+        }).join('')}
+      </div>
+      <div class="time-total">
+        <span>Tiempo total</span>
+        <span>${fmtTime(timeSummary.totalReal)} de ~${Math.round(timeSummary.totalExpected/60)} min estimados</span>
+      </div>
+      <p class="time-note">📋 Información para acompañar el estudio: si el tiempo real es mucho menor al estimado (marcado en ámbar), es probable que esa sección se haya avanzado sin leer con calma.</p>
+
       <div class="rep-grid">
         <div class="rcard rc-ok"><div class="rc-t">✅ Fortalezas</div><ul>${strengths.length?strengths.map(x=>`<li>${x}</li>`).join(''):'<li>Sigue practicando para desarrollarlas.</li>'}</ul></div>
         <div class="rcard rc-imp"><div class="rc-t">⚡ A seguir trabajando</div><ul>${improve.length?improve.map(x=>`<li>${x}</li>`).join(''):'<li>¡Excelente! No hay áreas críticas esta sesión.</li>'}</ul></div>
@@ -936,6 +1013,7 @@ const Engine = (function(){
   function _restart(){
     blockIndex=0;
     blockState = DATA.blocks.map(()=>({}));
+    resetTimeTracking();
     render();
   }
 

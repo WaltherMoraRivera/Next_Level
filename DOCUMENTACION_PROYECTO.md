@@ -4,7 +4,7 @@
 
 **Repositorio:** https://github.com/WaltherMoraRivera/Next_Level
 **Hosting:** GitHub Pages (rama `main`, carpeta raíz `/`)
-**Última actualización de este documento:** bloques `source-analysis`/`source-compare` (análisis de fuentes históricas) agregados al motor común, y plan de cobertura de 7 guías para Historia 2° semestre (ver §6.3).
+**Última actualización de este documento:** Guía 1 de Historia construida (OA14); corrección de sesgo en la posición de la alternativa correcta en las 5 guías existentes; cronómetro por sección en el informe final, informativo para acompañar el estudio (ver §3.6 bis).
 
 > Ver también [`PROPUESTA_REDISENO.md`](PROPUESTA_REDISENO.md): auditoría, justificación pedagógica y roadmap que originó esta arquitectura.
 
@@ -27,6 +27,8 @@ guias-estudio/
 │   └── guia3-tesla-visionario/             # Biográfico / Histórico
 ├── ingles/
 │   └── unidad2-countries-cultures/         # Ya migrada al motor común (ver §5)
+├── historia/
+│   └── guia1-ilustracion-antiguo-regimen/  # Unidad 3, OA14 (1 de 7 guías del plan, ver §6.3)
 └── assets/                                 # Carpeta creada, actualmente vacía
 ```
 
@@ -45,7 +47,7 @@ No existe build system (no hay `npm`, `package.json`, bundlers ni preprocesadore
 <script>Engine.init(GUIDE_DATA);</script>
 ```
 
-Todo lo específico de la guía vive en `data.js` como un objeto `GUIDE_DATA` (ver §3.2). El `?v=2` en `engine.css`/`engine.js` es un cache-buster manual: como no hay build system, los navegadores pueden cachear agresivamente estos archivos por ruta; al cambiar el motor de forma visible, se sube el número de versión en las 4 guías para forzar la recarga.
+Todo lo específico de la guía vive en `data.js` como un objeto `GUIDE_DATA` (ver §3.2). El `?v=N` en `engine.css`/`engine.js` es un cache-buster manual: como no hay build system, los navegadores pueden cachear agresivamente estos archivos por ruta; al cambiar el motor de forma visible, se sube el número de versión en **todas** las guías existentes para forzar la recarga. `index.html` aplica el mismo cache-buster a `shared/guides-manifest.js?v=N` — si una guía nueva no aparece en el landing tras agregarla al manifest, subir ese número es la primera causa a revisar.
 
 ---
 
@@ -152,9 +154,11 @@ El informe final (`report`) muestra: anillo de progreso animado (SVG), **barras 
 Al llegar al bloque `report`, el motor guarda automáticamente:
 ```
 key:   progreso_<GUIDE_DATA.id>
-value: { completado, total, max, pct, skills:{tag:pct,...}, fecha }
+value: { completado, total, max, pct, skills:{tag:pct,...}, time:{totalReal,totalExpected}, fecha }
 ```
 `Engine.globalStats()` recorre todas las claves `progreso_*` de este navegador para calcular: guías completadas en total y mejor puntaje histórico — usado tanto en el informe de cada guía como en el landing (§2.6) para las insignias. **No hay backend**: todo el seguimiento vive en el navegador del estudiante; cambiar de dispositivo o borrar datos del sitio reinicia el progreso.
+
+**Cronómetro por sección (informativo para padres).** El motor mide, en milisegundos reales, cuánto tiempo pasa el estudiante en cada bloque (`trackEnter()` se llama al inicio de cada `render()`, acumulando el tiempo del bloque anterior cuando `blockIndex` cambia). El conteo **se pausa automáticamente** cuando la pestaña pierde el foco (`document.visibilitychange` / `document.hidden`), para que el dato no se infle si el estudiante deja la guía abierta de fondo — sin esto, el tiempo total no sería confiable. El informe final agrega una sección "⏱️ Tiempo de dedicación" que compara, bloque por bloque, el tiempo real contra el `minutes` estimado de cada uno, marcando en ámbar (⚡) cualquier bloque de ≥2 min esperados donde el tiempo real fue menor al 35% de lo esperado — la señal que permite a un padre notar si el estudiante "solo dio clic a Continuar" sin leer. El detalle completo (`time.totalReal` / `time.totalExpected`) también queda en `localStorage` junto al resto del progreso.
 
 ### 3.6 Design System — roles de color (reemplaza la paleta "teñida" original)
 Antes de esta versión, cada guía redefinía `--bg`/`--surface`/`--border`/`--ink*` completos por materia (ej. Lenguaje usaba tonos rojizos hasta en el fondo de página), lo que producía exceso de color dominante y poca jerarquía visual. El sistema actual separa dos capas de tokens en `shared/engine.css`, que **nunca se mezclan**:
@@ -228,7 +232,7 @@ La Unidad 3 (Ilustración, revolución e independencia — OA 14, 15, 16, 18, 19
 
 | # | Guía | OA | Tipo de bloque distintivo |
 |---|---|---|---|
-| 1 | La Ilustración: la razón contra el Antiguo Régimen | OA14 | `teach` + `flip-cards` (vocabulario denso) |
+| 1 ✅ | La Ilustración: la razón contra el Antiguo Régimen | OA14 | `teach` + `flip-cards` (vocabulario denso) — **construida** (`historia/guia1-ilustracion-antiguo-regimen/`) |
 | 2 | De las ideas a la acción: revoluciones de EE.UU. y Francia | OA15 | `dnd-sequence` (línea de tiempo) |
 | 3 | La Declaración de los Derechos del Hombre y su vigencia hoy | OA18 | `source-compare` (Declaración 1789 vs. de Gouges vs. DDHH actual) |
 | 4 | La independencia de América: un proceso continental | OA16 (América) | `dnd-sequence` + `match-pairs` (causa↔consecuencia) |
@@ -273,7 +277,8 @@ Ambos fixes viven en el motor común, por lo que aplican a las 4 guías existent
 - Paleta de color por materia vía `[data-subject]` en `engine.css`, nunca hardcodeada en un bloque de datos.
 - Los neutros (`--n-*`) nunca cambian por materia; el acento (`--accent*`) solo se aplica a header, botón primario, progreso, badges e íconos activos (ver §3.6). Nunca teñir fondo de página ni texto general con el color de una materia.
 - Los estados correcto/incorrecto/aviso/info usan siempre los mismos colores semánticos (`--success`/`--error`/`--warning`/`--info`), sin importar la materia.
-- Al modificar `shared/engine.css` o `engine.js` de forma visible, subir el número de versión en el query string (`?v=N`) de las 4 guías (ver §1) para evitar que el caché del navegador oculte el cambio.
+- Al modificar `shared/engine.css` o `engine.js` de forma visible, subir el número de versión en el query string (`?v=N`) de **todas** las guías existentes (ver §1) para evitar que el caché del navegador oculte el cambio.
+- **La alternativa correcta de cada pregunta de opción múltiple debe distribuirse de forma pareja entre A/B/C/D dentro de cada guía** (idealmente ~25% cada una, nunca una letra dominando). Antes de esta convención, guías completas llegaron a tener el 100% de sus respuestas correctas en la opción B — un patrón que un estudiante puede explotar sin leer el contenido. Al escribir una guía nueva, verificar la distribución con `grep -oE "c:[0-9]," data.js | sort | uniq -c` antes de darla por terminada.
 - Todo texto de feedback debe explicar *por qué*, citando la fuente — nunca un simple "✅/✘".
 - Las preguntas abiertas siempre incluyen una respuesta modelo revelable, nunca corrección automática rígida.
 - El vocabulario/glosario de una guía se refuerza **inmediatamente después** de la enseñanza (bloque `teach`), nunca al final.

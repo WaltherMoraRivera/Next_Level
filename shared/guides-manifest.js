@@ -55,5 +55,15 @@ const GUIDES_MANIFEST = [
     unit: 'Unidad 2 · 2° semestre',
     file: 'ingles/unidad2-countries-cultures/index.html',
     minutes: 45
+  },
+  {
+    id: 'historia-g1-ilustracion',
+    subject: 'historia',
+    title: 'La Ilustración: la razón contra el Antiguo Régimen',
+    genre: null,
+    track: 'unidad',
+    unit: 'Unidad 3 (1/4) · 2° semestre',
+    file: 'historia/guia1-ilustracion-antiguo-regimen/index.html',
+    minutes: 45
   }
 ];

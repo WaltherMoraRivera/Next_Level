@@ -140,15 +140,15 @@ const GUIDE_DATA = {
       title:'Repasemos lo básico (con pistas disponibles)',
       questions:[
         { q:'¿Qué significa "plenty of" en español?',
-          opts:['Poco / poca','Mucho/a(s) o bastante(s)','Ninguno/a','Más o menos'], c:1,
+          opts:['Mucho/a(s) o bastante(s)','Poco / poca','Ninguno/a','Más o menos'], c:0,
           hint:'Piensa en la definición dada al inicio: se usa para una cantidad grande y suficiente.',
           fb_ok:'✅ Correcto. "Plenty of" significa "mucho/a(s)" o "bastante(s)". Ejemplo: "There is plenty of water." → Hay bastante agua.',
-          fb_no:'❌ "Plenty of" significa "mucho/a(s)" o "bastante(s)", indica una cantidad grande y suficiente. La respuesta correcta era la B.' },
+          fb_no:'❌ "Plenty of" significa "mucho/a(s)" o "bastante(s)", indica una cantidad grande y suficiente. La respuesta correcta era la A.' },
         { q:'¿Cuál es el número ordinal correcto para el número 3?',
-          opts:['threeth','thirdth','third','three'], c:2,
+          opts:['threeth','third','thirdth','three'], c:1,
           hint:'Es uno de los tres ordinales irregulares: first, second, third.',
           fb_ok:'✅ Correcto. El ordinal de 3 es "third", uno de los tres irregulares (first, second, third). Del 4 en adelante casi siempre se agrega -th.',
-          fb_no:'❌ El ordinal de 3 es "third" — es irregular, no sigue la regla de agregar "-th". La respuesta correcta era la C.' }
+          fb_no:'❌ El ordinal de 3 es "third" — es irregular, no sigue la regla de agregar "-th". La respuesta correcta era la B.' }
       ]
     },
     {
@@ -162,13 +162,13 @@ const GUIDE_DATA = {
           fb_ok:'✅ Correcto. "Taller than" es la forma correcta: "tall" es un adjetivo corto (1 sílaba), usa el sufijo -er + "than".',
           fb_no:'❌ "Taller than" es la forma correcta. "Tall" es corto (1 sílaba) y usa -er + than. "More tall" es incorrecto para adjetivos cortos, y "tallest" es superlativo, no comparativo. La correcta era la C.' },
         { q:'¿Qué preposición de tiempo completa correctamente: "The concert is ___ Friday ___ 8:00 o\'clock."?',
-          opts:['in / in','on / at','at / on','in / at'], c:1,
+          opts:['in / in','at / on','in / at','on / at'], c:3,
           fb_ok:'✅ Correcto. Se usa ON para días (on Friday) y AT para horas exactas (at 8:00).',
-          fb_no:'❌ Se usa ON para días (on Friday) y AT para horas exactas (at 8:00). La respuesta correcta era la B.' },
+          fb_no:'❌ Se usa ON para días (on Friday) y AT para horas exactas (at 8:00). La respuesta correcta era la D.' },
         { q:'"Expensive" tiene 3 sílabas. ¿Cuál es su superlativo correcto y por qué?',
-          opts:['"expensivest" — todos los adjetivos llevan -est.','"most expensive" — se pone "most" sin importar nada más.','"the most expensive" — los adjetivos largos usan "the most" en lugar de -est.','"the expensivest" — el superlativo siempre lleva "the" + sufijo -est.'], c:2,
+          opts:['"the most expensive" — los adjetivos largos usan "the most" en lugar de -est.','"expensivest" — todos los adjetivos llevan -est.','"most expensive" — se pone "most" sin importar nada más.','"the expensivest" — el superlativo siempre lleva "the" + sufijo -est.'], c:0,
           fb_ok:'✅ Correcto. Los adjetivos de 3+ sílabas no usan -est: se coloca "the most" delante. Ej: "This is the most expensive restaurant in the city."',
-          fb_no:'❌ Los adjetivos de 3 o más sílabas no usan el sufijo -est; se usa "the most" delante. "Expensivest" no existe. La correcta era la C.' },
+          fb_no:'❌ Los adjetivos de 3 o más sílabas no usan el sufijo -est; se usa "the most" delante. "Expensivest" no existe. La correcta era la A.' },
         { q:'Elige la opción que une correctamente: "Llegamos a la estación → Tomamos el tren → Llegamos a casa."',
           opts:['We arrived at the station then we took the train then we arrived home.','We arrived at the station, and then we took the train, and then we arrived home.','We arrived at the station and we took the train then arrived home.','Then we arrived at the station and then took the train, and we arrived home.'], c:1,
           fb_ok:'✅ Correcto. La opción B usa "and then" con comas para separar eventos en orden cronológico, y "arrive at + lugar" correctamente.',
