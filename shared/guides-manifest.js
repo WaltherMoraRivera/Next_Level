@@ -165,5 +165,15 @@ const GUIDES_MANIFEST = [
     unit: 'Unidad 3 (3/4) · 2° semestre',
     file: 'matematicas/guia3-traslaciones-rotaciones-reflexiones/index.html',
     minutes: 45
+  },
+  {
+    id: 'matematicas-g4-componiendo-transformaciones',
+    subject: 'matematicas',
+    title: 'Componiendo transformaciones: simetría de polígonos',
+    genre: null,
+    track: 'unidad',
+    unit: 'Unidad 3 (4/4) · 2° semestre',
+    file: 'matematicas/guia4-componiendo-transformaciones/index.html',
+    minutes: 45
   }
 ];
