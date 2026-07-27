@@ -145,5 +145,15 @@ const GUIDES_MANIFEST = [
     unit: 'Unidad 3 (1/4) · 2° semestre',
     file: 'matematicas/guia1-area-volumen-prismas-cilindros/index.html',
     minutes: 45
+  },
+  {
+    id: 'matematicas-g2-teorema-pitagoras',
+    subject: 'matematicas',
+    title: 'El teorema de Pitágoras',
+    genre: null,
+    track: 'unidad',
+    unit: 'Unidad 3 (2/4) · 2° semestre',
+    file: 'matematicas/guia2-teorema-pitagoras/index.html',
+    minutes: 45
   }
 ];
