@@ -4,7 +4,7 @@
 
 **Repositorio:** https://github.com/WaltherMoraRivera/Next_Level
 **Hosting:** GitHub Pages (rama `main`, carpeta raíz `/`)
-**Última actualización de este documento:** Historia lleva 4 de 7 guías construidas (Unidad 3 completa); el foco cambia ahora a Ciencias, que arranca con la Guía 1 (OA8, cargas eléctricas y electrostática), primera guía en usar `dnd-classify` en producción (ver §6.4).
+**Última actualización de este documento:** Ciencias lleva 2 de 8 guías construidas (OA8 cargas eléctricas, OA9 generación de electricidad); ver §6.4.
 
 > Ver también [`PROPUESTA_REDISENO.md`](PROPUESTA_REDISENO.md): auditoría, justificación pedagógica y roadmap que originó esta arquitectura.
 
@@ -33,7 +33,8 @@ guias-estudio/
 │   ├── guia3-declaracion-derechos/         # Unidad 3, OA18 (3 de 7) — estrena source-compare
 │   └── guia4-independencia-america/        # Unidad 3, OA16 parte América (4 de 7)
 ├── ciencias/
-│   └── guia1-cargas-electricas/            # Unidad 3, OA8 (1 de 8 guías del plan, ver §6.4)
+│   ├── guia1-cargas-electricas/            # Unidad 3, OA8 (1 de 8 guías del plan, ver §6.4)
+│   └── guia2-generacion-electrica/         # Unidad 3, OA9 (2 de 8)
 └── assets/                                 # Carpeta creada, actualmente vacía
 ```
 
@@ -255,7 +256,7 @@ La Unidad 3 (Física: Electricidad y calor — OA 8, 9, 10, 11) y la Unidad 4 (Q
 | # | Guía | OA | Tipo de bloque distintivo |
 |---|---|---|---|
 | 1 ✅ | Cargas eléctricas y electrostática | OA8 | `dnd-classify` (conductores vs. aislantes) + `match-pairs` (métodos de electrización ↔ descripción) — **construida** (`ciencias/guia1-cargas-electricas/`). Primera guía en usar `dnd-classify` en producción; confirmado que el informe promedia correctamente el dominio combinado de `organizacion` entre ambas actividades (75% = 100% en clasificación + 50% en emparejar, con 2 intentos fallidos). |
-| 2 | ¿Cómo generamos electricidad? | OA9 | `match-pairs` (tecnología ↔ fuente de energía: pilas, paneles fotovoltaicos, generadores) |
+| 2 ✅ | ¿Cómo generamos electricidad? | OA9 | `match-pairs` (tecnología ↔ cómo genera electricidad) + `dnd-classify` (renovables vs. no renovables) — **construida** (`ciencias/guia2-generacion-electrica/`). Verificada end-to-end: 92% (24/26 pts), `organizacion` en 75% (2/4 emparejar + 4/4 clasificar). |
 | 3 | Circuitos en serie y en paralelo | OA10 | `error-spot` sobre esquemas de circuito + `guided-practice` numérica |
 | 4 | Calor y temperatura | OA11 | `teach` + quiz + `open` (explicar un fenómeno cotidiano de transferencia de calor) |
 | 5 | La evolución de los modelos atómicos | OA12 | `dnd-sequence` (línea de tiempo Dalton → Thomson → Rutherford → Bohr) |

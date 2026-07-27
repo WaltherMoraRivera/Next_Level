@@ -105,5 +105,15 @@ const GUIDES_MANIFEST = [
     unit: 'Unidad 3 (1/4) · 2° semestre',
     file: 'ciencias/guia1-cargas-electricas/index.html',
     minutes: 45
+  },
+  {
+    id: 'ciencias-g2-generacion-electrica',
+    subject: 'ciencias',
+    title: '¿Cómo generamos electricidad?',
+    genre: null,
+    track: 'unidad',
+    unit: 'Unidad 3 (2/4) · 2° semestre',
+    file: 'ciencias/guia2-generacion-electrica/index.html',
+    minutes: 45
   }
 ];
