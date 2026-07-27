@@ -125,5 +125,15 @@ const GUIDES_MANIFEST = [
     unit: 'Unidad 3 (3/4) · 2° semestre',
     file: 'ciencias/guia3-circuitos-serie-paralelo/index.html',
     minutes: 45
+  },
+  {
+    id: 'ciencias-g4-calor-temperatura',
+    subject: 'ciencias',
+    title: 'Calor y temperatura',
+    genre: null,
+    track: 'unidad',
+    unit: 'Unidad 3 (4/4) · 2° semestre',
+    file: 'ciencias/guia4-calor-temperatura/index.html',
+    minutes: 45
   }
 ];

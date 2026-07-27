@@ -4,7 +4,7 @@
 
 **Repositorio:** https://github.com/WaltherMoraRivera/Next_Level
 **Hosting:** GitHub Pages (rama `main`, carpeta raíz `/`)
-**Última actualización de este documento:** Ciencias lleva 3 de 8 guías construidas (OA8 cargas eléctricas, OA9 generación de electricidad, OA10 circuitos en serie/paralelo — estrena `error-spot` en Ciencias); ver §6.4.
+**Última actualización de este documento:** Ciencias completó la Unidad 3 (4 de 8 guías: OA8, OA9, OA10, OA11 — física); continúa con la Unidad 4 (Química: modelos atómicos y tabla periódica). Ver §6.4.
 
 > Ver también [`PROPUESTA_REDISENO.md`](PROPUESTA_REDISENO.md): auditoría, justificación pedagógica y roadmap que originó esta arquitectura.
 
@@ -35,7 +35,8 @@ guias-estudio/
 ├── ciencias/
 │   ├── guia1-cargas-electricas/            # Unidad 3, OA8 (1 de 8 guías del plan, ver §6.4)
 │   ├── guia2-generacion-electrica/         # Unidad 3, OA9 (2 de 8)
-│   └── guia3-circuitos-serie-paralelo/     # Unidad 3, OA10 (3 de 8)
+│   ├── guia3-circuitos-serie-paralelo/     # Unidad 3, OA10 (3 de 8)
+│   └── guia4-calor-temperatura/            # Unidad 3, OA11 (4 de 8) — completa la Unidad 3
 └── assets/                                 # Carpeta creada, actualmente vacía
 ```
 
@@ -259,7 +260,7 @@ La Unidad 3 (Física: Electricidad y calor — OA 8, 9, 10, 11) y la Unidad 4 (Q
 | 1 ✅ | Cargas eléctricas y electrostática | OA8 | `dnd-classify` (conductores vs. aislantes) + `match-pairs` (métodos de electrización ↔ descripción) — **construida** (`ciencias/guia1-cargas-electricas/`). Primera guía en usar `dnd-classify` en producción; confirmado que el informe promedia correctamente el dominio combinado de `organizacion` entre ambas actividades (75% = 100% en clasificación + 50% en emparejar, con 2 intentos fallidos). |
 | 2 ✅ | ¿Cómo generamos electricidad? | OA9 | `match-pairs` (tecnología ↔ cómo genera electricidad) + `dnd-classify` (renovables vs. no renovables) — **construida** (`ciencias/guia2-generacion-electrica/`). Verificada end-to-end: 92% (24/26 pts), `organizacion` en 75% (2/4 emparejar + 4/4 clasificar). |
 | 3 ✅ | Circuitos en serie y en paralelo | OA10 | `error-spot` (afirmaciones sobre el circuito domiciliario, una incorrecta) + pregunta numérica simple en el quiz (reparto de voltaje) — **construida** (`ciencias/guia3-circuitos-serie-paralelo/`). Primera guía de Ciencias en usar `error-spot`. Verificada end-to-end: 100% (22/22 pts). |
-| 4 | Calor y temperatura | OA11 | `teach` + quiz + `open` (explicar un fenómeno cotidiano de transferencia de calor) |
+| 4 ✅ | Calor y temperatura | OA11 | `teach` + quiz + `open` (explicar un fenómeno cotidiano combinando al menos dos mecanismos de transferencia de calor) — **construida** (`ciencias/guia4-calor-temperatura/`). Cierra la Unidad 3 completa (4 de 4). Verificada end-to-end: 100% (18/18 pts). |
 | 5 | La evolución de los modelos atómicos | OA12 | `dnd-sequence` (línea de tiempo Dalton → Thomson → Rutherford → Bohr) |
 | 6 | Átomos, partículas y sustancias | OA13 | `guided-practice` + quiz conceptual |
 | 7 | La tabla periódica como modelo | OA14 | `match-pairs` o `dnd-classify` (metales/no metales/metaloides) |
