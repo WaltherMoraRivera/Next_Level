@@ -75,5 +75,15 @@ const GUIDES_MANIFEST = [
     unit: 'Unidad 3 (2/4) · 2° semestre',
     file: 'historia/guia2-revoluciones-eeuu-francia/index.html',
     minutes: 45
+  },
+  {
+    id: 'historia-g3-declaracion-derechos',
+    subject: 'historia',
+    title: 'La Declaración de los Derechos del Hombre y su vigencia hoy',
+    genre: null,
+    track: 'unidad',
+    unit: 'Unidad 3 (3/4) · 2° semestre',
+    file: 'historia/guia3-declaracion-derechos/index.html',
+    minutes: 45
   }
 ];
