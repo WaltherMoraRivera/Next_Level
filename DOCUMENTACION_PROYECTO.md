@@ -4,7 +4,7 @@
 
 **Repositorio:** https://github.com/WaltherMoraRivera/Next_Level
 **Hosting:** GitHub Pages (rama `main`, carpeta raíz `/`)
-**Última actualización de este documento:** implementación del Design System (roles de color, escala neutra fija, acentos por materia) + corrección de bug de botones de revelado.
+**Última actualización de este documento:** llegada de los Programas de Estudio oficiales MINEDUC (8° básico, Bases Curriculares 2013/2015 vigentes) para Lenguaje, Inglés, Historia, Ciencias y Matemáticas — carpeta `Programas_de_estudio/octavo_basico/` — y campo `track` en el manifest para distinguir guías de refuerzo de guías alineadas a unidad oficial.
 
 > Ver también [`PROPUESTA_REDISENO.md`](PROPUESTA_REDISENO.md): auditoría, justificación pedagógica y roadmap que originó esta arquitectura.
 
@@ -195,8 +195,32 @@ Con esto, **las cuatro guías existentes (3 de Lenguaje + 1 de Inglés) comparte
 
 ---
 
-## 6. Estándares por asignatura (definidos, pendientes de contenido)
-`PROPUESTA_REDISENO.md` (Parte 5) define mecánicas específicas para Matemáticas (resolución paso a paso, escalera de pistas, error frecuente, ejercicios progresivos), Ciencias (observación → hipótesis → contraste) e Historia (contexto previo, análisis de fuente, `match-pairs` para causa-efecto). El motor ya soporta genéricamente `match-pairs` y `error-spot` (§3.3); faltan **StepSolver** y **HintLadder** como componentes dedicados de Matemáticas, y contenido real de temario para las tres materias — actualmente son carpetas vacías en el landing ("Próximamente").
+## 6. Estándares por asignatura (definidos, contenido ahora disponible)
+`PROPUESTA_REDISENO.md` (Parte 5) define mecánicas específicas para Matemáticas (resolución paso a paso, escalera de pistas, error frecuente, ejercicios progresivos), Ciencias (observación → hipótesis → contraste) e Historia (contexto previo, análisis de fuente, `match-pairs` para causa-efecto). El motor ya soporta genéricamente `match-pairs` y `error-spot` (§3.3); faltan **StepSolver** y **HintLadder** como componentes dedicados de Matemáticas.
+
+### 6.1 Programas de Estudio oficiales (`Programas_de_estudio/octavo_basico/`)
+Se incorporaron los 5 Programas de Estudio MINEDUC de 8° básico (Bases Curriculares 2013/2015, confirmadas vigentes por el usuario): `Lenguaje.pdf`, `Ingles.pdf`, `Historia.pdf`, `Ciencias.pdf`, `Matematicas.pdf`. Los cinco comparten estructura editorial (Propósito → Conocimientos previos → Palabras clave → Objetivos de Aprendizaje con Indicadores de Evaluación → Ejemplos de Actividades ya resueltos), lo que permite mapear directamente: Indicadores de Evaluación → `skillTag`, Ejemplos de Actividades → preguntas de `quiz`/`guided-practice`/`error-spot`, Palabras clave → `vocab`/`flip-cards`.
+
+Como el curso está en **segundo semestre**, las unidades relevantes para nuevo contenido son:
+
+| Materia | Unidad 3 (2° sem.) | Unidad 4 (2° sem.) |
+|---|---|---|
+| Lenguaje | Relatos de misterio | Naturaleza *(además: U5 La comedia, U6 El mundo descabellado, U7 Medios de comunicación — 5 unidades en total en el 2° semestre)* |
+| Inglés | Going places | Future matters |
+| Historia | Ilustración, revolución e independencia | Sociedad y territorio: la región en Chile y América |
+| Ciencias | Electricidad y calor | Estudio y organización de la materia |
+| Matemáticas | Área de superficie y volumen de prismas/cilindros (+ transformaciones isométricas) | Estadística: medidas de posición, percentiles/cuartiles, principio combinatorio |
+
+La guía de Inglés ya publicada (`ingles/unidad2-countries-cultures/`) corresponde, por coincidencia, a la **Unidad 2 oficial del segundo semestre** — quedó correctamente alineada sin haberlo planeado así.
+
+### 6.2 Refuerzo vs. unidad oficial (`track` en el manifest)
+Las 3 guías de Lenguaje ya construidas (`guia1-mapa-relojero`, `guia2-pulpo-inteligencia`, `guia3-tesla-visionario`) se crearon **antes** de tener los Programas de Estudio oficiales en mano, con temas inventados como ejemplos de género literario. No corresponden a ninguna unidad real del temario de Lenguaje (que para el 2° semestre es: Relatos de misterio → Naturaleza → La comedia → El mundo descabellado → Medios de comunicación). Decisión del usuario: **se mantienen como material de refuerzo transversal de comprensión lectora**, adicional a las guías nuevas que sí estarán alineadas a una unidad oficial específica.
+
+Esto se registra en `shared/guides-manifest.js` con el campo `track`:
+- `track: 'refuerzo'` — no atada a una unidad oficial (las 3 guías de Lenguaje).
+- `track: 'unidad'` + `unit: 'Unidad N · semestre'` — alineada a una unidad oficial del programa (la guía de Inglés, y todo lo que se construya de aquí en adelante).
+
+El landing muestra este campo como etiqueta junto a cada guía (`Refuerzo` / `Unidad N · 2° semestre`) para que también sea visible para el estudiante, no solo información interna.
 
 ---
 
@@ -214,10 +238,14 @@ Con esto, **las cuatro guías existentes (3 de Lenguaje + 1 de Inglés) comparte
 | 8 | Accesibilidad parcial | ❌ Sigue pendiente — sin verificación con lector de pantalla real ni `aria-live` en feedback dinámico. |
 | 9 | Sin analítica ni seguimiento real | ⚠️ Parcial — ahora hay persistencia local y perfil de dominio por habilidad, pero no hay forma de comparar progreso entre dispositivos (no hay backend). |
 | 10 | Carpeta `assets/` vacía | ❌ Sigue sin uso. |
-| 11 | Matemáticas/Ciencias/Historia sin contenido | 🆕 Los estándares están definidos (§6) pero no hay guías reales — pendiente de temario oficial. |
+| 11 | Matemáticas/Ciencias/Historia sin contenido | ⚠️ Parcial — los estándares están definidos (§6) y ya se cuenta con el temario oficial completo (§6.1); falta construir las guías propiamente tal. |
 | 12 | Sistema de colores "teñía" toda la interfaz | ✅ Resuelto — ver §3.6 (Design System, roles de color). |
 
-**Bug corregido en esta versión:** los botones "Ver reflexión", "Ver respuesta modelo" y "Ver ejemplo" no revelaban su contenido. Causa: el botón vive dentro de su propio `.btn-row`, por lo que `this.nextElementSibling` (con `this` = botón) apuntaba a `null` en vez del bloque a revelar, que es hermano de `.btn-row`, no del botón. Corregido a `this.parentElement.nextElementSibling` en `shared/engine.js` — al estar en el motor común, el fix aplica a las 4 guías a la vez. Lección para futuros bloques: si un botón de "revelar" se envuelve en un contenedor (`.btn-row`, etc.), el selector de JS debe subir un nivel antes de buscar el hermano siguiente.
+**Bugs corregidos en esta versión:**
+1. Los botones "Ver reflexión", "Ver respuesta modelo" y "Ver ejemplo" no revelaban su contenido. Causa: el botón vive dentro de su propio `.btn-row`, por lo que `this.nextElementSibling` (con `this` = botón) apuntaba a `null` en vez del bloque a revelar, que es hermano de `.btn-row`, no del botón. Corregido a `this.parentElement.nextElementSibling` en `shared/engine.js`.
+2. El botón "Continuar" de un bloque `teach` **sin** `vocab` no hacía nada (afectaba sobre todo a Inglés, donde la mayoría de los bloques `teach` no llevan vocabulario). Causa: el botón llamaba siempre a `Engine._teachStage('vocab')`, que al detectar vocabulario vacío intentaba autosaltar llamando de nuevo a sí mismo, entrando en recursión infinita. Corregido para que el botón llame a `Engine.next()` directamente cuando `b.vocab` está vacío.
+
+Ambos fixes viven en el motor común, por lo que aplican a las 4 guías existentes a la vez. Lección para bloques futuros: cualquier botón de "revelar" o "avanzar" debe probarse manualmente con clic real en navegador (no solo invocando las funciones desde consola), ya que la consola puede enmascarar bugs de recorrido del DOM o de flujo de estados.
 
 ---
 

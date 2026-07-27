@@ -277,11 +277,12 @@ function getProgress(id){
 function guideLink(g){
   const prog = getProgress(g.id);
   const title = g.genre ? `${g.title} (${g.genre})` : g.title;
+  const trackLabel = g.track==='unidad' ? (g.unit||'Unidad oficial') : 'Refuerzo';
   return `
   <a class="guide-link" href="${g.file}">
     <div class="guide-main">
       <span class="guide-title">${title}</span>
-      <span class="guide-meta">~${g.minutes||45} min${prog?` · <span class="guide-progress">✓ ${prog.pct}%</span>`:''}</span>
+      <span class="guide-meta">${trackLabel} · ~${g.minutes||45} min${prog?` · <span class="guide-progress">✓ ${prog.pct}%</span>`:''}</span>
     </div>
     <span class="g-arrow" aria-hidden="true">${ARROW_SVG}</span>
   </a>`;
