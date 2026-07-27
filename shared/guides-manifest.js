@@ -155,5 +155,15 @@ const GUIDES_MANIFEST = [
     unit: 'Unidad 3 (2/4) · 2° semestre',
     file: 'matematicas/guia2-teorema-pitagoras/index.html',
     minutes: 45
+  },
+  {
+    id: 'matematicas-g3-traslaciones-rotaciones-reflexiones',
+    subject: 'matematicas',
+    title: 'Traslaciones, rotaciones y reflexiones',
+    genre: null,
+    track: 'unidad',
+    unit: 'Unidad 3 (3/4) · 2° semestre',
+    file: 'matematicas/guia3-traslaciones-rotaciones-reflexiones/index.html',
+    minutes: 45
   }
 ];

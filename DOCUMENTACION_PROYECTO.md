@@ -4,7 +4,7 @@
 
 **Repositorio:** https://github.com/WaltherMoraRivera/Next_Level
 **Hosting:** GitHub Pages (rama `main`, carpeta raíz `/`)
-**Última actualización de este documento:** Matemáticas lleva 2 de 7 guías construidas (OA11 área/volumen, OA12 teorema de Pitágoras). Ver §6.5.
+**Última actualización de este documento:** Matemáticas lleva 3 de 7 guías construidas (OA11 área/volumen, OA12 teorema de Pitágoras, OA13 traslaciones/rotaciones/reflexiones). Ver §6.5.
 
 > Ver también [`PROPUESTA_REDISENO.md`](PROPUESTA_REDISENO.md): auditoría, justificación pedagógica y roadmap que originó esta arquitectura.
 
@@ -39,7 +39,8 @@ guias-estudio/
 │   └── guia4-calor-temperatura/            # Unidad 3, OA11 (4 de 8) — completa la Unidad 3
 ├── matematicas/
 │   ├── guia1-area-volumen-prismas-cilindros/  # Unidad 3, OA11 (1 de 7 guías del plan, ver §6.5)
-│   └── guia2-teorema-pitagoras/            # Unidad 3, OA12 (2 de 7)
+│   ├── guia2-teorema-pitagoras/            # Unidad 3, OA12 (2 de 7)
+│   └── guia3-traslaciones-rotaciones-reflexiones/  # Unidad 3, OA13 (3 de 7)
 └── assets/                                 # Carpeta creada, actualmente vacía
 ```
 
@@ -276,7 +277,7 @@ La Unidad 3 (Geometría — OA 11, 12, 13, 14) y la Unidad 4 (Datos y azar — O
 |---|------|----|----|
 | 1 ✅ | Área de superficie y volumen de prismas y cilindros | OA11 | `guided-practice`/`quiz` numérico (aplicar fórmulas) + `match-pairs` (concepto ↔ fórmula) — **construida** (`matematicas/guia1-area-volumen-prismas-cilindros/`). Primera guía de Matemáticas. Verificada end-to-end: 91% (20/22 pts). |
 | 2 ✅ | El teorema de Pitágoras | OA12 | `guided-practice`/`quiz` numérico + `match-pairs` (concepto ↔ descripción) + `open` (calcular la diagonal de un televisor) — **construida** (`matematicas/guia2-teorema-pitagoras/`). Verificada end-to-end: 91% (20/22 pts). |
-| 3 | Traslaciones, rotaciones y reflexiones | OA13 | `match-pairs` (transformación ↔ descripción/ejemplo) |
+| 3 ✅ | Traslaciones, rotaciones y reflexiones | OA13 | `match-pairs` (transformación ↔ descripción/ejemplo) — **construida** (`matematicas/guia3-traslaciones-rotaciones-reflexiones/`). Verificada end-to-end: 91% (20/22 pts). |
 | 4 | Componiendo transformaciones: simetría de polígonos | OA14 | `dnd-sequence` (secuencia de pasos para componer una transformación) |
 | 5 | Percentiles y cuartiles | OA15 | `guided-practice` numérica (interpretar la posición de un dato) + `open` |
 | 6 | ¿Qué gráfico usar? Detectando manipulaciones de datos | OA16 | `error-spot` (detectar la afirmación o gráfico engañoso) |
