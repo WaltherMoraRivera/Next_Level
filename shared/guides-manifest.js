@@ -85,5 +85,15 @@ const GUIDES_MANIFEST = [
     unit: 'Unidad 3 (3/4) · 2° semestre',
     file: 'historia/guia3-declaracion-derechos/index.html',
     minutes: 45
+  },
+  {
+    id: 'historia-g4-independencia-america',
+    subject: 'historia',
+    title: 'La independencia de América: un proceso continental',
+    genre: null,
+    track: 'unidad',
+    unit: 'Unidad 3 (4/4) · 2° semestre',
+    file: 'historia/guia4-independencia-america/index.html',
+    minutes: 45
   }
 ];

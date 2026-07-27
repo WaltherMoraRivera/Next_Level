@@ -30,7 +30,8 @@ guias-estudio/
 ├── historia/
 │   ├── guia1-ilustracion-antiguo-regimen/  # Unidad 3, OA14 (1 de 7 guías del plan, ver §6.3)
 │   ├── guia2-revoluciones-eeuu-francia/    # Unidad 3, OA15 (2 de 7)
-│   └── guia3-declaracion-derechos/         # Unidad 3, OA18 (3 de 7) — estrena source-compare
+│   ├── guia3-declaracion-derechos/         # Unidad 3, OA18 (3 de 7) — estrena source-compare
+│   └── guia4-independencia-america/        # Unidad 3, OA16 parte América (4 de 7)
 └── assets/                                 # Carpeta creada, actualmente vacía
 ```
 
@@ -237,7 +238,7 @@ La Unidad 3 (Ilustración, revolución e independencia — OA 14, 15, 16, 18, 19
 | 1 ✅ | La Ilustración: la razón contra el Antiguo Régimen | OA14 | `teach` + `flip-cards` (vocabulario denso) — **construida** (`historia/guia1-ilustracion-antiguo-regimen/`) |
 | 2 ✅ | De las ideas a la acción: revoluciones de EE.UU. y Francia | OA15 | `dnd-sequence` (línea de tiempo de 6 hitos entrelazando ambas revoluciones) — **construida** (`historia/guia2-revoluciones-eeuu-francia/`) |
 | 3 ✅ | La Declaración de los Derechos del Hombre y su vigencia hoy | OA18 | `source-compare` (Declaración 1789 vs. de Gouges, con la Declaración de 1948 integrada en el `teach`) — **construida** (`historia/guia3-declaracion-derechos/`) |
-| 4 | La independencia de América: un proceso continental | OA16 (América) | `dnd-sequence` + `match-pairs` (causa↔consecuencia) |
+| 4 ✅ | La independencia de América: un proceso continental | OA16 (América) | `dnd-sequence` + `match-pairs` (causa↔consecuencia) — **construida** (`historia/guia4-independencia-america/`). Primera guía en usar ambos `skillTag:'organizacion'` a la vez, confirmando que el informe promedia correctamente el dominio combinado de las dos actividades. |
 | 5 | La independencia de Chile y el nuevo orden republicano | OA16 (Chile) + OA19 | `source-analysis` + `open` evaluativo (cambio/continuidad) |
 | 6 | ¿Qué es una región? Criterios y tipos en Chile y América | OA20 | `dnd-classify` (tipos de región) |
 | 7 | Conexión, aislamiento y desarrollo: los desafíos de las regiones | OA21 + OA22 | `error-spot` / `open` crítico (evaluar políticas regionales) |
