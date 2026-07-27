@@ -95,5 +95,15 @@ const GUIDES_MANIFEST = [
     unit: 'Unidad 3 (4/4) · 2° semestre',
     file: 'historia/guia4-independencia-america/index.html',
     minutes: 45
+  },
+  {
+    id: 'ciencias-g1-cargas-electricas',
+    subject: 'ciencias',
+    title: 'Cargas eléctricas y electrostática',
+    genre: null,
+    track: 'unidad',
+    unit: 'Unidad 3 (1/4) · 2° semestre',
+    file: 'ciencias/guia1-cargas-electricas/index.html',
+    minutes: 45
   }
 ];

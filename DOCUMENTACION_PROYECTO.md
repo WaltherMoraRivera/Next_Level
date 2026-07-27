@@ -4,7 +4,7 @@
 
 **Repositorio:** https://github.com/WaltherMoraRivera/Next_Level
 **Hosting:** GitHub Pages (rama `main`, carpeta raíz `/`)
-**Última actualización de este documento:** Guía 1 de Historia construida (OA14); corrección de sesgo en la posición de la alternativa correcta en las 5 guías existentes; cronómetro por sección en el informe final, informativo para acompañar el estudio (ver §3.6 bis).
+**Última actualización de este documento:** Historia lleva 4 de 7 guías construidas (Unidad 3 completa); el foco cambia ahora a Ciencias, que arranca con la Guía 1 (OA8, cargas eléctricas y electrostática), primera guía en usar `dnd-classify` en producción (ver §6.4).
 
 > Ver también [`PROPUESTA_REDISENO.md`](PROPUESTA_REDISENO.md): auditoría, justificación pedagógica y roadmap que originó esta arquitectura.
 
@@ -32,6 +32,8 @@ guias-estudio/
 │   ├── guia2-revoluciones-eeuu-francia/    # Unidad 3, OA15 (2 de 7)
 │   ├── guia3-declaracion-derechos/         # Unidad 3, OA18 (3 de 7) — estrena source-compare
 │   └── guia4-independencia-america/        # Unidad 3, OA16 parte América (4 de 7)
+├── ciencias/
+│   └── guia1-cargas-electricas/            # Unidad 3, OA8 (1 de 8 guías del plan, ver §6.4)
 └── assets/                                 # Carpeta creada, actualmente vacía
 ```
 
@@ -243,9 +245,23 @@ La Unidad 3 (Ilustración, revolución e independencia — OA 14, 15, 16, 18, 19
 | 6 | ¿Qué es una región? Criterios y tipos en Chile y América | OA20 | `dnd-classify` (tipos de región) |
 | 7 | Conexión, aislamiento y desarrollo: los desafíos de las regiones | OA21 + OA22 | `error-spot` / `open` crítico (evaluar políticas regionales) |
 
-Este plan asume ~4 guías equivalentes para Ciencias y ~4 para Matemáticas por el segundo semestre (unidades más cortas en esos programas), aunque eso se confirmará al revisar esas unidades en detalle al construir su contenido.
+Este plan asume ~4 guías equivalentes para Matemáticas por el segundo semestre (unidad más corta en ese programa), aunque eso se confirmará al revisar esa unidad en detalle al construir su contenido.
 
 El landing muestra este campo como etiqueta junto a cada guía (`Refuerzo` / `Unidad N · 2° semestre`) para que también sea visible para el estudiante, no solo información interna.
+
+### 6.4 Plan de cobertura — Ciencias Naturales, 2° semestre (8 guías aprobadas)
+La Unidad 3 (Física: Electricidad y calor — OA 8, 9, 10, 11) y la Unidad 4 (Química: Estudio y organización de la materia — OA 12, 13, 14, 15) se cubren con 8 guías de 45 min, una por OA:
+
+| # | Guía | OA | Tipo de bloque distintivo |
+|---|---|---|---|
+| 1 ✅ | Cargas eléctricas y electrostática | OA8 | `dnd-classify` (conductores vs. aislantes) + `match-pairs` (métodos de electrización ↔ descripción) — **construida** (`ciencias/guia1-cargas-electricas/`). Primera guía en usar `dnd-classify` en producción; confirmado que el informe promedia correctamente el dominio combinado de `organizacion` entre ambas actividades (75% = 100% en clasificación + 50% en emparejar, con 2 intentos fallidos). |
+| 2 | ¿Cómo generamos electricidad? | OA9 | `match-pairs` (tecnología ↔ fuente de energía: pilas, paneles fotovoltaicos, generadores) |
+| 3 | Circuitos en serie y en paralelo | OA10 | `error-spot` sobre esquemas de circuito + `guided-practice` numérica |
+| 4 | Calor y temperatura | OA11 | `teach` + quiz + `open` (explicar un fenómeno cotidiano de transferencia de calor) |
+| 5 | La evolución de los modelos atómicos | OA12 | `dnd-sequence` (línea de tiempo Dalton → Thomson → Rutherford → Bohr) |
+| 6 | Átomos, partículas y sustancias | OA13 | `guided-practice` + quiz conceptual |
+| 7 | La tabla periódica como modelo | OA14 | `match-pairs` o `dnd-classify` (metales/no metales/metaloides) |
+| 8 | Los elementos de la vida (C, H, O, N) | OA15 | `source-analysis` (dato curioso + pregunta crítica) |
 
 ---
 
