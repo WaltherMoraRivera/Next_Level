@@ -141,6 +141,10 @@ const Engine = (function(){
   }
 
   // ── Header ────────────────────────────────────────────────
+  // Ruta relativa al landing desde una guía. Asume la convención de carpetas
+  // <materia>/<guia>/index.html (2 niveles de profundidad) — ver DOCUMENTACION_PROYECTO.md §1.
+  const MENU_URL = '../../index.html';
+
   function renderHeader(){
     const b = DATA.blocks[blockIndex];
     const dots = DATA.blocks.map((_,i)=>
@@ -152,6 +156,10 @@ const Engine = (function(){
       <div class="g-dots">${dots}</div>
       <div class="g-pname">${phaseLabel(b.type)}</div>
       <div class="g-time">~${totalMinutes()} min</div>
+      <a class="g-menu" href="${MENU_URL}" title="Volver al menú principal">
+        <span class="g-menu-full">🏠 NextLevel · Volver al Menú</span>
+        <span class="g-menu-short">🏠 Menú</span>
+      </a>
     </div>`;
   }
 
@@ -995,8 +1003,9 @@ const Engine = (function(){
         <ul><li>${DATA.nextGuideHint}</li></ul>
       </div>`:''}
 
-      <div style="text-align:center;margin-top:22px;">
+      <div class="btn-row" style="justify-content:center;margin-top:22px;">
         <button class="btn btn-s" onclick="Engine._restart()">🔁 Reiniciar guía</button>
+        <a class="btn btn-p" href="${MENU_URL}">🏠 Volver al menú</a>
       </div>
     </div>`;
   }

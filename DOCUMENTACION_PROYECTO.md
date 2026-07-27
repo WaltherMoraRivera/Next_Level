@@ -28,7 +28,8 @@ guias-estudio/
 ├── ingles/
 │   └── unidad2-countries-cultures/         # Ya migrada al motor común (ver §5)
 ├── historia/
-│   └── guia1-ilustracion-antiguo-regimen/  # Unidad 3, OA14 (1 de 7 guías del plan, ver §6.3)
+│   ├── guia1-ilustracion-antiguo-regimen/  # Unidad 3, OA14 (1 de 7 guías del plan, ver §6.3)
+│   └── guia2-revoluciones-eeuu-francia/    # Unidad 3, OA15 (2 de 7)
 └── assets/                                 # Carpeta creada, actualmente vacía
 ```
 
@@ -114,7 +115,7 @@ const GUIDE_DATA = {
                   'flip-cards'|'challenge'|'reflect'|'report', ...} ]
 }
 ```
-`Engine.init(GUIDE_DATA)` arranca una máquina de estados simple sobre el array `blocks`: cada bloque se dibuja en `#app`, el header sticky (`.g-header`) muestra un punto de progreso por bloque, el nombre de la fase actual y el tiempo total estimado (`~NN min`, suma de `minutes` de todos los bloques).
+`Engine.init(GUIDE_DATA)` arranca una máquina de estados simple sobre el array `blocks`: cada bloque se dibuja en `#app`, el header sticky (`.g-header`) muestra un punto de progreso por bloque, el nombre de la fase actual, el tiempo total estimado (`~NN min`, suma de `minutes` de todos los bloques) y un enlace **"🏠 NextLevel · Volver al Menú"** (`../../index.html`, asumiendo la convención de 2 niveles de profundidad `<materia>/<guia>/index.html`) para que el estudiante nunca quede "atrapado" dentro de una guía — visible en todo momento, no solo en el informe final. El mismo enlace se repite como botón junto a "Reiniciar guía" en la pantalla de informe.
 
 ### 3.3 Los 8 momentos pedagógicos (reemplaza las 9 "fases" originales)
 El flujo ya no es una secuencia fija de nombres de fase, sino tipos de bloque que se combinan libremente por guía, siguiendo el modelo de 8 momentos de `PROPUESTA_REDISENO.md` (Parte 6):
@@ -233,7 +234,7 @@ La Unidad 3 (Ilustración, revolución e independencia — OA 14, 15, 16, 18, 19
 | # | Guía | OA | Tipo de bloque distintivo |
 |---|---|---|---|
 | 1 ✅ | La Ilustración: la razón contra el Antiguo Régimen | OA14 | `teach` + `flip-cards` (vocabulario denso) — **construida** (`historia/guia1-ilustracion-antiguo-regimen/`) |
-| 2 | De las ideas a la acción: revoluciones de EE.UU. y Francia | OA15 | `dnd-sequence` (línea de tiempo) |
+| 2 ✅ | De las ideas a la acción: revoluciones de EE.UU. y Francia | OA15 | `dnd-sequence` (línea de tiempo de 6 hitos entrelazando ambas revoluciones) — **construida** (`historia/guia2-revoluciones-eeuu-francia/`) |
 | 3 | La Declaración de los Derechos del Hombre y su vigencia hoy | OA18 | `source-compare` (Declaración 1789 vs. de Gouges vs. DDHH actual) |
 | 4 | La independencia de América: un proceso continental | OA16 (América) | `dnd-sequence` + `match-pairs` (causa↔consecuencia) |
 | 5 | La independencia de Chile y el nuevo orden republicano | OA16 (Chile) + OA19 | `source-analysis` + `open` evaluativo (cambio/continuidad) |

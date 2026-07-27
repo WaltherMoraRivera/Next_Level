@@ -65,5 +65,15 @@ const GUIDES_MANIFEST = [
     unit: 'Unidad 3 (1/4) · 2° semestre',
     file: 'historia/guia1-ilustracion-antiguo-regimen/index.html',
     minutes: 45
+  },
+  {
+    id: 'historia-g2-revoluciones',
+    subject: 'historia',
+    title: 'De las ideas a la acción: revoluciones de EE.UU. y Francia',
+    genre: null,
+    track: 'unidad',
+    unit: 'Unidad 3 (2/4) · 2° semestre',
+    file: 'historia/guia2-revoluciones-eeuu-francia/index.html',
+    minutes: 45
   }
 ];
