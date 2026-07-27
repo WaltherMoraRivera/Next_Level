@@ -4,7 +4,7 @@
 
 **Repositorio:** https://github.com/WaltherMoraRivera/Next_Level
 **Hosting:** GitHub Pages (rama `main`, carpeta raíz `/`)
-**Última actualización de este documento:** Ciencias completó la Unidad 3 (4 de 8 guías: OA8, OA9, OA10, OA11 — física); continúa con la Unidad 4 (Química: modelos atómicos y tabla periódica). Ver §6.4.
+**Última actualización de este documento:** Comienza Matemáticas con la Guía 1 (OA11, área de superficie y volumen de prismas y cilindros) — las 5 materias tienen ahora contenido publicado. Ver §6.5.
 
 > Ver también [`PROPUESTA_REDISENO.md`](PROPUESTA_REDISENO.md): auditoría, justificación pedagógica y roadmap que originó esta arquitectura.
 
@@ -37,6 +37,8 @@ guias-estudio/
 │   ├── guia2-generacion-electrica/         # Unidad 3, OA9 (2 de 8)
 │   ├── guia3-circuitos-serie-paralelo/     # Unidad 3, OA10 (3 de 8)
 │   └── guia4-calor-temperatura/            # Unidad 3, OA11 (4 de 8) — completa la Unidad 3
+├── matematicas/
+│   └── guia1-area-volumen-prismas-cilindros/  # Unidad 3, OA11 (1 de 7 guías del plan, ver §6.5)
 └── assets/                                 # Carpeta creada, actualmente vacía
 ```
 
@@ -266,6 +268,19 @@ La Unidad 3 (Física: Electricidad y calor — OA 8, 9, 10, 11) y la Unidad 4 (Q
 | 7 | La tabla periódica como modelo | OA14 | `match-pairs` o `dnd-classify` (metales/no metales/metaloides) |
 | 8 | Los elementos de la vida (C, H, O, N) | OA15 | `source-analysis` (dato curioso + pregunta crítica) |
 
+### 6.5 Plan de cobertura — Matemática, 2° semestre (7 guías aprobadas)
+La Unidad 3 (Geometría — OA 11, 12, 13, 14) y la Unidad 4 (Datos y azar — OA 15, 16, 17) se cubren con 7 guías de 45 min, una por OA. El motor no tiene un componente dedicado tipo "resolución paso a paso" (`StepSolver`/`HintLadder`, ver §6 introducción); en su lugar, los problemas numéricos se resuelven con `guided-practice` (con pistas) y `quiz` (sin pistas), igual que la pregunta de voltaje de la Guía 3 de Ciencias:
+
+| # | Guía | OA | Tipo de bloque distintivo |
+|---|------|----|----|
+| 1 ✅ | Área de superficie y volumen de prismas y cilindros | OA11 | `guided-practice`/`quiz` numérico (aplicar fórmulas) + `match-pairs` (concepto ↔ fórmula) — **construida** (`matematicas/guia1-area-volumen-prismas-cilindros/`). Primera guía de Matemáticas. Verificada end-to-end: 91% (20/22 pts). |
+| 2 | El teorema de Pitágoras | OA12 | `guided-practice`/`quiz` numérico + `open` (aplicación a un problema cotidiano) |
+| 3 | Traslaciones, rotaciones y reflexiones | OA13 | `match-pairs` (transformación ↔ descripción/ejemplo) |
+| 4 | Componiendo transformaciones: simetría de polígonos | OA14 | `dnd-sequence` (secuencia de pasos para componer una transformación) |
+| 5 | Percentiles y cuartiles | OA15 | `guided-practice` numérica (interpretar la posición de un dato) + `open` |
+| 6 | ¿Qué gráfico usar? Detectando manipulaciones de datos | OA16 | `error-spot` (detectar la afirmación o gráfico engañoso) |
+| 7 | El principio combinatorio multiplicativo | OA17 | `guided-practice` numérica (árboles y tablas) + `challenge` |
+
 ---
 
 ## 7. Puntos de mejora — estado actualizado
@@ -282,7 +297,7 @@ La Unidad 3 (Física: Electricidad y calor — OA 8, 9, 10, 11) y la Unidad 4 (Q
 | 8 | Accesibilidad parcial | ❌ Sigue pendiente — sin verificación con lector de pantalla real ni `aria-live` en feedback dinámico. |
 | 9 | Sin analítica ni seguimiento real | ⚠️ Parcial — ahora hay persistencia local y perfil de dominio por habilidad, pero no hay forma de comparar progreso entre dispositivos (no hay backend). |
 | 10 | Carpeta `assets/` vacía | ❌ Sigue sin uso. |
-| 11 | Matemáticas/Ciencias/Historia sin contenido | ⚠️ Parcial — los estándares están definidos (§6) y ya se cuenta con el temario oficial completo (§6.1); falta construir las guías propiamente tal. |
+| 11 | Cobertura de Historia/Ciencias/Matemáticas | ⚠️ Parcial — las 5 materias tienen ahora al menos una guía publicada; Historia 4/7, Ciencias 4/8 (unidad completa), Matemáticas 1/7. Faltan guías por construir según los planes de §6.3, §6.4 y §6.5. |
 | 12 | Sistema de colores "teñía" toda la interfaz | ✅ Resuelto — ver §3.6 (Design System, roles de color). |
 
 **Bugs corregidos en esta versión:**

@@ -135,5 +135,15 @@ const GUIDES_MANIFEST = [
     unit: 'Unidad 3 (4/4) · 2° semestre',
     file: 'ciencias/guia4-calor-temperatura/index.html',
     minutes: 45
+  },
+  {
+    id: 'matematicas-g1-area-volumen-prismas-cilindros',
+    subject: 'matematicas',
+    title: 'Área de superficie y volumen de prismas y cilindros',
+    genre: null,
+    track: 'unidad',
+    unit: 'Unidad 3 (1/4) · 2° semestre',
+    file: 'matematicas/guia1-area-volumen-prismas-cilindros/index.html',
+    minutes: 45
   }
 ];
