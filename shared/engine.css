@@ -169,6 +169,44 @@ body{
 }
 .g-menu:hover{background:rgba(255,255,255,.3);}
 .g-menu-short{display:none;}
+.g-ref-btn{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(255,255,255,.16); color:white; border:none; cursor:pointer;
+  border-radius:var(--r-full); padding:5px 12px; font-family:inherit;
+  font-size:11px; font-weight:800; letter-spacing:.3px;
+  white-space:nowrap; flex-shrink:0; transition:background-color .15s;
+}
+.g-ref-btn:hover{background:rgba(255,255,255,.3);}
+.g-ref-short{display:none;}
+
+/* ── Panel de referencia (fórmulas), accesible durante los ejercicios ── */
+.ref-overlay{
+  position:fixed; inset:0; z-index:200;
+  background:var(--n-bg);
+  transform:translateY(100%);
+  transition:transform .25s ease;
+  overflow-y:auto;
+}
+.ref-overlay.open{transform:translateY(0);}
+.ref-overlay-header{
+  position:sticky; top:0; z-index:1;
+  background:var(--accent); color:white;
+  padding:var(--sp-3) var(--sp-4);
+  display:flex; align-items:center; justify-content:space-between; gap:var(--sp-3);
+  box-shadow:var(--shadow-sm);
+}
+.ref-overlay-title{font-size:14px;font-weight:800;}
+.ref-overlay-body{max-width:740px;margin:0 auto;padding:var(--sp-6) var(--sp-4) var(--sp-8);}
+.ref-overlay-body h3{margin-top:var(--sp-6);}
+.ref-overlay-body h3:first-child{margin-top:0;}
+.ref-overlay-body p{margin-bottom:var(--sp-3);line-height:1.6;}
+.formula{
+  background:var(--n-surface-2); border:1px solid var(--n-border);
+  border-radius:var(--r-md); padding:var(--sp-3) var(--sp-4);
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:15px; font-variant-numeric:tabular-nums;
+  margin:var(--sp-2) 0 var(--sp-4);
+}
 
 /* ── Layout ── */
 .wrap{max-width:740px;margin:0 auto;padding:var(--sp-6) var(--sp-4) var(--sp-8);}
@@ -517,6 +555,8 @@ body{
   .g-pname,.g-time{display:none;}
   .g-menu-full{display:none;}
   .g-menu-short{display:inline;}
+  .g-ref-full{display:none;}
+  .g-ref-short{display:inline;}
   .vword{font-size:19px;}
   .class-cols{grid-template-columns:1fr;}
   .match-grid{grid-template-columns:1fr;}

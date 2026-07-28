@@ -175,5 +175,25 @@ const GUIDES_MANIFEST = [
     unit: 'Unidad 3 (4/4) · 2° semestre',
     file: 'matematicas/guia4-componiendo-transformaciones/index.html',
     minutes: 45
+  },
+  {
+    id: 'matematicas-repaso1-operatoria-algebraica',
+    subject: 'matematicas',
+    title: 'Operatoria de expresiones algebraicas',
+    genre: null,
+    track: 'unidad',
+    unit: 'Repaso · Unidad 2 · Prueba de álgebra',
+    file: 'matematicas/repaso1-operatoria-algebraica/index.html',
+    minutes: 60
+  },
+  {
+    id: 'matematicas-repaso2-factorizacion-algebraica',
+    subject: 'matematicas',
+    title: 'Factorización de expresiones algebraicas',
+    genre: null,
+    track: 'unidad',
+    unit: 'Repaso · Unidad 2 · Prueba de álgebra',
+    file: 'matematicas/repaso2-factorizacion-algebraica/index.html',
+    minutes: 60
   }
 ];

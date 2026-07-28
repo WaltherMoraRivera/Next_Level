@@ -13,7 +13,8 @@
                      'open'|'dnd-sequence'|'dnd-classify'|'match-pairs'|
                      'error-spot'|'flip-cards'|'source-analysis'|
                      'source-compare'|'challenge'|
-                     'reflect'|'report', ...} ]
+                     'reflect'|'report', ...} ],
+     reference: { title, html }   // opcional — ver §3.7 en DOCUMENTACION_PROYECTO.md
    }
    ══════════════════════════════════════════════════════════ */
 
@@ -130,11 +131,37 @@ const Engine = (function(){
       document.addEventListener('visibilitychange', onVisibilityChange);
       visibilityBound = true;
     }
+    if(data.reference) buildReferenceOverlay();
     render();
   }
 
   function go(i){ blockIndex=i; render(); }
   function next(){ blockIndex++; render(); }
+
+  // ── Panel de referencia (fórmulas), accesible en cualquier momento ──
+  // Vive fuera de #app y no toca blockIndex/blockState: al cerrarlo, el
+  // alumno vuelve exactamente al ejercicio donde estaba, con su respuesta
+  // intacta. Pensado para guías de repaso con ejercicios extensos donde
+  // conviene poder revisar una fórmula sin perder el progreso.
+  function buildReferenceOverlay(){
+    if(document.getElementById('ref-overlay')) return;
+    const el = document.createElement('div');
+    el.id = 'ref-overlay';
+    el.className = 'ref-overlay';
+    el.innerHTML = `
+      <div class="ref-overlay-header">
+        <div class="ref-overlay-title">📖 ${DATA.reference.title}</div>
+        <button class="btn btn-p" onclick="Engine._toggleReference()">← Volver a los ejercicios</button>
+      </div>
+      <div class="ref-overlay-body">${DATA.reference.html}</div>
+    `;
+    document.body.appendChild(el);
+  }
+  function _toggleReference(){
+    const el = document.getElementById('ref-overlay');
+    if(!el) return;
+    el.classList.toggle('open');
+  }
 
   function totalMinutes(){
     return DATA.blocks.reduce((s,b)=>s+(b.minutes||0),0);
@@ -156,6 +183,9 @@ const Engine = (function(){
       <div class="g-dots">${dots}</div>
       <div class="g-pname">${phaseLabel(b.type)}</div>
       <div class="g-time">~${totalMinutes()} min</div>
+      ${DATA.reference?`<button class="g-ref-btn" onclick="Engine._toggleReference()" title="Ver fórmulas de referencia">
+        <span class="g-ref-full">📖 Fórmulas</span><span class="g-ref-short">📖</span>
+      </button>`:''}
       <a class="g-menu" href="${MENU_URL}" title="Volver al menú principal">
         <span class="g-menu-full">🏠 NextLevel · Volver al Menú</span>
         <span class="g-menu-short">🏠 Menú</span>
@@ -1045,6 +1075,6 @@ const Engine = (function(){
     _cOver, _cLeave, _cDrop, _colClick, _rmItem, _checkClassify,
     _matchLeft, _matchRight, _errorPick, _flipCard,
     _srcStage, _srcAnswer, _srcNextQ, _srcSetSelf,
-    _reflectDone, _restart
+    _reflectDone, _restart, _toggleReference
   };
 })();

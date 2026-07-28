@@ -4,7 +4,7 @@
 
 **Repositorio:** https://github.com/WaltherMoraRivera/Next_Level
 **Hosting:** GitHub Pages (rama `main`, carpeta raíz `/`)
-**Última actualización de este documento:** Matemáticas completó la Unidad 3 (4 de 7 guías: OA11, OA12, OA13, OA14 — geometría); continúa con la Unidad 4 (Datos y azar: percentiles, gráficos, principio combinatorio). Ver §6.5.
+**Última actualización de este documento:** Nueva funcionalidad del motor — panel de referencia consultable en cualquier momento sin perder el progreso (ver §3.7) — usada en 2 guías especiales de repaso de 60 min para una prueba de álgebra (Unidad 2/OA6, ver §6.6). Motor bumped a `?v=7`, `guides-manifest.js` a `?v=3`.
 
 > Ver también [`PROPUESTA_REDISENO.md`](PROPUESTA_REDISENO.md): auditoría, justificación pedagógica y roadmap que originó esta arquitectura.
 
@@ -41,7 +41,9 @@ guias-estudio/
 │   ├── guia1-area-volumen-prismas-cilindros/  # Unidad 3, OA11 (1 de 7 guías del plan, ver §6.5)
 │   ├── guia2-teorema-pitagoras/            # Unidad 3, OA12 (2 de 7)
 │   ├── guia3-traslaciones-rotaciones-reflexiones/  # Unidad 3, OA13 (3 de 7)
-│   └── guia4-componiendo-transformaciones/ # Unidad 3, OA14 (4 de 7) — completa la Unidad 3
+│   ├── guia4-componiendo-transformaciones/ # Unidad 3, OA14 (4 de 7) — completa la Unidad 3
+│   ├── repaso1-operatoria-algebraica/      # Repaso Unidad 2/OA6, 60 min (ver §6.6)
+│   └── repaso2-factorizacion-algebraica/   # Repaso Unidad 2/OA6, 60 min (ver §6.6)
 └── assets/                                 # Carpeta creada, actualmente vacía
 ```
 
@@ -196,6 +198,17 @@ Nota de diseño: en Lenguaje el acento es rojo y el error semántico también es
 
 Este sistema está documentado en detalle, con la auditoría de problemas visuales que lo motivó (jerarquía, contraste, fatiga visual en sesiones de 45 min), en el plan de rediseño aprobado — ver historial de la conversación del proyecto.
 
+### 3.7 Panel de referencia (fórmulas), para guías de repaso intensivo
+Pensado para guías de repaso pre-prueba con muchos ejercicios (ver §6.6), donde el estudiante puede necesitar revisar una fórmula exacta a mitad de un ejercicio sin perder su respuesta ni su lugar en la secuencia.
+
+**Cómo se declara:** cualquier `GUIDE_DATA` puede incluir un campo opcional `reference: { title, html }` con contenido informativo (fórmulas, reglas), fuera del array `blocks`. Si el campo no existe, no aparece ningún botón — el resto de las guías no se ven afectadas.
+
+**Cómo funciona técnicamente:** a diferencia de los bloques normales, el panel de referencia **vive fuera de `#app`**, como un `<div id="ref-overlay">` propio, creado una sola vez en `Engine.init()` y apendeado a `document.body`. Se muestra/oculta con una clase `.open` (`transform: translateY()`), sin tocar `blockIndex` ni `blockState` en ningún momento. Esto significa que abrir y cerrar el panel **no dispara `render()`** del bloque activo: el estudiante vuelve exactamente al ejercicio y a la respuesta donde estaba, sin ningún manejo especial de estado necesario.
+
+**Botones involucrados:** un botón `📖 Fórmulas` en el header (`renderHeader()`, junto a "Volver al Menú", solo visible si `DATA.reference` existe) que llama a `Engine._toggleReference()`; y un botón `← Volver a los ejercicios` dentro del propio panel, que llama a la misma función para cerrarlo.
+
+**Uso del contenido:** el `html` del panel usa una clase `.formula` (fondo `--n-surface-2`, fuente monoespaciada, `tabular-nums`) para las fórmulas, y `<h3>` para separar secciones temáticas. Ver `matematicas/repaso1-operatoria-algebraica/data.js` y `matematicas/repaso2-factorizacion-algebraica/data.js` como referencia de uso.
+
 ---
 
 ## 4. Encoding y metadatos
@@ -283,6 +296,19 @@ La Unidad 3 (Geometría — OA 11, 12, 13, 14) y la Unidad 4 (Datos y azar — O
 | 5 | Percentiles y cuartiles | OA15 | `guided-practice` numérica (interpretar la posición de un dato) + `open` |
 | 6 | ¿Qué gráfico usar? Detectando manipulaciones de datos | OA16 | `error-spot` (detectar la afirmación o gráfico engañoso) |
 | 7 | El principio combinatorio multiplicativo | OA17 | `guided-practice` numérica (árboles y tablas) + `challenge` |
+
+### 6.6 Guías especiales de repaso (fuera del plan de 7 OA)
+A pedido del usuario, se construyeron 2 guías **de repaso intensivo** para una prueba de álgebra sobre la Unidad 2 (OA6 — operaciones de expresiones algebraicas: representación pictórica/simbólica, relación con área/volumen, formas factorizadas). A diferencia de las guías por OA (§6.5), estas:
+- Duran **60 min** (no 45), con los ~15 min extra dedicados a más preguntas de práctica por bloque (6 en vez de 3) y a un panel de referencia consultable (ver §3.7), no a contenido nuevo.
+- Se etiquetan en el landing como `Repaso · Unidad 2 · Prueba de álgebra` en vez del formato `Unidad N (x/4)`.
+- Priorizan volumen de ejercicios por sobre la exploración conceptual: el bloque `teach` es breve (~200-230 palabras) y remite explícitamente al botón 📖 Fórmulas para el detalle.
+
+Como el OA6 agrupa tres bloques de contenido bien distintos (operatoria, representación geométrica, factorización), se dividió en 2 guías en vez de una sola, para poder dar suficiente volumen de ejercicios a cada uno sin sacrificar profundidad:
+
+| # | Guía | Contenido | Mecánica |
+|---|------|-----------|----------|
+| 1 ✅ | Operatoria de expresiones algebraicas | Términos semejantes, multiplicación de monomios/binomios, productos notables, relación con área | `guided-practice`/`quiz` de 6 preguntas c/u + `match-pairs` (expresión ↔ forma desarrollada) — **construida** (`matematicas/repaso1-operatoria-algebraica/`). Verificada end-to-end: 94% (32/34 pts). |
+| 2 ✅ | Factorización de expresiones algebraicas | Factor común, diferencia de cuadrados, trinomio cuadrado perfecto | `guided-practice`/`quiz` de 6 preguntas c/u + `dnd-classify` (clasificar expresión según su tipo de factorización) — **construida** (`matematicas/repaso2-factorizacion-algebraica/`). Verificada end-to-end: 100% (34/34 pts). |
 
 ---
 
