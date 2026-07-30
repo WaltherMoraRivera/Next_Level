@@ -195,5 +195,15 @@ const GUIDES_MANIFEST = [
     unit: 'Repaso · Unidad 2 · Prueba de álgebra',
     file: 'matematicas/repaso2-factorizacion-algebraica/index.html',
     minutes: 60
+  },
+  {
+    id: 'ciencias-repaso1-teoria-celular',
+    subject: 'ciencias',
+    title: 'Teoría celular y la célula eucarionte',
+    genre: null,
+    track: 'unidad',
+    unit: 'Repaso · Unidad 2 · Prueba de Ciencias',
+    file: 'ciencias/repaso1-teoria-celular/index.html',
+    minutes: 60
   }
 ];

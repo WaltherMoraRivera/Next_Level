@@ -4,7 +4,7 @@
 
 **Repositorio:** https://github.com/WaltherMoraRivera/Next_Level
 **Hosting:** GitHub Pages (rama `main`, carpeta raíz `/`)
-**Última actualización de este documento:** Nueva funcionalidad del motor — panel de referencia consultable en cualquier momento sin perder el progreso (ver §3.7) — usada en 2 guías especiales de repaso de 60 min para una prueba de álgebra (Unidad 2/OA6, ver §6.6). Motor bumped a `?v=7`, `guides-manifest.js` a `?v=3`.
+**Última actualización de este documento:** Nueva guía especial de repaso de Ciencias (teoría celular, ver §6.6) usando el panel de referencia (§3.7). `guides-manifest.js` bumped a `?v=4`.
 
 > Ver también [`PROPUESTA_REDISENO.md`](PROPUESTA_REDISENO.md): auditoría, justificación pedagógica y roadmap que originó esta arquitectura.
 
@@ -36,7 +36,8 @@ guias-estudio/
 │   ├── guia1-cargas-electricas/            # Unidad 3, OA8 (1 de 8 guías del plan, ver §6.4)
 │   ├── guia2-generacion-electrica/         # Unidad 3, OA9 (2 de 8)
 │   ├── guia3-circuitos-serie-paralelo/     # Unidad 3, OA10 (3 de 8)
-│   └── guia4-calor-temperatura/            # Unidad 3, OA11 (4 de 8) — completa la Unidad 3
+│   ├── guia4-calor-temperatura/            # Unidad 3, OA11 (4 de 8) — completa la Unidad 3
+│   └── repaso1-teoria-celular/             # Repaso Unidad 2/OA1, 60 min (ver §6.6)
 ├── matematicas/
 │   ├── guia1-area-volumen-prismas-cilindros/  # Unidad 3, OA11 (1 de 7 guías del plan, ver §6.5)
 │   ├── guia2-teorema-pitagoras/            # Unidad 3, OA12 (2 de 7)
@@ -297,18 +298,24 @@ La Unidad 3 (Geometría — OA 11, 12, 13, 14) y la Unidad 4 (Datos y azar — O
 | 6 | ¿Qué gráfico usar? Detectando manipulaciones de datos | OA16 | `error-spot` (detectar la afirmación o gráfico engañoso) |
 | 7 | El principio combinatorio multiplicativo | OA17 | `guided-practice` numérica (árboles y tablas) + `challenge` |
 
-### 6.6 Guías especiales de repaso (fuera del plan de 7 OA)
-A pedido del usuario, se construyeron 2 guías **de repaso intensivo** para una prueba de álgebra sobre la Unidad 2 (OA6 — operaciones de expresiones algebraicas: representación pictórica/simbólica, relación con área/volumen, formas factorizadas). A diferencia de las guías por OA (§6.5), estas:
+### 6.6 Guías especiales de repaso (fuera de los planes por OA de §6.3-§6.5)
+A pedido del usuario, se han construido guías **de repaso intensivo** para pruebas específicas, no atadas al plan secuencial de guías por OA de cada asignatura. A diferencia de esas guías (§6.3-§6.5):
 - Duran **60 min** (no 45), con los ~15 min extra dedicados a más preguntas de práctica por bloque (6 en vez de 3) y a un panel de referencia consultable (ver §3.7), no a contenido nuevo.
-- Se etiquetan en el landing como `Repaso · Unidad 2 · Prueba de álgebra` en vez del formato `Unidad N (x/4)`.
-- Priorizan volumen de ejercicios por sobre la exploración conceptual: el bloque `teach` es breve (~200-230 palabras) y remite explícitamente al botón 📖 Fórmulas para el detalle.
+- Se etiquetan en el landing como `Repaso · Unidad N · Prueba de <asignatura>` en vez del formato `Unidad N (x/4)`.
+- Priorizan volumen de ejercicios por sobre la exploración conceptual: el bloque `teach` es breve (~200-260 palabras) y remite explícitamente al botón 📖 (Fórmulas/Datos) para el detalle.
 
-Como el OA6 agrupa tres bloques de contenido bien distintos (operatoria, representación geométrica, factorización), se dividió en 2 guías en vez de una sola, para poder dar suficiente volumen de ejercicios a cada uno sin sacrificar profundidad:
+**Matemática — repaso de álgebra (Unidad 2, OA6):** el OA6 agrupa tres bloques de contenido bien distintos (operatoria, representación geométrica, factorización), por lo que se dividió en 2 guías en vez de una sola, para dar suficiente volumen de ejercicios a cada uno sin sacrificar profundidad:
 
 | # | Guía | Contenido | Mecánica |
 |---|------|-----------|----------|
 | 1 ✅ | Operatoria de expresiones algebraicas | Términos semejantes, multiplicación de monomios/binomios, productos notables, relación con área | `guided-practice`/`quiz` de 6 preguntas c/u + `match-pairs` (expresión ↔ forma desarrollada) — **construida** (`matematicas/repaso1-operatoria-algebraica/`). Verificada end-to-end: 94% (32/34 pts). |
 | 2 ✅ | Factorización de expresiones algebraicas | Factor común, diferencia de cuadrados, trinomio cuadrado perfecto | `guided-practice`/`quiz` de 6 preguntas c/u + `dnd-classify` (clasificar expresión según su tipo de factorización) — **construida** (`matematicas/repaso2-factorizacion-algebraica/`). Verificada end-to-end: 100% (34/34 pts). |
+
+**Ciencias — repaso de teoría celular (Unidad 2, OA1):** temario acotado por el usuario a 4 puntos (4 postulados de la teoría celular, 4 científicos — Hooke, Schleiden, Schwann, Virchow —, teoría celular, y 4 estructuras básicas de la célula eucarionte: núcleo, membrana plasmática, citoplasma, mitocondria), suficientemente cohesivo para una sola guía:
+
+| # | Guía | Contenido | Mecánica |
+|---|------|-----------|----------|
+| 1 ✅ | Teoría celular y la célula eucarionte | 4 postulados, 4 científicos y su aporte, 4 estructuras básicas de la célula eucarionte | `guided-practice`/`quiz` de 6 preguntas c/u + `match-pairs` (científico ↔ aporte) — **construida** (`ciencias/repaso1-teoria-celular/`). Verificada end-to-end: 94% (32/34 pts). |
 
 ---
 
